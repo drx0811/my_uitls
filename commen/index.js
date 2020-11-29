@@ -1,4 +1,10 @@
 /**
+ * 获取dom的位置信息；
+ */
+export const getBoundingClientRect=()=>{
+  dom.getBoundingClientRect();
+}
+/**
  * 深克隆
  * @param params
  * @param has
