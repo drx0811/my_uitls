@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<h1>git 的使用</h1>
+<br>
+<div style="background-color: chartreuse;">
+	<span style="color:red">工作区</span>---->编辑器中可以看到的文件
+	<br>
+	<span style="color:salmon">暂存区</span>----->通过git add 将文件添加实现
+	<br>
+	<span style="color:fuchsia">远程分支</span>---->通过git push 将文件提交到远程分支
+</div>
+<br>
+<div style="color: red;">
+	<h3>git add . 和  git add -A;（待测试）</h3>
+	<div>git add . 可以把所有的文件添加进去---包括修改和新增，但是不包括 删除 的文件</div>
+	<dvi>git add -A  可以把所有的变化提交上去； 修改 新建 删除</dvi>
+</div>
+<br>
+<div style="color: yellowgreen;">
+	<h3>git commit</h3>
+	<div>
+		git commit -m 'xxx'---->只能将<span style="color:blue;">暂存区(只能通过add把文件添加到暂存区)</span>
+		的内容提交到当前分支，
+	</div>
+	<div>git commit -am 'xxx'---->可以将直接把文件绕过暂存区，直接提交到分支上；</div>
+</div>
+<br>
+<div style="color: indigo;">
+	<h3>新建和切换分支</h3>
+	<div>常用的创建分支：git branch 分支名</div>
+	<!-- <div>根据某次的commit创建分支；git branch 分支名 hash名称（所创建的分支的内容不包含此次提交之后的内容）</div>
+	 <div>根据 stash 创建分支；git stash branch 分支名（根据stash内容创建分支）</div>-->
+	<div>git checkout 分支名</div>
+</div>
+<br>
+<div style="color:brown">
+	<h3>删除分支</h3>
+	<div>git branch -d 分支名---->普通删除分支</div>
+	<div>git branch -D 分支名 ---->强制删除分支</div>
+</div>
+<br>
+<div style="color:darkorange">
+	<h3>回复分支</h3>
+	<div>git reflog----->查看所有的提交记录 得到提交的 hash值</div>
+	<div>git branch 分支名  hash值------>恢复某个分支</div>
+</div>
+<br>
+<div style="color: darkcyan;">
+	<h3>删除暂存区的内容</h3>
+	<div>git rm --cached 文件名称 ----删除暂存区的内容，但是工作区的内容不变</div>
+	<div>git rm  文件名称 ----工作区和暂存区的内容全部删掉</div>
+</div>
+<br>
+<div style="color:lightsalmon">
+	<h3>将暂存区回复到暂存区</h3>
+	<div>git checkout 文件名</div>
+</div>
+<br>
+<div style="color: #3500ff;">
+	<h3>git reset</h3>
+	<div>
+		git reset hash值 --hard  ----->回退到某次的提交
+		<br>
+		git reset HEAD^ --hard  ---->当前分支回退一个commit
+		git reset HEAD^^ --hard  ---->当前分支回退两个commit
+	</div>
+</div>
+<br>
+<div style="color: #cd7000">
+	<h3>git stash</h3>
+	<div>
+		git stash push -u----->被修改的文件和未跟踪的文件也被存储
+	</div>
+</div>
+
+</body>
+</html>
