@@ -1,26 +1,35 @@
-class Envent{
-  constructor() {
-    this.arr={};
-  }
-  on(type,fn){
-    if(!this.arr[type]){
-      this.arr[type]=[];
+class Watcher{
+  constructor(cb) {
+    if (typeof cb === 'function') {
+      this.cb = cb
+    } else {
+      throw new Error('Observer构造器必须传入函数类型！')
     }
-    this.arr[type].push(fn);
   }
-  emit(type,...args){
-    if(!this.arr[type]){
-      throw '无该订阅者'
-    }else{
-      this.arr[type].forEach(item=>{
-        item.call(this,args)
-      })
-    }
+  update(){
+    this.cb();
   }
 }
-let envent=new Envent();
-envent.on('data',function(args) {
-  console.log("调用了data",args);
+class UnderWatch {
+  constructor() {
+    this.arr=[];
+  }
+  addWatcher(w){
+    this.arr.push(w);
+  }
+  notice(){
+    this.arr.forEach(item=>{
+      item.update();
+    })
+  }
+}
+let watcher_One=new Watcher(function (args) {
+  console.log('第一个被观察者更新了');
 });
-envent.emit('data',"11","22");
-envent.emit('data',"111","222");
+let watcher_Two=new Watcher(function (args) {
+  console.log('第二个被观察者更新了');
+});
+let underWatch=new UnderWatch();
+underWatch.addWatcher(watcher_One);
+underWatch.addWatcher(watcher_Two);
+underWatch.notice();
