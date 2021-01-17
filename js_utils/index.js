@@ -1,9 +1,18 @@
 /**
- * 获取dom的位置信息；
+ * IE中默认坐标是从（2，2）开始的，所以要做兼容性；
  */
-export const getBoundingClientRect=()=>{
-  dom.getBoundingClientRect();
+export const GetRect=(element)=>{
+  const rect = element.getBoundingClientRect();
+  const top = document.documentElement.clientTop;
+  const left= document.documentElement.clientLeft;
+  return{
+    top    :   rect.top - top,
+    bottom :   rect.bottom - top,
+    left   :   rect.left - left,
+    right  :   rect.right - left
+  }
 }
+
 /**
  * 深克隆
  * @param params
