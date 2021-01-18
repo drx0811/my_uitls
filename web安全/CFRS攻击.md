@@ -1,5 +1,6 @@
-## XSS 攻击
-### 页面跳转 的时候 注入一些脚本 
+## CFRS 攻击
+### 浏览器跨域 主要是 ajax的跨域，form 表单没有跨域；
+### 正常登入之后的cookie，通过钓鱼网站获取正常的cookie进行攻击 
 > 解决：用 encodeURIComponent  对url进行转义；
 ### src属性内容添加的时候，注入一些脚本
 > 用 encodeURIComponent  对url进行转义；
