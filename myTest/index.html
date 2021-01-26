@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<script>
+	
+	function getDynamicData(){
+    let realFlagList=[];
+    let realKeyList=[];
+    const sendData=[];
+    Object.keys(obj).map(item=>{
+      if (item.includes('______')) {
+        let newItem=item.split('').reverse().join('');
+        let newItemArr=newItem.split('______');
+        let realKey=newItemArr[1].split('').reverse().join('');
+        let realFlag=newItemArr[0].split('').reverse().join('');
+        realFlagList.push(realFlag)
+        realKeyList.push(realKey)
+      }
+    });
+    realFlagList=[...new Set(realFlagList)];
+    realKeyList=[...new Set(realKeyList)];
+    realFlagList.forEach(item=>{
+      const itemObj={};
+      realKeyList.forEach(kk=>{
+        if (obj[`${kk}______${item}`]!==undefined) {
+          itemObj[kk]=obj[`${kk}______${item}`]
+        }
+      });
+      if (Object.keys(itemObj).length) {
+        sendData.push(itemObj);
+      }
+    });
+    return sendData
+	}
+
+  const obj={
+    name______0:1,
+    age_______0:11,
+    height______0:111,
+    height________12:111111111,
+    name______1:2,
+    age_______1:22,
+    height______1:222,
+  };
+  console.log(getDynamicData(obj));
+</script>
+</body>
+</html>

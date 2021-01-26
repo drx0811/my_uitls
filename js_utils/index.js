@@ -1,4 +1,40 @@
 /**
+ * 可增减 表单  获得真实值；
+ * @returns {[]}
+ */
+function getDynamicData(){
+  let realFlagList=[];
+  let realKeyList=[];
+  const sendData=[];
+  Object.keys(obj).map(item=>{
+    if (item.includes('______')) {
+      let newItem=item.split('').reverse().join('');
+      let newItemArr=newItem.split('______');
+      let realKey=newItemArr[1].split('').reverse().join('');
+      let realFlag=newItemArr[0].split('').reverse().join('');
+      realFlagList.push(realFlag)
+      realKeyList.push(realKey)
+    }
+  });
+  realFlagList=[...new Set(realFlagList)];
+  realKeyList=[...new Set(realKeyList)];
+  realFlagList.forEach(item=>{
+    const itemObj={};
+    realKeyList.forEach(kk=>{
+      if (obj[`${kk}______${item}`]!==undefined) {
+        itemObj[kk]=obj[`${kk}______${item}`]
+      }
+    });
+    if (Object.keys(itemObj).length) {
+      sendData.push(itemObj);
+    }
+  });
+  return sendData
+}
+
+
+
+/**
  * IE中默认坐标是从（2，2）开始的，所以要做兼容性；
  */
 export const GetRect=(element)=>{
