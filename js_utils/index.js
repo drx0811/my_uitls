@@ -1,35 +1,52 @@
 /**
- * 可增减 表单  获得真实值；
- * @returns {[]}
+ * 用法
+ const obj={
+    n______ame______0:0,
+    age_______0:11,
+    height______0:111,
+    height________12:111111111,
+    name______1:2,
+    age_______1:22,
+    height______1:222,
+  };
+ let flag=dynamicData.flagFn('_',6);
+ dynamicData.dataFn(obj,flag)
+
  */
-function getDynamicData(){
-  let realFlagList=[];
-  let realKeyList=[];
-  const sendData=[];
-  Object.keys(obj).map(item=>{
-    if (item.includes('______')) {
-      let newItem=item.split('').reverse().join('');
-      let newItemArr=newItem.split('______');
-      let realKey=newItemArr[1].split('').reverse().join('');
-      let realFlag=newItemArr[0].split('').reverse().join('');
-      realFlagList.push(realFlag)
-      realKeyList.push(realKey)
-    }
-  });
-  realFlagList=[...new Set(realFlagList)];
-  realKeyList=[...new Set(realKeyList)];
-  realFlagList.forEach(item=>{
-    const itemObj={};
-    realKeyList.forEach(kk=>{
-      if (obj[`${kk}______${item}`]!==undefined) {
-        itemObj[kk]=obj[`${kk}______${item}`]
+export const dynamicData={
+  dataFn:(obj,flag)=>{
+    let realFlagList=[];
+    let realKeyList=[];
+    const sendData=[];
+    Object.keys(obj).map(item=>{
+      if (item.includes(flag)) {
+        let newItem=item.split('').reverse().join('');
+        let splitIndex=newItem.indexOf(flag)
+        let newItemArr=[newItem.slice(0,splitIndex),newItem.slice(splitIndex+flag.length)];
+        let realKey=newItemArr[1].split('').reverse().join('');
+        let realFlag=newItemArr[0].split('').reverse().join('');
+        realFlagList.push(realFlag)
+        realKeyList.push(realKey)
       }
     });
-    if (Object.keys(itemObj).length) {
-      sendData.push(itemObj);
-    }
-  });
-  return sendData
+    realFlagList=[...new Set(realFlagList)];
+    realKeyList=[...new Set(realKeyList)];
+    realFlagList.forEach(item=>{
+      const itemObj={};
+      realKeyList.forEach(kk=>{
+        if (obj[`${kk}${flag}${item}`]!==undefined) {
+          itemObj[kk]=obj[`${kk}${flag}${item}`]
+        }
+      });
+      if (Object.keys(itemObj).length) {
+        sendData.push(itemObj);
+      }
+    });
+    return sendData
+  },
+  flagFn:(f,num)=>{
+    return f.repeat(num)
+  }
 }
 
 
