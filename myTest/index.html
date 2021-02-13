@@ -3,12 +3,28 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 <body>
+	<div id="app">
+		<p>{{ message }}</p>
+	  </div>
+	  
 <script>
-	Promise.resolve(111).then(res=>{
-	  console.log(res);
-	})
+  let vm=new Vue({
+	el: '#app',
+	data: {
+		message: 'Hello Vue.js!'
+    }
+  });
+  vm.$watch('message',function(n,o){
+	  console.log('n :>> ', n);
+  });
+  let kk=1;
+//   setInterval(()=>{
+	
+//   },1000)
+
 </script>
 </body>
 </html>
