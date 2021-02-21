@@ -37,3 +37,24 @@
 ### vue2 的$watch方法 的作用；
 > vue 的异步渲染queneWatcher会把属性对应的watcher存放起来；但是如果对应的是相同的则会被替换；
 > 这就是我们多次执行$watch()如果监听的属性相同，则会执行最后的
+
+### template 
+> vue2 中提供的template 标签和 react 中的Fragment的用法可以一样；
+### v-model；
+> v-model 并不等于value，onchange，vue已经对其进行了输入法的处理，
+
+### vue3
+> vue3 使用的 Proxy 进行代理 但是对于 嵌套的对象还是要进行递归的const state = reactive({bar: { a: 1 }})
+> // 设置嵌套对象属性
+> state.bar.a = 10 // no ok
+### 作用域插槽 slot
+> 作用域插槽 就是子组件内部的slot元素上可以自定义属性，并把子组件内部的数据传到 父组件，父组件通过v-slot定义一个变量并用 它；
+ ### provide inject
+> vue2源码解析之inject/provide原理
+> 优点：跨组件传参
+> 缺点：耦合高，提供的属性非响应式；
+> 但是：我们可以在provide里面提供一个函数，函数的数据是响应式的，
+
+
+
+

@@ -1,4 +1,62 @@
 /**
+ * 12344-----> 12.344进行转换
+ * @param {number类型数据} v 
+ */
+const numberFormat = (v) => {
+  const vStr = `${v}`;
+  let longNumStr = '',
+    flowNumStr = '',
+    isFloat = false;
+
+  if (vStr) {
+    if (vStr.indexOf('.') > 0) {
+      [longNumStr, flowNumStr] = vStr.split('.');
+      flowNumStr = flowNumStr.substr(0, 2);
+      isFloat = true;
+    } else {
+      longNumStr = vStr;
+    }
+  }
+  const longFormat = longNumStr.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`);
+  if (isFloat) {
+    return `${longFormat}.${flowNumStr}`;
+  }
+  return longFormat;
+};
+
+/**
+ * 函数柯理化；
+ * @param {*} Vue 
+ */
+export const CarryFn=(Vue)=>{
+  return class LazyFn{
+    constructor(options){
+      this.options=options;
+    }
+  }
+}
+let carryFn=CarryFn('Vue');
+let LazyFn=new LazyFn('options')
+
+
+/**
+ * 找找该节点的祖节点中含有滚动属性的节点；
+ * @param {dom节点} node 
+ * 我们在vue-lazyload的源码中可能要用到；
+ */
+export const getParentCroll = (node) => {
+  let parent = node.parentNode;
+  while (parent) {
+    if (/(auto)|(scroll)/.test(getComputedStyle(parent)['overflow'])) {
+      return parent;
+    }
+    parent = parent.parentNode;
+  }
+  return parent;
+}
+
+
+/**
  * 用法
  const obj={
     n______ame______0:0,
@@ -13,29 +71,29 @@
  dynamicData.dataFn(obj,flag)
 
  */
-export const dynamicData={
-  dataFn:(obj,flag)=>{
-    let realFlagList=[];
-    let realKeyList=[];
-    const sendData=[];
-    Object.keys(obj).map(item=>{
+export const dynamicData = {
+  dataFn: (obj, flag) => {
+    let realFlagList = [];
+    let realKeyList = [];
+    const sendData = [];
+    Object.keys(obj).map(item => {
       if (item.includes(flag)) {
-        let newItem=item.split('').reverse().join('');
-        let splitIndex=newItem.indexOf(flag)
-        let newItemArr=[newItem.slice(0,splitIndex),newItem.slice(splitIndex+flag.length)];
-        let realKey=newItemArr[1].split('').reverse().join('');
-        let realFlag=newItemArr[0].split('').reverse().join('');
+        let newItem = item.split('').reverse().join('');
+        let splitIndex = newItem.indexOf(flag)
+        let newItemArr = [newItem.slice(0, splitIndex), newItem.slice(splitIndex + flag.length)];
+        let realKey = newItemArr[1].split('').reverse().join('');
+        let realFlag = newItemArr[0].split('').reverse().join('');
         realFlagList.push(realFlag)
         realKeyList.push(realKey)
       }
     });
-    realFlagList=[...new Set(realFlagList)];
-    realKeyList=[...new Set(realKeyList)];
-    realFlagList.forEach(item=>{
-      const itemObj={};
-      realKeyList.forEach(kk=>{
-        if (obj[`${kk}${flag}${item}`]!==undefined) {
-          itemObj[kk]=obj[`${kk}${flag}${item}`]
+    realFlagList = [...new Set(realFlagList)];
+    realKeyList = [...new Set(realKeyList)];
+    realFlagList.forEach(item => {
+      const itemObj = {};
+      realKeyList.forEach(kk => {
+        if (obj[`${kk}${flag}${item}`] !== undefined) {
+          itemObj[kk] = obj[`${kk}${flag}${item}`]
         }
       });
       if (Object.keys(itemObj).length) {
@@ -44,7 +102,7 @@ export const dynamicData={
     });
     return sendData
   },
-  flagFn:(f,num)=>{
+  flagFn: (f, num) => {
     return f.repeat(num)
   }
 }
@@ -54,15 +112,15 @@ export const dynamicData={
 /**
  * IE中默认坐标是从（2，2）开始的，所以要做兼容性；
  */
-export const GetRect=(element)=>{
+export const GetRect = (element) => {
   const rect = element.getBoundingClientRect();
   const top = document.documentElement.clientTop;
-  const left= document.documentElement.clientLeft;
-  return{
-    top    :   rect.top - top,
-    bottom :   rect.bottom - top,
-    left   :   rect.left - left,
-    right  :   rect.right - left
+  const left = document.documentElement.clientLeft;
+  return {
+    top: rect.top - top,
+    bottom: rect.bottom - top,
+    left: rect.left - left,
+    right: rect.right - left
   }
 }
 
@@ -72,7 +130,7 @@ export const GetRect=(element)=>{
  * @param has
  * @returns {any|RegExp|Date}
  */
-export const deepClone=(params,has=new WeakMap())=>{
+export const deepClone = (params, has = new WeakMap()) => {
   //has 弱引用的目的是循环引用的时候，不用再次拷贝；
   if (params == null) {
     return params
@@ -83,17 +141,17 @@ export const deepClone=(params,has=new WeakMap())=>{
   if (params instanceof RegExp) {
     return new RegExp(params)
   }
-  if (typeof params!=="object") {
+  if (typeof params !== "object") {
     return params;
   }
   const obj = new params.constructor();
   if (has.get(params)) {
     return has.get(params)
   }
-  has.set(params,obj);
-  for (let key in params){
+  has.set(params, obj);
+  for (let key in params) {
     if (params.hasOwnProperty(key)) {
-      obj[key] = deepClone(params[key],has);
+      obj[key] = deepClone(params[key], has);
     }
   }
   return obj;
@@ -104,7 +162,7 @@ export const deepClone=(params,has=new WeakMap())=>{
  * @param radix
  * @returns {string}
  */
-export const uuidv4=(len=8, radix=16)=>{
+export const uuidv4 = (len = 8, radix = 16) => {
   let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
   const uuid = [];
   let i;
@@ -144,16 +202,16 @@ export function createAndDownloadFile(fileName, content) {
 /**
  * rem计算适配
  */
-(function(doc, win){
+(function (doc, win) {
   var docEl = doc.documentElement,
     resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-    recalc = function(){
+    recalc = function () {
       var clientWidth = docEl.clientWidth;
-      if(!clientWidth) return;
+      if (!clientWidth) return;
       docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
     };
 
-  if(!doc.addEventListener) return;
+  if (!doc.addEventListener) return;
   win.addEventListener(resizeEvt, recalc, false);
   doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);
@@ -205,17 +263,17 @@ function backTop(btnId) {
   var b = document.body;
   window.onscroll = set;
   btn.style.display = "none";
-  btn.onclick = function() {
+  btn.onclick = function () {
     btn.style.display = "none";
     window.onscroll = null;
-    this.timer = setInterval(function() {
+    this.timer = setInterval(function () {
       d.scrollTop -= Math.ceil((d.scrollTop + b.scrollTop) * 0.1);
       b.scrollTop -= Math.ceil((d.scrollTop + b.scrollTop) * 0.1);
       if ((d.scrollTop + b.scrollTop) == 0) clearInterval(btn.timer, window.onscroll = set);
     }, 10);
   };
   function set() {
-    btn.style.display = (d.scrollTop + b.scrollTop > 100) ? 'block': "none"
+    btn.style.display = (d.scrollTop + b.scrollTop > 100) ? 'block' : "none"
   }
 }
 backTop('goTop');
@@ -236,7 +294,7 @@ export function getType(value) {
  */
 let camelizeRE = /-(\w)/g;
 function camelize(str) {
-  return str.replace(camelizeRE, function(_, c) {
+  return str.replace(camelizeRE, function (_, c) {
     return c ? c.toUpperCase() : '';
   })
 }
@@ -247,7 +305,7 @@ function camelize(str) {
  * @type {RegExp}
  */
 let hyphenateRE = /\B([A-Z])/g;
-function hyphenate(str){
+function hyphenate(str) {
   return str.replace(hyphenateRE, '-$1').toLowerCase()
 }
 //abCd ==> ab-cd
@@ -257,21 +315,21 @@ function hyphenate(str){
  * @param filename
  * @param data
  */
-export function downloadFile(filename, data){
+export function downloadFile(filename, data) {
   let DownloadLink = document.createElement('a');
-  if ( DownloadLink ){
+  if (DownloadLink) {
     document.body.appendChild(DownloadLink);
     DownloadLink.style = 'display: none';
     DownloadLink.download = filename;
     DownloadLink.href = data;
-    if ( document.createEvent ){
+    if (document.createEvent) {
       let DownloadEvt = document.createEvent('MouseEvents');
       DownloadEvt.initEvent('click', true, false);
       DownloadLink.dispatchEvent(DownloadEvt);
     }
-    else if ( document.createEventObject ){
+    else if (document.createEventObject) {
       DownloadLink.fireEvent('onclick');
-    }else if (typeof DownloadLink.onclick == 'function' ){
+    } else if (typeof DownloadLink.onclick == 'function') {
       DownloadLink.onclick();
     }
     document.body.removeChild(DownloadLink);
@@ -282,41 +340,41 @@ export function downloadFile(filename, data){
 /**
  * 全屏
  */
-export function toFullScreen(){
+export function toFullScreen() {
   let elem = document.body;
   elem.webkitRequestFullScreen
     ? elem.webkitRequestFullScreen()
     : elem.mozRequestFullScreen
-    ? elem.mozRequestFullScreen()
-    : elem.msRequestFullscreen
-      ? elem.msRequestFullscreen()
-      : elem.requestFullScreen
-        ? elem.requestFullScreen()
-        : alert("浏览器不支持全屏");
+      ? elem.mozRequestFullScreen()
+      : elem.msRequestFullscreen
+        ? elem.msRequestFullscreen()
+        : elem.requestFullScreen
+          ? elem.requestFullScreen()
+          : alert("浏览器不支持全屏");
 }
 
 /**
  * 退出全屏
  */
-export function exitFullscreen(){
+export function exitFullscreen() {
   let elem = parent.document;
   elem.webkitCancelFullScreen
     ? elem.webkitCancelFullScreen()
     : elem.mozCancelFullScreen
-    ? elem.mozCancelFullScreen()
-    : elem.cancelFullScreen
-      ? elem.cancelFullScreen()
-      : elem.msExitFullscreen
-        ? elem.msExitFullscreen()
-        : elem.exitFullscreen
-          ? elem.exitFullscreen()
-          : alert("切换失败,可尝试Esc退出");
+      ? elem.mozCancelFullScreen()
+      : elem.cancelFullScreen
+        ? elem.cancelFullScreen()
+        : elem.msExitFullscreen
+          ? elem.msExitFullscreen()
+          : elem.exitFullscreen
+            ? elem.exitFullscreen()
+            : alert("切换失败,可尝试Esc退出");
 }
 
 /**
  * 禁止某些键盘事件
  */
-document.addEventListener('keydown', function(event){
+document.addEventListener('keydown', function (event) {
   return !(
     112 == event.keyCode || //F1
     123 == event.keyCode || //F12
@@ -329,8 +387,8 @@ document.addEventListener('keydown', function(event){
 });
 
 // 48、禁止右键、选择、复制
-['contextmenu', 'selectstart', 'copy'].forEach(function(ev){
-  document.addEventListener(ev, function(event){
+['contextmenu', 'selectstart', 'copy'].forEach(function (ev) {
+  document.addEventListener(ev, function (event) {
     return event.returnValue = false
   })
 });
