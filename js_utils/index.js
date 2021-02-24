@@ -1,3 +1,25 @@
+
+
+/**
+ * compose 函数 和pipe函数相反；reducerRight 的使用；
+ * @param  {...any} args 
+ */
+function compose(...args) {
+  return function (firstName) {
+    return args.reduceRight((prev, nextV) => nextV(prev), firstName)
+  }
+}
+const add = function (args) {
+  return args + 10;
+}
+const muilt = function (args) {
+  return args * 10
+}
+
+let fn = compose(muilt, add)(10);
+
+
+
 /**
  * 12344-----> 12.344进行转换
  * @param {number类型数据} v 
@@ -28,15 +50,15 @@ const numberFormat = (v) => {
  * 函数柯理化；
  * @param {*} Vue 
  */
-export const CarryFn=(Vue)=>{
-  return class LazyFn{
-    constructor(options){
-      this.options=options;
+export const CarryFn = (Vue) => {
+  return class LazyFn {
+    constructor(options) {
+      this.options = options;
     }
   }
 }
-let carryFn=CarryFn('Vue');
-let LazyFn=new LazyFn('options')
+let carryFn = CarryFn('Vue');
+let LazyFn = new LazyFn('options')
 
 
 /**
