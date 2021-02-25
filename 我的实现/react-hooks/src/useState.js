@@ -1,9 +1,8 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 let _state=[],_index=0;
-function useState(initialState) {
+function useState(initialState,RenderFn) {
   let curIndex = _index; 
   _state[curIndex] = _state[curIndex] === undefined ? initialState : _state[curIndex];
   function setState(newValue) {
@@ -17,9 +16,10 @@ function useState(initialState) {
 
 
 
-function App() {
-  const [state,setState]=useState(0);
-  const [number,setNumber]=useState(10);
+function UseStateFn(props) {
+  const {RenderFn}=props;
+  const [state,setState]=useState(0,RenderFn);
+  const [number,setNumber]=useState(10,RenderFn);
   return (
     <div>
       <div>{state}</div>
@@ -29,16 +29,7 @@ function App() {
     </div>
   );
 }
-
-function RenderFn(params) {
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-}
-RenderFn();
+export default UseStateFn;
 
 
 
