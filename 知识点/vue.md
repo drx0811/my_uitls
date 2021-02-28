@@ -55,6 +55,13 @@
 > 缺点：耦合高，提供的属性非响应式；
 > 但是：我们可以在provide里面提供一个函数，函数的数据是响应式的，
 
+### vue的render函数
+> render函数 就是 通过 new Function("with(this){}");我们由ast语法树生成虚拟dom 通过的是new Function 和with 语法；new Function 会隔离作用域，with 用于改变作用域，但是有导致数据泄露的风险，同时性能不好； vue中的render函数；```function render () {
+  with (this) {
+    return _c('div',{on:{"click":change}},[_c('span',[_v(_s(number))]),_v(" "),_c('span',     [_v(_s(name))])])
+  }
+}；，```
+> 但是我们通过 new Function 把作用域隔绝，所以可以在严格模式下运行；但是性能多少会有影响，最完美的方式去掉with；
 
-
-
+### vue依赖收集的原因：
+> vue中某个响应式数据如果在模板中并未使用，我们却在逻辑中修改了，为了阻止页面渲染，我们需要进行依赖收集，只有被依赖的数据修改了，我们才会重新渲染；
