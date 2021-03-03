@@ -65,3 +65,11 @@
 
 ### vue依赖收集的原因：
 > vue中某个响应式数据如果在模板中并未使用，我们却在逻辑中修改了，为了阻止页面渲染，我们需要进行依赖收集，只有被依赖的数据修改了，我们才会重新渲染；
+
+### vue 依赖收集的时机和运行的时候watcher是如何工作的；
+1. vue是在对数据进行拦截的时候，即当我们进行数据取值操作也就是 执行get的时候如果 当前 属性上面有 watcher，那么我们就把watcher存起来；当我们 更改属性也就是 执行set操作的时候，我们就通知watcher去执行；watcher执行会执行 _v(_c)方法，进行页面渲染
+2. 我们在dep中存watcher，目的是set的时候去执行watcher；在watcher中存dep，目的是 优化 dep的数量，当watcher中已经存在dep，就不用再次存了，这样可以避免重复执行watcher；
+
+### vue中异步渲染：
+1. vue是异步渲染，避免了数据连续更新触发多次渲染；性能更好；
+2. 实现了nextTick方法；主要通过 降级的方式，首先promise -> MutationObserver-> setImmediate->setTimeout来实现的，这样只有同步方法执行完之后才会执行异步的方法；
