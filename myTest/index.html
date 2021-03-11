@@ -1,30 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
 	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.js"></script>
 </head>
+
 <body>
 	<div id="app">
 		<p>{{ message }}</p>
-	  </div>
-	  
-<script>
-  let vm=new Vue({
-	el: '#app',
-	data: {
-		message: 'Hello Vue.js!'
-    }
-  });
-  vm.$watch('message',function(n,o){
-	  console.log('n :>> ', n);
-  });
-  let kk=1;
+	</div>
+
+	<script>
+		const ddd = {
+			a: {
+				b: [1,2,3]
+			}
+		}
+		const mm=Immutable.fromJS(ddd)
+		const arr=mm.getIn(['a','b']).push(12);
+		const newarr= arr.map(item=>{
+			return item*2
+		});
+		console.log('newarr :>> ', newarr.toJS());
+		console.log('mm :>> ', mm.toJS());
+
+
+
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				message: 'Hello Vue.js!'
+			}
+		});
+		vm.$watch('message', function (n, o) {
+			console.log('n :>> ', n);
+		});
+		let kk = 1;
 //   setInterval(()=>{
-	
+
 //   },1000)
 
-</script>
+	</script>
 </body>
+
 </html>
