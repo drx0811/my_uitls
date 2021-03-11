@@ -24,10 +24,20 @@
 <div style="color: yellowgreen;">
 	<h3>git commit</h3>
 	<div>
-		git commit -m 'xxx'---->只能将<span style="color:blue;">暂存区(只能通过add把文件添加到暂存区)</span>
+		git commit -m 'xxx'---->只能将
+		<span style="color:blue;">
+		暂存区(只能通过add把文件添加到暂存区)
+		</span>
 		的内容提交到当前分支，
+		<div>
+			如果想把最新的代码提交需要 再次执行 git add .
+		</div>
 	</div>
 	<div>git commit -am 'xxx'---->可以将直接把文件绕过暂存区，直接提交到分支上；</div>
+	<div>
+		总的来说 idea 的commit 相当于 命令行的 git commit -m '' 与 git add. 的联合作用；
+		这也就是说 使用命令行最好 使用git commit -am ''
+	</div>
 </div>
 <br>
 <div style="color: indigo;">
