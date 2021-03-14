@@ -1,4 +1,4 @@
-class Watcher{
+class Watcher {
   constructor(cb) {
     if (typeof cb === 'function') {
       this.cb = cb
@@ -6,30 +6,35 @@ class Watcher{
       throw new Error('Observer构造器必须传入函数类型！')
     }
   }
-  update(){
+
+  update() {
     this.cb();
   }
 }
+
 class UnderWatch {
   constructor() {
-    this.arr=[];
+    this.arr = [];
   }
-  addWatcher(w){
+
+  addWatcher(w) {
     this.arr.push(w);
   }
-  notice(){
-    this.arr.forEach(item=>{
+
+  notice() {
+    this.arr.forEach(item => {
       item.update();
     })
   }
 }
-let watcher_One=new Watcher(function (args) {
+
+let watcher_One = new Watcher(function (args) {
   console.log('第一个被观察者更新了');
 });
-let watcher_Two=new Watcher(function (args) {
+let watcher_Two = new Watcher(function (args) {
   console.log('第二个被观察者更新了');
 });
-let underWatch=new UnderWatch();
+let underWatch = new UnderWatch();
 underWatch.addWatcher(watcher_One);
 underWatch.addWatcher(watcher_Two);
 underWatch.notice();

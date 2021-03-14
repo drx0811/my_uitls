@@ -12,5 +12,12 @@
     "http-server"
   ],
   "author": "drx",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^7.1.0",
+    "debug": "^4.3.1",
+    "ejs": "^3.1.6",
+    "mine": "^0.1.0"
+  }
 }
