@@ -14,48 +14,39 @@
 			height: 100%;
 			width: 100%;
 		}
-		.aside{
-			height: 200vh;
-			overflow: scroll;
-		}
-		.aside::-webkit-scrollbar-track{
-			/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
-			/*background-color: green;*/
-		}
-		.aside::-webkit-scrollbar-thumb{
-			background-color: blueviolet;
-		}
-		.aside::-webkit-scrollbar{
+		#root{
+			background: red;
+			height: 100px;
 			width: 100px;
-			background-color: #000;
 		}
-		
 	</style>
 </head>
 
 <body>
-	<input type="text" />
 	<div id="app">
-		<div class="aside">
-			sdfasd
+		<div
+			id="root"
+		>
+		<div>sdfasdfads</div>
 		</div>
-		<p>{{ message }}</p>
 	</div>
 
 	<script>
-		let vm = new Vue({
-			el: '#app',
-			data: {
-				message: 'Hello Vue.js!'
-			}
-		});
-		vm.$watch('message', function (n, o) {
-			console.log('n :>> ', n);
-		});
-		let kk = 1;
-//   setInterval(()=>{
-
-//   },1000)
+		let root=document.getElementById('root');
+		root.addEventListener('mouseenter', (e)=> {
+		  console.log(e);
+    },true)
+    
+    
+		// let vm = new Vue({
+		// 	el: '#app',
+		// 	data: {
+		// 		message: 'Hello Vue.js!'
+		// 	}
+		// });
+		// vm.$watch('message', function (n, o) {
+		// 	console.log('n :>> ', n);
+		// });
 
 	</script>
 </body>

@@ -1,0 +1,16 @@
+{
+  "name": "drx-http-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "drx-http-server": "./bin/www.js",
+    "drx": "./bin/www.js"
+  },
+  "keywords": [
+    "drx",
+    "http-server"
+  ],
+  "author": "drx",
+  "license": "ISC"
+}
