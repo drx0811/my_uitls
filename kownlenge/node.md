@@ -20,4 +20,12 @@
   .pipe(zlib.gzip())// 转变为gzip流；
   .pipe(fs.createWriteStream('./xxx.txt'));// 再次转化为可写流；
 ```
+### form表单提交数据
+- form表单不存在跨域，
+- form表单只支持GET和POST两种；
+- form表单默认的请求 enctype=application/-x-www-form-urlencoded
+- form表单支持三种格式的数据；json和formData、file格式； 
+- 表单提交数据如果保证安全？
+- 一般会在前端做一个隐藏域，把一个默认的数据也提交上来，服务端根据隐藏域的数据做判断是否可信任；
+  
 

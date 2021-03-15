@@ -7,6 +7,7 @@ const debug = require('debug')('server');
 const mine = require('mine');
 const chalk = require('chalk');
 const url=require('url');
+const zlib=require('zlib')
 
 // debug('hello');// 根据环境变量进行打印；
 class Server {
@@ -43,9 +44,27 @@ class Server {
     res.setHeader('Content-Type','text/plain;charset=utf-8');
     res.end(dirList.toString());
   }
+  gzip(req,res,filepath,statObj){
+    const headers=req.headers;
+    let acceptEncodeing=headers['accept-encoding'];
+    let flag;
+    if (acceptEncodeing && acceptEncodeing.indexOf('gzip')!==-1) {
+     flag=zlib.createGzip();
+    } else {
+      flag=false;
+    }
+    return flag;
+  }
   sendFile(req,res,filepath,statObj){
-    res.setHeader('Content-Type',mine.getType(filepath)+';charset=utf-8');
-    createReadStream(filepath).pipe(res);
+    // 判断浏览器是否支持gzip；
+    const gzip=this.gzip(req,res,filepath,statObj);
+    if (gzip) {
+      res.setHeader('Content-Type',mine.getType(filepath)+';charset=utf-8');
+      createReadStream(filepath).pipe(gzip).pipe(res);
+    } else {
+      res.setHeader('Content-Type',mine.getType(filepath)+';charset=utf-8');
+      createReadStream(filepath).pipe(res);
+    }
   }
   showError(error,req,res){
     debug(error);
