@@ -9,7 +9,7 @@
 ```javascript
    zlib.gzip('buffer或者流',function(err,data){
      
-   })；
+   })
    // 但是这种方式比较消耗内存；全部读取完毕；
 ```
 - 我们可以使用流的方式，读取一定的数据再写入，递归；
@@ -44,7 +44,7 @@
   ```javascript
     const client=http.request({
       url:'',
-      method：'',
+      method:'',
       port:'',
       header:{
         'Content-Type':'application/json'
@@ -54,7 +54,7 @@
       res.on('data',function(data){
         // 监听返回的数据；
       })
-    })；
+    })
     client.end(`客户端要传递的数据`)
     
   ```
