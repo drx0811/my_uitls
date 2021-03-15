@@ -32,9 +32,31 @@
 - 跨域的时候回 先发送一个options请求，所以我们要先处理options请求；
 - 只要遇到 options请求，就直接end（）并且把status改为200；
 - 服务端还要配置cors来实现源的跨域通过，res.setHeader('Access-Control-Allow-Origin','*');
-- 如果客户端设置了headers 那么服务端也要设置header来避免跨域  res.setHeader('Access-Control-Allow-Headers','Content-Type,Author')
-- 
+- 如果客户端设置了headers 那么服务端也要设置header来避免跨域  res.setHeader('Access-Control-Allow-Headers','Content-Type,Author')；
+- 服务端默认支持get和post，我们可以通过设置来支持Put，Delete等复杂请求；res.setHeader('Access-Control-Allow-Methods','PUT,DELETE');
+- 服务端可以设置发送options请求的频率；一般情况下options请求发送并不是每次都发送，我们 可以通过服务端设置发送的频率
+- res.setHeader('Access-Control-Max-Age','30*60');//设置30秒发送一次option请求；
 - 我们要根据客户端的传过来的headers去判断参数的格式，比如 application/-x-www-form-urlencoded  则直接可以使用querrystring格式化数据为json, 
-- 我们返回给客户端数据的时候也要设置返回数据格式设置 headers 比如  res.setHeader('Content-Type','application/json')
+- 我们返回给客户端数据的时候也要设置返回数据格式设置 headers 比如  res.setHeader('Content-Type','application/json')；
+
+### node作为中间层；
+- node作为中间层 去访问其它服务器接口；
+  ```javascript
+    const client=http.request({
+      url:'',
+      method：'',
+      port:'',
+      header:{
+        'Content-Type':'application/json'
+      }
+    },(res)=>{
+      // 此处的内容就是接口返回值
+      res.on('data',function(data){
+        // 监听返回的数据；
+      })
+    })；
+    client.end(`客户端要传递的数据`)
+    
+  ```
 
 
