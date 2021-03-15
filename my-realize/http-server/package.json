@@ -1,6 +1,6 @@
 {
   "name": "drx-http-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -11,7 +11,7 @@
     "drx",
     "http-server"
   ],
-  "author": "drx",
+  "author": "drx0811",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
