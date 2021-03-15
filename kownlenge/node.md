@@ -3,3 +3,4 @@
 - nvm: 切换本地所安装的node包的版本
 - npm
 - npm link 可以把本地bin目录下的执行文件连接到全局中， 使用#!/ usr/bin/env node 去执行
+
