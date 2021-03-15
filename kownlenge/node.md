@@ -28,4 +28,13 @@
 - 表单提交数据如果保证安全？
 - 一般会在前端做一个隐藏域，把一个默认的数据也提交上来，服务端根据隐藏域的数据做判断是否可信任；
   
+### node 服务端处理跨域与 处理请求参数；
+- 跨域的时候回 先发送一个options请求，所以我们要先处理options请求；
+- 只要遇到 options请求，就直接end（）并且把status改为200；
+- 服务端还要配置cors来实现源的跨域通过，res.setHeader('Access-Control-Allow-Origin','*');
+- 如果客户端设置了headers 那么服务端也要设置header来避免跨域  res.setHeader('Access-Control-Allow-Headers','Content-Type,Author')
+- 
+- 我们要根据客户端的传过来的headers去判断参数的格式，比如 application/-x-www-form-urlencoded  则直接可以使用querrystring格式化数据为json, 
+- 我们返回给客户端数据的时候也要设置返回数据格式设置 headers 比如  res.setHeader('Content-Type','application/json')
+
 
