@@ -8,25 +8,57 @@ const mine = require('mine');
 const chalk = require('chalk');
 const url=require('url');
 
-debug('hello');// 根据环境变量进行打印；
+// debug('hello');// 根据环境变量进行打印；
 class Server {
   constructor(config) {
     this.port=config.port;
     this.host=config.host;
     this.directory=config.directory;
   }
-  handleRequest(req,res){
+  async handleRequest(req,res){
     const {pathname}=url.parse(req.url);
     const filepath=path.join(this.directory,pathname);
     console.log('filepath :>> ', filepath);
-  
+    try {
+      let statObj=await fs.stat(filepath);
+      if (statObj.isDirectory) {
+        const newFilepath=path.join(filepath,'index.html');
+        try {
+          const newStatObj=fs.stat(newFilepath);
+          this.sendFile(req,res,newFilepath,newStatObj);
+        } catch (error) {
+          // if no file ,so show file list
+          this.showFileList(req,res,filepath,statObj)
+        }
+      } else {
+        this.sendFile(req,res,filepath,statObj)
+      }
+    } catch (error) {
+      this.showError(error,req,res);
+    }
+  }
+  async showFileList(req,res,filepath,statObj){
+    // 注意中文转码
+    const dirList= await fs.readdir(filepath);
+    res.setHeader('Content-Type','text/plain;charset=utf-8');
+    res.end(dirList.toString());
+  }
+  sendFile(req,res,filepath,statObj){
+    res.setHeader('Content-Type',mine.getType(filepath)+';charset=utf-8');
+    createReadStream(filepath).pipe(res);
+  }
+  showError(error,req,res){
+    debug(error);
+    res.statusCode='404';
+    res.end('NOT FOUND');
   }
 
   start() {
     http
     .createServer(this.handleRequest.bind(this))
-    .listen(this.port,()=>{
-      console.log('1111 :>> ', 1111);
+    .listen(this.port,this.host,()=>{
+      console.log(chalk.yellow(`程序正在运行在${this.port}端口上\r\n`));
+      console.log(chalk.green(`运行的 的地址：${this.host}`))
     })
   }
 }
