@@ -58,5 +58,58 @@
     client.end(`客户端要传递的数据`)
     
   ```
+### node设置缓存
+> node的缓存分为强制缓存和协商缓存；
+- 强制缓存（默认 首页(默认访问的页面)是不会进行缓存的，但是该页面引用的资源是可以进行缓存的）；有可能会修改后页面却无响应；
+```javascript
+  // 老版本浏览器支持； 要设置绝对时间
+  res.setHeader('Expires',new Date(Date.now()).toUTCString());
+  // 新版本浏览器 是设置 cache-control;
+  res.setHeader('Cache-Control','max-ge-10')；
 
+
+  //如果没有设置缓存那么默认会设置如下的
+  res.setHeader('Cache-Control','no-cache');// 代表 缓存但每次都向服务器发送请求；
+  res.setHeader('Cache-Control','no-store');// 代表不缓存；
+```
+1. 对比缓存；（主要通过时间戳进行对比，如果缓存的时间范围内修改了那么会重新发送）;
+> node 中的fs.stat(filepath);返回值有一个 ctime参数，我们可以 设置请求头；
+```javascript
+  // 1.发送请求的时候我们先要设置缓存模式；
+  res.setHeader('Cache-Control','no-cache');
+  // 2. 得到缓存设置的时间；
+  const ifModifiedSince=req.headers('if-modified-since');
+  // 3.对比设置缓存和文件修改的时间戳，如果相等，那么就返回空状态码为304；
+  fs.stat(filepath,(err,fileObj)=>{
+    const lastModified=fileObj.ctime.toUTCString();
+    if(ifModifiedSince===lastModified){
+      res.statusCode=304;
+      res.end();
+    }
+    res.setHeader('Last-Modified',lastModified); 
+
+  })
+  // if-modified-since 与 Last-Modified 设置缓存的策略的缺点是，修改时间变了但是内容没有变化，同样会不缓存； 
+
+```
+2. 对比缓存（比较内容来判断是缓存）
+> 通过md5摘要算法来进行；md5算法的特点有三个：不可逆、不同内容不一样的结果、转换过的结果都是一样长的、 相容的内容结果是相同的；雪崩效应（内容变化一点，结果变化翻天腹地）；
+```javascript
+  // 1. 设置缓存的标识；
+  res.setHeader('Cache-Control','no-cache');
+  let ifNoneMatch=req.headers['if-none-match'];
+  // 2. 设置 hash
+  const crypto=require('crypto'); 
+  fs.stat(filepath,(err,fileObj)=>{
+    const hash=crypto.createHash('md5');
+    const contentHash=hash.update(fs.readFileSync(filepath)).digest('base64');
+    res.setHeader('Etag',contentHash);
+    if(ifNoneMatch===contentHash){
+      res.statusCode=304;
+      res.end();
+    }
+    res.setHeader('Last-Modified',lastModified); 
+  })
+  // 通过 if-none-match与 Etag 来设置的缓存 太耗性能；一般会取文件开头一部分内容加上 文件的大小来做； 
+```
 
