@@ -32,10 +32,14 @@
 	</div>
 
 	<script>
-		let root=document.getElementById('root');
-		root.addEventListener('mouseenter', (e)=> {
-		  console.log(e);
-    },true)
+    const obj={
+      name:111
+    }
+    const mm={
+      height:200
+    };
+    mm.prototype=Object.create(obj);
+    console.log('mm :>> ', mm);
 
 
 		// let vm = new Vue({
