@@ -1,6 +1,7 @@
 ### 3n
 - nrm :可以切换，删除等控制npm包的下载源（比如，淘宝源 ，教育源，等），可以避免安装cnpm等；
-- nvm: 切换本地所安装的node包的版本
+- nvm 主要用于windows系统，需要先卸掉所有的npm和node（很不友好）；
+- mac用 n 来管理比较方便；
 - npm
 - npm link 可以把本地bin目录下的执行文件连接到全局中， 使用#!/ usr/bin/env node 去执行
 
