@@ -61,7 +61,8 @@
 <br>
 <div style="color:darkorange">
 	<h3>回复分支</h3>
-	<div>git reflog----->查看所有的提交记录 得到提交的 hash值</div>
+	<div>git log----->查看提交记录</div>
+	<div>git reflog----->查看 <b>所有</b> 的提交记录 </div>
 	<div>git branch 分支名  hash值------>恢复某个分支</div>
 </div>
 <br>
@@ -91,6 +92,15 @@
 	<div>
 		git stash push -u----->被修改的文件和未跟踪的文件也被存储
 	</div>
+</div>
+<div style="color: red">
+  <h3>git push</h3>
+  <div>git push origin master</div>
+  <div>git push</div>
+  <ul>
+    <li>当只关联一个远程，只有一个分支时，这两个命令没什么区别。<b>推荐使用</b></li>
+    <li>当你关联了两个多个仓库、有多个分支时，git push可能会报错，因为它不知道要上传代码到哪里去；</li>
+  </ul>
 </div>
 
 </body>
