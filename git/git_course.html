@@ -93,6 +93,10 @@
 		git stash push -u----->被修改的文件和未跟踪的文件也被存储
 	</div>
 </div>
+<div style="color:blueviolet">
+  <h3>创建远程分支</h3>
+  <div>git push origin test:test    <b>创建远程test分支</b></div>
+</div>
 <div style="color: red">
   <h3>git push</h3>
   <div>git push origin master</div>
@@ -101,6 +105,12 @@
     <li>当只关联一个远程，只有一个分支时，这两个命令没什么区别。<b>推荐使用</b></li>
     <li>当你关联了两个多个仓库、有多个分支时，git push可能会报错，因为它不知道要上传代码到哪里去；</li>
   </ul>
+  <div style="background: antiquewhite">
+    如果当前本地分支在 test 分支 想要推送到 远程main分支上该怎么办呢？
+    <strong>
+      我们可以直接 执行 git push origin main:main
+    </strong>
+  </div>
 </div>
 
 </body>
