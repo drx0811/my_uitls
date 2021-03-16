@@ -9,3 +9,8 @@
 > 通过在koa实例构建的时候在`constructor` 中通过 `Object.create(...)`;来实现的
 ### koa同一个实例如何避免 每次请求共享 context，request,response
 > 通过在创建实例上下文 `createContext` 中，使用 `Object.create(...)`
+
+### koa中间件原理：
+> koa 会把所有的中间件组合成一个大的promise，
+>当这个promise执行完毕之后会采用当前的ctx.body 进行结果响应； 
+>所有的中间件必须有await 或者 retrun，否则会逻辑不清；
