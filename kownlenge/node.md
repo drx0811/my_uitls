@@ -66,7 +66,7 @@
   // 老版本浏览器支持； 要设置绝对时间
   res.setHeader('Expires',new Date(Date.now()).toUTCString());
   // 新版本浏览器 是设置 cache-control;
-  res.setHeader('Cache-Control','max-ge-10')；
+  res.setHeader('Cache-Control','max-age=10')；
 
 
   //如果没有设置缓存那么默认会设置如下的
@@ -109,7 +109,6 @@
       res.statusCode=304;
       res.end();
     }
-    res.setHeader('Last-Modified',lastModified); 
   })
   // 通过 if-none-match与 Etag 来设置的缓存 太耗性能；一般会取文件开头一部分内容加上 文件的大小来做； 
 ```
