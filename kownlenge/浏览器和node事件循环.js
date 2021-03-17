@@ -1,4 +1,7 @@
 
+// node 主线程是单线程，可以再开线程进行任务
+
+
 // 宏任务：一般都是宿主环境提供的api方法；比如script，定时器，ui渲染 setImmediate  ；
 // 微任务：一般是由语言提供的api方法；比如 promise的then方法，mutationObserver process.nextTick()
 /*
