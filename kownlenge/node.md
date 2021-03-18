@@ -113,3 +113,14 @@
   // 通过 if-none-match与 Etag 来设置的缓存 太耗性能；一般会取文件开头一部分内容加上 文件的大小来做； 
 ```
 
+### 重定向
+> 通常使用302 做临时重定向； 307做永久重定向；一般只有域名改变了才会做永久重定向
+> 服务端可以从header中读取 userAgent来判断浏览器的类型
+```ecmascript 6
+    // 后端重定向 
+    //1 必须首先设置 statusCode=302 ; 
+    //2 其次设置location的地址； setHeader('location','www.baidu.com');
+    // 3 res.end();
+    
+```
+
