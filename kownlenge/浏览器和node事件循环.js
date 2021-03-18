@@ -18,6 +18,17 @@
 
 // node 的setImmediate 是个宏任务；在poll阶段如果有发现有setImmediate 那么会立即进入check阶段，否则会进入下一轮
 // 也就是 poll（I/O）---> setImmediate----> setTimeout
+
+/*
+*
+* node事件环
+* 主要包括 timer ----> poll -----> check阶段，node允许我们控制的也就这三个
+* timer：主要包括setTimeout，setInterval 队列
+* poll： 主要包括 I/O操作 如果在此阶段check 队列为空，那么会直接进入timer阶段；
+* check：主要包括 setImmediate
+* node 从上到下执行，先执行 微任务 promise---> process.nextTick----> promise的then方法，
+*
+* */
 fs.readFile('...',(err,data)=>{
   if (err) {
     throw new Error('发生了错误！')
