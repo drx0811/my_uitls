@@ -73,3 +73,76 @@
 ### vue中异步渲染：
 1. vue是异步渲染，避免了数据连续更新触发多次渲染；性能更好；
 2. 实现了nextTick方法；主要通过 降级的方式，首先promise -> MutationObserver-> setImmediate->setTimeout来实现的，这样只有同步方法执行完之后才会执行异步的方法；
+
+### $set() 的原理
+> 其实就是从新走了一遍 Object.defineProperty，进行数据劫持了一遍；
+
+### vue-router 导航守卫
+* vue-router的实例 含有 `导航卫士` 来控制进入页面的权限
+* 我们可以在 `router.beforEach`（to,from,next）{}去判断是否可以跳转到指定的路由；
+- `afterEach` 只有to 和 from; 没有next，所以`不能`改变路由的跳转
+
+
+### 导入方式 通过 * as name的形式
+```jsx harmony
+
+    // filters.js
+    export function getName() {
+      console.log(111);
+    }
+    export function getAge() {
+      console.log(222);
+    }
+
+    
+    // 在index.js 中导入filters.js中的所有的方法；
+
+    import * as filters from './filters'
+
+```
+
+### $attrs
+> 在vue中通过v-bind:attrs 可以把所有的属性传递到子组件中
+#### 事件传递
+```html
+
+    // 子组件 往父组件传递方法；
+    this.$emit('getNew', evt);// 传递一个  getNew事件；
+    
+
+    // 父组件 通过属性接收该属性  有两种形式；
+    <w-button v-on:getNew="getNew">
+      wqwwwq
+    </w-button>
+    <w-button v-on="{getNew}">
+      wqwwwq
+    </w-button>
+    methods: {
+        getNew(e) {
+          console.log(e)
+        },
+    }
+
+    // 子组件 直接调用父组件的方法；
+    methods: {
+        childOnClick() {
+          this.$parent.$emit('get', { name: 1 })
+        }
+    }
+
+    // 父组件
+    created() {
+        this.$on('get', (e) => {
+          console.log(e)
+        })
+    }
+```
+
+### $nextTick
+> $nextTick存在的原因是，vue是异步渲染，当数据变化时候，vue会开启一个队列，会把同一个事件循环中观察到的
+>数据变化的watcher放在这个队列中，这个队列会进行去重操作，在下一个事件循环的时候，vue会清空队列，进行DOM
+>更新。所以当我们更改了数据之后，页面更新了，但是我们获得dom结构仍然是上一次的dom，我们需要通过$nextTick 获得最新的dom
+
+### $route
+> 当通过watch 中监听 $route 的时候，我们应该使用 immediate 的形式，因为刚进入当前页面的时候url变化，所以要立即监听；
+
