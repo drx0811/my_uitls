@@ -146,3 +146,81 @@
 ### $route
 > 当通过watch 中监听 $route 的时候，我们应该使用 immediate 的形式，因为刚进入当前页面的时候url变化，所以要立即监听；
 
+### $attrs 和 $listeners
+> `$attrs` 可以传递 所有（不包括 `class和` `style`）属性；`$listeners` 可以传递所有的 方法
+- `父组件` 挂载在`子组件`上面的属性 我们再把属性传递到 `孙子组件`，只要在`子组件中 没有在props中显示声明`的属性都会 通过 `v-bind="$attrs"`的形式传递
+- `$listeners` 可以把父组件所有的方法（除了 .native 修饰的）
+
+### 父组件向子组件传递事件
+> 有时候我们需要封装一个`公共组件`，该公共组件的为了满足`复用`的要求，`不能`有自己的 `事件` 和 `状态`，所有的属性和状态都是父组件传递过来的；
+```vue
+//父组件
+<hamburger :toggle-click="toggleSideBar" :is-active="sidebar" class="hamburger-container" />
+methods: {
+    toggleSideBar() {
+      this.$store.dispatch('toggleSideBar')
+    },
+}
+
+
+// 子组件
+<template>
+  <div style="padding: 0 15px;" @click="toggleClick">
+    <div
+      :class="{'is-active':isActive}"
+    >
+      11111111
+    </div>
+  </div>
+</template>
+export default {  
+  name: 'Hamburger',
+  props: {
+    isActive: {
+      type: Boolean,
+      default: false
+    },
+    toggleClick: {
+      type: Function,
+      default: null
+    }
+  }
+}
+
+```
+### react的受控组件和非受控组件
+> 受控组件 一般是维护一份自己的state和事件类似双向绑定；非受控组件一般是通过ref来获取值；一般情况下 受控组件比较灵活，非受控组件主要用于dom相关，动画相关
+### /deep/
+> vue中的样式 使用了scoped 之后，该样式只会影响当前组件的样式，并不会影响他的子组件的样式，我们为了能够 在父组件中修改子组件的样式，我们需要使用 /deep/来操作
+>这样会更改当前父组件下的子组件，但是不会影响全局下的子组件
+>
+### watch
+> 在组件中watch可以是一个对象，包括 handler函数 和 sync 或者 deep；也可以是一个数组（用的不多）
+- 如果 watch监听的数据变化多次，`一般如果不写sync 只会监听最后一次（进行合并）`，写了sync会全部执行；
+- 在组件中的watch 其实最终还是调用了实例上的$watch 也就是 vm.$watch(); 同样的是 当数据变化了，vm.$watch会去取值，也就是走了数据的getter方法；
+#### 深度监听
+```vue
+    watch:{
+      'kk.age.name':{
+        handler(newvalue,oldvalue){
+          console.log(newvalue,oldvalue);
+        },
+        immediate:true
+      }
+    },
+    methods:{
+      changeName(){
+        this.kk={
+          age:{
+            name:'0'
+          }
+        }
+      }
+    }
+```
+
+### computed的原理
+- watch会在内部对变量取值，但是computed不会；
+- computed 依赖的值不变，那就不会执行
+- computed值可以用于模板渲染；
+> computed 也会在内部创建一个watcher来实现的，只是多了一个缓存机制和依赖收集；
