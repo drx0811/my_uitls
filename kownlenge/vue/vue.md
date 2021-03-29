@@ -193,7 +193,8 @@ export default {
 ### /deep/
 > vue中的样式 使用了scoped 之后，该样式只会影响当前组件的样式，并不会影响他的子组件的样式，我们为了能够 在父组件中修改子组件的样式，我们需要使用 /deep/来操作
 >这样会更改当前父组件下的子组件，但是不会影响全局下的子组件
->
+
+
 ### watch
 > 在组件中watch可以是一个对象，包括 handler函数 和 sync 或者 deep；也可以是一个数组（用的不多）
 - 如果 watch监听的数据变化多次，`一般如果不写sync 只会监听最后一次（进行合并）`，写了sync会全部执行；
@@ -224,3 +225,5 @@ export default {
 - computed 依赖的值不变，那就不会执行
 - computed值可以用于模板渲染；
 > computed 也会在内部创建一个watcher来实现的，只是多了一个缓存机制和依赖收集；
+#### watch和computed的区别；
+> watch 支持异步，可以在函数中执行定时器，computed不可以；
