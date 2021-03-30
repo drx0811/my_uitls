@@ -18,5 +18,15 @@
 > 不推荐使用， 
 ### ref
 > 父组件可以直接获得子组件的数据和方法
+```vue
+<my-name ref="names"></my-name>
+methods: {
+  cut(uid){
+// 我们通过 this.$refs.name 就可以拿到子组件，这样就可以调用子组件的方法和数据
+// 这种方法经常用在封装一些常用库里面
+    this.$refs.name
+  }
+}
+```
 ### this.$bus
 > 不推荐使用，混乱，通过$on 进行绑定的；
