@@ -38,6 +38,11 @@
     const mm={
       height:200
     };
+    function getName() {
+      throw new Error("1111")
+    }
+    getName()
+
     mm.prototype=Object.create(obj);
     console.log('mm :>> ', mm);
 
