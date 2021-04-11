@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<script>
+  const jsonp=({url,params,cb})=>{
+    let id=jsonp['id']||0;
+    id++;
+    jsonp['id']=id;
+    return new Promise((resolve,reject)=>{
+      let script = document.createElement('script');
+      const data={
+        ...params,
+        cb: `cb_${jsonp['id']}`
+      };
+      const urlArr=[];
+      Object.keys(data).forEach(item=>{
+        urlArr.push(`${item}=${data[item]}`)
+      });
+      script.src=`${url}${urlArr.join('&')}`;
+      document.body.appendChild(script);
+      window[`cb_${jsonp['id']}`]=function (data) {
+        document.body.removeChild(script);
+        resolve(data);
+      }
+    })
+  }
+
+  jsonp({
+    url:"https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=33802,33638,33745,33344,33759,33676,22159",
+    params:{
+      'pwd':'11111',
+      'wd':'11111',
+    },
+    cb:"cb"
+  })
+  .then(res=>{
+    console.log(res);
+  });
+  jsonp({
+    url:"https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=33802,33638,33745,33344,33759,33676,22159",
+    params:{
+      'pwd':'22222',
+      'wd':'22222',
+    },
+    cb:"cb"
+  })
+  .then(res=>{
+    console.log(res);
+  });
+  jsonp({
+    url:"https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=33802,33638,33745,33344,33759,33676,22159",
+    params:{
+      'pwd':'333',
+      'wd':'3333',
+    },
+    cb:"cb"
+  })
+  .then(res=>{
+    console.log(res);
+  })
+</script>
+</body>
+</html>
