@@ -21,3 +21,5 @@
 2.
 > 方法二
   在脚本文件最后一行，添加 export {};。将文件声明为模块， 变量name限制在了 模块作用域下，就不会与全局作用域下的name产生冲突。
+### 在Typescript中使用Object.assign报错：Property ‘assign’ does not exist on type ‘ObjectConstructor’
+>  解决办法，可以进行断言   (<any>Object).assign(obj1, obj2);
