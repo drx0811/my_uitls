@@ -6,6 +6,13 @@
 </head>
 <body>
 <script>
+  /**
+   * 将自增属性挂载到函数对象中，可以解决覆盖的问题
+   * @param url
+   * @param params
+   * @param cb
+   * @returns {Promise<unknown>}
+   */
   const jsonp=({url,params,cb})=>{
     let id=jsonp['id']||0;
     id++;
