@@ -15,7 +15,9 @@ const attributes={
 };
 
 /**
- * 获得最靠近的含有overflow样式的父元素；
+ * 获得最靠近的含有overflow样式的父元素； 通过递归的方式  主要涉及到
+ * 1. parentNode; dom的父级
+ * 2. getComputedStyle(dom); dom上面的所有的样式；
  * @param el
  * @returns {(() => (Node | null))|ActiveX.IXMLDOMNode|(Node & ParentNode)|Window}
  */
@@ -33,7 +35,8 @@ const getScrollContainer=(el)=>{
   }
 };
 /**
- * 整理所有的样式；
+ * 整理所有的样式；reduce
+ * 1. reduce 设定第一个参数，标识最终要形成的数据；
  * @param el
  * @param vm
  * @returns {[string, any] | *}
@@ -43,7 +46,6 @@ const getScrollOptions=(el,vm)=>{
     let detaultValue=options.default;
     let value=el.getAttribute(`infinite-scroll-${key}`);
     map[key]=vm[value]?vm[value]:detaultValue;
-    console.log(map);
     return map
   },{});
 };
@@ -72,15 +74,13 @@ const scrollKey='scrollKey';
  * @param cb
  * @returns {boolean}
  */
-function handleScroll(cb){
+function handleScroll(cb){// 如果是箭头函数，那么就没有this了；因为箭头函数没有this；
   const {container,vm}=this[scrollKey];
   const {disabled,distance}=getScrollOptions(container,vm);
-  console.log(disabled);
   if (disabled) {
     return false
   }
   let scrollBottom=container.clientHeight+container.scrollTop;
-  console.log(container.scrollHeight);
   if (container.scrollHeight-scrollBottom<=distance) {
     cb();
   }
