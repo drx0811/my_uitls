@@ -80,9 +80,9 @@ setup() {
     };
     const addInitDataName=()=>{
       initData.name='nan';
-    // 此处的name是由响应式的，因为setup第一次自上而下的运行的时候已经添加了响应式；
+    // 暴露的时候使用toRefs也可以具有响应式；
       initData.sex='女'
-    // 没有响应式，因为执行完一遍之后没有为sex添加响应式；
+    // 使用toRefs没有响应式，只有暴露initData  的时候 sex才具有响应式
     }
     return {
       ...toRefs(initData),
@@ -197,4 +197,79 @@ const obj=shallowRef(_obj);
     triggerRef(obj)
   };
 ```
+### emits必须进行显示的标识
+> 当使用emit进行传值的时候  要显式的在emits中声明出来；
+```jsx
+export default {
+  name: "TestReactive",
+  emits: ["xxx"],
+ setup(props,{emit}){
+    const obj={sex:1};
+    const objR=reactive(obj);
+    const showName=()=>{
+      objR.sex=2;
+      emit('xxx','yyy')
+    }
+    return {
+      objR,
+     ...toRefs(objR),
+      showName,
+    }
+ }
+}
+```
+
+### computed 的两种写法
+```jsx
+const getName=computed(()=>{
+  return objR.name+"_"+objR.sex
+});
+const getNames=computed({
+ get(){
+    return objR.name+"_"+objR.sex
+ },
+ set(val){
+   console.log(val);
+ }
+})
+```
+### watch
+> 添加 immediate 为true 的时候 就会立即执行了，否则不是，如果是深层对象的话 deep就为true；
+````jsx
+watch(getName,()=>{
+  console.log(111);
+},{
+  immediate:true,
+  deep:true,
+});
+
+ // 如果用watch监视非响应式数据的话，需要使用回调的方式
+ watch(()=>name,()=>age,()=>{
+   
+ })
+````
+### watchEffect 
+> 本身会立即执行，不用使用immediate；
+```jsx
+watchEffect(()=>{
+ console.log(1111);
+ // getNames
+})
+```
+### globalProperties
+```js
+app.config.globalProperties.foo = 'bar'
+app.component('child-component', {
+  mounted() {
+    console.log(this.foo) // 'bar'
+  }
+})
+// 之前(Vue 2.x)
+Vue.prototype.$http = () => {}
+
+// 之后(Vue 3.x)
+const app = Vue.createApp({})
+app.config.globalProperties.$http = () => {}
+```
+
 
