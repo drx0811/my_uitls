@@ -2,62 +2,26 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<script src="https://unpkg.com/vue/dist/vue.js"></script>
-	<style>
-		*{
-			margin: 0;
-			padding: 0;
-		}
-		html,body,#app{
-			height: 100%;
-			width: 100%;
-		}
-		#root{
-			background: red;
-			height: 100px;
-			width: 100px;
-		}
-	</style>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 
 <body>
-	<div id="app">
-		<div
-			id="root"
-		>
-		<div>sdfasdfads</div>
-		</div>
-	</div>
-
-	<script>
-    const obj={
-      name:111
+  <div id="app">
+    dafas
+  </div>
+  <script>
+    function Person() {
+      this.age = 'ag2e'
     }
-    const mm={
-      height:200
-    };
-    function getName() {
-      throw new Error("1111")
-    }
-    getName()
+    const person = new Person();
+    person.name = 'Kevin';
+    Person.prototype.name = 'Kevin333';
+    console.log('person :>> ', person);
+    
 
-    mm.prototype=Object.create(obj);
-    console.log('mm :>> ', mm);
-
-
-		// let vm = new Vue({
-		// 	el: '#app',
-		// 	data: {
-		// 		message: 'Hello Vue.js!'
-		// 	}
-		// });
-		// vm.$watch('message', function (n, o) {
-		// 	console.log('n :>> ', n);
-		// });
-
-	</script>
+  </script>
 </body>
 
 </html>

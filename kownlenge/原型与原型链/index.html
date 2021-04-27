@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>测试原型</div>
+</body>
+<script>
+  window.onload=function(){
+    /**
+     * @description:
+     * @param {age,name}
+     * @return null
+     */
+    function Person() {
+      this.age = 'age1'// 给构造函数添加属性
+    }
+    const person1 = new Person();
+    person1.name = 'Kevin';// 给构造函数添加属性
+    const person2= new Person();
+    person2.height=19;// 给构造函数添加属性
+    console.log('person1 :>> ', person1);
+    console.log('person2 :>> ', person2);
+  }
+</script>
+</html>

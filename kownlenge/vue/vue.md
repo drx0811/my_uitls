@@ -81,8 +81,6 @@
 * vue-router的实例 含有 `导航卫士` 来控制进入页面的权限
 * 我们可以在 `router.beforEach`（to,from,next）{}去判断是否可以跳转到指定的路由；
 - `afterEach` 只有to 和 from; 没有next，所以`不能`改变路由的跳转
-
-
 ### 导入方式 通过 * as name的形式
 ```jsx harmony
 
