@@ -21,9 +21,9 @@
   }
 ```
 ### generator函数遇到 throw 
-> generator 函数 除了可以用 next 还可以用 throw去抛出错误
-> 但是 只要 throw出错误就会 彻底结束 generator函数；
 ```js
+// generator 函数 除了可以用 next 还可以用 throw去抛出错误
+// 但是 只要 throw出错误就会 彻底结束 generator函数；
 async function gen() {
     // const res=await 111;
     try {
