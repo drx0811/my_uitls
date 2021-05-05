@@ -251,10 +251,40 @@ watch(getName,()=>{
 ### watchEffect 
 > 本身会立即执行，不用使用immediate；
 ```jsx
+
 watchEffect(()=>{
  console.log(1111);
  // getNames
 })
+
+setInterval(() => {
+  num.value += 2;
+}, 1000);
+// watchEffect 会自动立即执行，会自动收集所有的依赖
+// watchEffect 会返回一个函数，当我们调用了该函数，会 阻止 watchEffect 继续对依赖进行收集
+// 
+const stop = watchEffect(() => {
+  console.log("num.value :>> ", num.value);
+});
+stop();、
+
+
+
+
+
+
+// watchEffect 会自动立即执行，会自动收集所有的依赖
+    // watchEffect 会返回一个函数，当我们调用了该函数，会 阻止 watchEffect 继续对依赖进行收集
+    // 
+const stop = watchEffect( async(onInvalidate) => {
+  console.log("num.value :>> ", num.value);
+  const fetch= getFecthApi()
+
+  onInvalidate(()=>{// 第一次监视的时候不执行，当每次被监视的数据改变的时候 会先执行此函数,再执行该函数前面的内容
+    fetch.cancel();// 一般情况下我们可以在这里阻止上面的函数执行
+  })
+});
+// stop(); // 通过调用stop会让watchEffect 停止监视
 ```
 ### globalProperties
 ```js
@@ -270,6 +300,63 @@ Vue.prototype.$http = () => {}
 // 之后(Vue 3.x)
 const app = Vue.createApp({})
 app.config.globalProperties.$http = () => {}
+
+
+
+
 ```
+### getCurrentInstance
+`getCurrentInstance`  只有在开发环境中供开发者调试代码用，不可以用于生产环境；
+```jsx
+// getCurrentInstance 使用的时候要小心，结构出来的数据
+// 包含proxy，和 ctx ，我们再生产环境中只能使用
+// proxy 不能使用 ctx，
+const instance = getCurrentInstance();
+const {proxy,ctx}=instance;
+console.log('proxy.utils :>> ', proxy.utils);// 不报错
+console.log('ctx.utils :>> ', ctx.utils);// 报错
+```
+
+### test
+```vue
+<template>
+  <div @click="$emit('update:value', value + 1)">anme:{{ value }}</div>
+</template>
+<script>
+import { getCurrentInstance, onRenderTracked, onRenderTriggered } from "vue";
+export default {
+  name: "GetCurrent",
+  props: {
+    value: {
+      type: Number,
+      default: 0,
+    },
+    // 当 组件内部传入了相同名称的属性之后， 会覆盖 config.globalProperties
+    // 里面 相同属性名称的方法；    
+    utils:{
+        type :Number,
+        default:0
+    }
+  },
+  setup(props, ) {
+    //   console.log('ctx :>> ', ctx);
+    // getCurrentInstance 使用的时候要小心，结构出来的数据
+    // 包含proxy，和 ctx ，我们再生产环境中只能使用
+    // proxy 不能使用 ctx，
+    const instance = getCurrentInstance();
+    const {proxy,ctx}=instance;
+    console.log('proxy.utils :>> ', proxy.utils);// 不报错
+    console.log('ctx.utils :>> ', ctx.utils);// 报错
+    onRenderTracked(() => {
+      // debugger   我们在开发环境下可以对每次渲染进行在这里debugger
+    });
+    onRenderTriggered(() => {
+      // debugger 我们在开发环境下可以对重新 渲染进行在这里debugger
+    });
+  },
+};
+</script>
+```
+
 
 
