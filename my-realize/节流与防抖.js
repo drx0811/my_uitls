@@ -25,6 +25,31 @@ function handle(){
 // time1 每次都执行 节流函数，第一次执行的节流函数返回的是一个匿名函数，定时器第二次执行的函数变为了 节流函数的匿名函数；所以
 // 节流函数 里面的flag 只会被声明一次；
 
+function getName(){
+  console.log(`1111`, 1111)
+}
+
+function throttle(fn,delay=2000){
+  console.log(`111222`, 111222)
+  let flag=false;
+  return ()=>{
+    if(!flag){
+      flag=setTimeout(()=>{
+        fn();
+        flag=false;
+      },delay)
+    }
+  }
+}
+
+// 当我们的触发函数中还要执行其他逻辑则需要进行如下操作
+const fn=()=>{
+  return throttle(getName)
+}
+let fs=fn()
+window.onresize=fs;
+// 当直接使用节流的时候，我们可以直接将节流函数等于触发事件来执行
+window.onresize=throttle(getName)
 
 /**
  * 防抖函数 目的是禁止 频繁触动，导致抖动；

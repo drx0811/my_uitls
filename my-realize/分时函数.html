@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 普通的函数
+  function createDomCo() {
+    const createDom = function () {
+      const dom = document.createElement('div');
+      dom.innerHTML = '111111'
+      document.body.appendChild(dom)
+    }
+    const arr = 100000;
+    for (let i = 0; i < arr; i++) {
+      createDom()
+    }
+  }
+
+  // 分时函数  原理是延迟执行大规模的耗费内存的方法；
+  /*
+  0. 要利用闭包保存变量 timer 
+  1. 利用 setInterval 分批执行，当执行的量完毕后，需要清除定时器
+  2. 在每一次的 setInterval 函数中都需要 循环来创建并调用 fn函数
+  3. 当然在 for循环中需要不断的执行 arr.shift()来减少 长度；
+  4. 在 for循环中 需要 Math.min(num || 1, arr.length);目的是最后几次的时候小于 mum的时候
+
+
+  */
+  function sliceTime() {
+    const arr = [];
+    for (let i = 1; i <= 1000; i++) {
+      arr.push(i)  //假设arr装载了100个好友数据
+    }
+    function container(arr, fn, num) {
+      let timer,obj;
+      let start = function () {
+        for (let i = 0; i < Math.min(num || 1, arr.length); i++) {
+          obj=arr.shift()
+          fn.call(this, obj)
+        }
+      }
+      return function () {
+        if (arr.length <= 0) {
+          clearInterval(timer)
+        }
+        timer = setInterval(() => {
+          start();
+        }, 100)
+      }
+    }
+    let goFn = container(arr, function (n) {
+      const dom = document.createElement('div');
+      dom.innerHTML = n
+      document.body.appendChild(dom)
+    }, 100);
+    goFn();
+
+  }
+  sliceTime();
+
+
+
+</script>
+
+</html>
