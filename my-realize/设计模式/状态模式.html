@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  /**
+ * 状态模式   通过实现多个状态类
+ */
+  class OffLight {
+    constructor(light) {
+      this.light = light;
+    }
+    btnPressed() {
+      console.log('开启了弱光模式');
+      this.light.setState(this.light.weakLight)
+    }
+  }
+
+  class WeakLight {
+    constructor(light) {
+      this.light = light;
+    }
+    btnPressed() {
+      console.log('开启了强光模式');
+      this.light.setState(this.light.strongLight)
+    }
+  }
+
+  class StrongLight {
+    constructor(light) {
+      this.light = light;
+    }
+    btnPressed() {
+      console.log('关闭了灯光');
+      this.light.setState(this.light.offLight)
+    }
+  }
+  class Light {
+    constructor() {
+      this.offLight = new OffLight(this);
+      this.weakLight = new WeakLight(this);
+      this.strongLight = new StrongLight(this);
+      this.currentState = this.offLight;
+    }
+    setState(state) {
+      this.currentState = state;
+    }
+    init() {
+      this.dom = document.createElement('button')
+      this.dom.innerHTML = '点灯了'
+      document.body.appendChild(this.dom);
+      let that=this;
+      this.dom.onclick=function(){
+        that.currentState.btnPressed();
+      }
+    }
+  }
+
+  let instanceLight = new Light();
+  instanceLight.init();
+</script>
+
+</html>
