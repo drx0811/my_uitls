@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="btn" tag="button"> 点我 </button>
+</body>
+<script>
+  window.onload = function () {
+
+    function test1() {
+      // 比如我们plane 函数是一个第三方函数，我们很不愿意去修改里面的代码，
+      // 修改的话可能牵连到更多的修改；那么我么 想添加一些其他逻辑到执行过程中
+      const Plane = function () {
+
+      }
+      Plane.prototype.fire = function () {
+        console.log("发射子弹");
+      }
+
+      const daoDan = function (plane) {
+        this.plane = plane;
+      }
+
+      daoDan.prototype.fire = function () {
+        this.plane.fire();
+        console.log('发射导弹');
+      }
+      const plan = new Plane();
+      www = new daoDan(plan);
+      www.fire();
+      // 结果执行  发射子弹  发射导弹
+    }
+
+    // 装饰器模式中最有名的是 AOP模式；
+    // 最常见的业务场景是  我们埋点；比如点击一个按钮的时候要先执行打开浮层，然后上报数据；
+
+    // 1. 非AOP模式
+    function notAop() {
+      const btn = document.getElementById('btn');
+      const show = function () {
+        console.log('打开浮层');
+        showLog(this.getAttribute('tag'))
+      }
+      const showLog = function (tag) {
+        console.log('上报数据' + tag);
+      }
+      btn.onclick = show
+    }
+
+    function isAOP() {
+      Function.prototype.after = function (fn) {
+        let that = this;
+        return function () {
+          that()
+          fn();
+        }
+      }
+      const btn = document.getElementById('btn');
+
+
+      const show = function () {
+        console.log('展示');
+      }
+      const upLog = function () {
+        console.log('上报');
+      }
+      btn.onclick = show.after(upLog)
+    }
+    // isAOP();
+    /*
+        这是实际开发中很常见的一种做法，比如我们想给 window 绑定 onload 事件，
+        但是又不确定 这个事件是不是已经被其他人绑定过，为了避免覆盖掉之前的 window.onload
+        函数中的行为，我 们一般都会先保存好原先的 window.onload，把它放入新的
+         window.onload 里执行:
+        */
+    // 防止覆盖前面的window.onload事件
+    let _onload = window.onload || function () { };
+    window.onload = function () {
+      _onload();
+      alert(2)
+    }
+
+
+    // 给ajax添加一个参数，但是同时又不修改原先的ajax；
+    Function.prototype.ajaxBefore = function (fn) {
+      let that = this;
+      return function (...args) {
+        const token = fn('myToken');
+        const params = args[2];
+        params.token = token;
+        that(...args);
+      }
+    }
+    let getToken = function (token) {
+      return token
+    }
+    let ajax = function (type, url, params) {
+      console.log(params);
+    }
+
+
+    ajax = ajax.ajaxBefore(getToken)
+    // ajax('get', 'url', { name: 211 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+</script>
+
+</html>
