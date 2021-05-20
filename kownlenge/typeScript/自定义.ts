@@ -120,6 +120,18 @@ const api=<URL extends keyof API>(url):Promise<API[URL]>=>{
 api('/seals').then(res=>[{name:'1',url:'111'}])
 
 
+function inputFn(a: number, b: string, c: boolean) {
+  return a
+}
 
+type Fn=(a:string,b:number)=>void;
+type Params<Fn>=[string,number]
 
+let sum1=(...args:number[]):number=>{
+  return args.reduce((pre,next)=>{
+    return pre+next
+  },0)
+}
+sum1(1, 2, 3, 4, 5)
+// https://blog.csdn.net/weixin_30402085/article/details/99272328
 

@@ -207,3 +207,11 @@ type ReturnType<T extends (...args: any[]) => any> = T extends (
 type Func = (value: number) => string;
 const foo: ReturnType<Func> = "1";
 ```
+## 函数参数剩余参数
+```jsx
+const Fn=(...args:[]number):number=>{
+  return a+b+c+d
+}
+Fn(1,2,3,4)
+
+```
