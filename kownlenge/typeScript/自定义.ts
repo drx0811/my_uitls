@@ -133,5 +133,10 @@ let sum1=(...args:number[]):number=>{
   },0)
 }
 sum1(1, 2, 3, 4, 5)
+
 // https://blog.csdn.net/weixin_30402085/article/details/99272328
+
+type PromiseType<T>= (args: any[]) => Promise<T>;
+type ArgumentsType<T> =T extends PromiseType<infer U> ? U : never;
+
 

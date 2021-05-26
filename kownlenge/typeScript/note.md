@@ -3,7 +3,7 @@
 
 ### 开发中常用到的工具
 - cnpm install -g  nodemon
-- cnpm i -g ts-node 
+- cnpm i -g ts-node
 ### TypeScript中遇到的问题：error TS2451: Cannot redeclare block-scoped variable 'name'
 - 1
 > 将运行环境由 DOM typings 更改成其他运行环境。
@@ -23,7 +23,7 @@
   变量name限制在了 模块作用域下，就不会与全局作用域下的name产生冲突。
 ### 在Typescript中使用Object.assign报错：Property ‘assign’ does not exist on type ‘ObjectConstructor’
 >  解决办法，可以进行断言   (<any>Object).assign(obj1, obj2);
-- 3 
+- 3
 
 TS中的一些关键词总结
 ### ！断言
@@ -55,22 +55,22 @@ interface SetUser = {
 ```
 ### type和interface的区别
 ```tsx
-interface Name { 
-  name: string; 
+interface Name {
+  name: string;
 }
-interface User extends Name { 
-  age: number; 
+interface User extends Name {
+  age: number;
 }
 
-type Name = { 
-  name: string; 
+type Name = {
+  name: string;
 }
 type User = Name & { age: number  };
 ```
 ### typeof 可以获取一个变量的声明类型
 ```tsx
 const obj = { a: '1' };
-type Foo = typeof obj; 
+type Foo = typeof obj;
 // type Foo = { a: string }
 ```
 ### keyof 可以获取一个对象接口的所有 key 值
@@ -82,7 +82,7 @@ type Foo = keyof obj;
 ### in 可以遍历枚举类型
 ```tsx
 type Keys = 'a' | 'b' | 'c';
-type Obj = { 
+type Obj = {
     [ T in Keys]: string;
 }
 // in 遍历 Keys，并为每个值赋予 string 类型
@@ -150,8 +150,8 @@ type PartialedWindow = DeepPartial<Window>; // 现在window 上所有属性都�
 ````
 ### Required将类型的属性变成必选
 ```tsx
-type Required<T> = { 
-    [P in keyof T]-?: T[P] 
+type Required<T> = {
+    [P in keyof T]-?: T[P]
 };
 // 其中 -? 是代表移除 ? 这个 modifier 的标识。再拓展一下，除了可以应用于 ? 这个 modifiers ，还有应用在 readonly ，比如 Readonly<T> 这个类型
 type Readonly<T> = {
@@ -177,7 +177,7 @@ type NewUserInfo = Pick<UserInfo, 'name'>; // {name: string;}
 type Record<K extends keyof any, T> = {
     [P in K]: T;
 };
-type CurRecord = Record<'a' | 'b' | 'c', UserInfo>;  
+type CurRecord = Record<'a' | 'b' | 'c', UserInfo>;
  // { a: UserInfo; b: UserInfo; c: UserInfo; }
 ```
 ### Mutable<T> 将类型的属性变成可修改
@@ -189,8 +189,8 @@ type Mutable<T> = {
 ```
 ### Readonly<T> 类型的属性变成只读
 ```tsx
-type Readonly<T> = { 
-    readonly [P in keyof T]: T[P] 
+type Readonly<T> = {
+    readonly [P in keyof T]: T[P]
 };
 ```
 ### ReturnType 用来得到一个函数的返回值类型

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+          .origin{
+            background-repeat: no-repeat;
+            background-position: left top;
+            padding-top:95px;
+            margin-bottom:60px;
+          }
+         .animated {
+
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+         }
+         @keyframes bounceInRight {
+            0% {
+               opacity: 0;
+               transform: translateX(2000px);
+            }
+            60% {
+               opacity: 1;
+               transform: translateX(-30px);
+            }
+            80% {
+               transform: translateX(10px);
+            }
+            100% {
+               transform: translateX(0);
+            }
+         }
+         .bounceInRight {
+            animation-name: bounceInRight;
+         }
+      </style>
+   </head>
+   <body>
+      <div id = "root" class = "origin animated bounceInRight">
+        12212121
+      </div>
+      <button onclick = "myFunction()">Reload page</button>
+      <script>
+         function myFunction() {
+            let dom=document.getElementById('root');
+            dom.classList.remove('animated')
+            dom.classList.remove('bounceInRight')
+            window.setTimeout(()=>{
+              dom.classList.add('animated')
+              dom.classList.add('bounceInRight')
+            },0)
+         }
+      </script>
+   </body>
+</html>

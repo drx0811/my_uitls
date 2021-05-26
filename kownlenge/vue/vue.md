@@ -225,3 +225,7 @@ export default {
 > computed 也会在内部创建一个watcher来实现的，只是多了一个缓存机制和依赖收集；
 #### watch和computed的区别；
 > watch 支持异步，可以在函数中执行定时器，computed不可以；
+### vue2 对数据进行劫持的时候
+1. 循环第一层的时候，
+2. 循环第一层的时候要对取到的key对应的value（如果value为对象还要再次进行监听，深层递归），
+3. 对数据修改的时候，也就是调用set方法的时候，如果newValue!==value，那么我们还要对 newValue进行监听
