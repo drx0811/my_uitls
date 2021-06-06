@@ -52,3 +52,4 @@ type myType= keyof myError
 let my:myType='age'
 
 
+
