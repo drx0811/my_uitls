@@ -10,30 +10,19 @@
 <body>
   <div id="app">
     dafas
+    <a href="./#get">gogo</a>
   </div>
   <script>
-    function Person() {
-      this.age = 'ag2e'
-    }
-    const person = new Person();
-    person.name = 'Kevin';
-    Person.prototype.name = 'Kevin333';
+    function GetName(){
 
-    const objName={
-      persons:[1,2,3],
-      getPerson:function(){
-        return this.persons
+    }
+    GetName.prototype={
+      getndddame:function(){
+
       }
     }
-    console.log(objName.getPerson());
-
-    const objNa={
-      p:[1,2,3,4],
-      getP:()=>{
-        return this.p
-      }
-    }
-    objNa.getP();
+    let name=new GetName();
+    console.log(GetName.prototype.__proto__.constructor);
 
 
 

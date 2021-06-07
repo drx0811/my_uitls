@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" class="file">
+  <button type="button" class="btn">
+    分片上传
+  </button>
+  <script type="text/javascript">
+    let tag = document.querySelector('button[type="button"]');
+    if (tag) {
+      tag.onclick = function () {
+        let tag = document.querySelector('input[type="file"]');
+        let file = tag.files[0];
+        let upload = function (file, skip) {
+          let blockSize = 1024 * 1024; // 每块的大小
+          let nextSize = Math.min((skip + 1) * blockSize, file.size); // 读取到结束位置
+          if (skip * blockSize > nextSize) {
+            console.log('完');
+            return true;
+          }
+          let fileData = file.slice(skip * blockSize, nextSize); // 截取 部分文件 块
+          let formData = new FormData(); // 初始化一个 FormData 对象
+          formData.append('file', fileData); // 将 部分文件 塞入 FormData
+          formData.append('fileName', file.name); // 保存文件名字
+          formData.append('blockSize', blockSize); // 每块的大小
+          let xmlHttp = new XMLHttpRequest();
+          xmlHttp.open('POST', 'file.php', true);
+          // 回调函数
+          xmlHttp.onreadystatechange = function (a) {
+            let xmlHttp = a.currentTarget;
+            // 请求不成功 或 超时
+            if (xmlHttp.readyState !== 4) return false;
+            if (xmlHttp.status !== 200) return false;
+            upload(file, skip + 1); // 递归调用
+            return true;
+          };
+          xmlHttp.send(formData);
+          return true;
+        };
+        upload(file, 0);
+      };
+    }
+  </script>
+</body>
+
+</html>
