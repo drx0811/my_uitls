@@ -39,12 +39,7 @@ https://blog.csdn.net/qq_34665539/article/details/80408282
   重新设置github的密码，然后重启电脑；
 
 ### github 访问特别慢或者无法访问
-> https://blog.csdn.net/bowei026/article/details/107106503/
-
-> https://blog.csdn.net/peng2hui1314/article/details/108557043
-> 
-- http://tool.chinaz.com/dns/ 查询github的ip地址
-- 更改hosts   添加github对应的ip地址;
+https://blog.csdn.net/yh0503/article/details/90233216
 - 强刷DNS   sudo killall -HUP mDNSResponder
 
 
