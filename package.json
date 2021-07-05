@@ -1,0 +1,23 @@
+{
+  "name": "my_uitls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "shell": "node ./shell.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drx0811/my_uitls.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drx0811/my_uitls/issues"
+  },
+  "homepage": "https://github.com/drx0811/my_uitls#readme",
+  "devDependencies": {
+    "shelljs": "^0.8.4"
+  }
+}
