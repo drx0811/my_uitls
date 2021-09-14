@@ -1,17 +1,29 @@
-{
-  "name": "my-test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "tsc": "tsc"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "typescript": "^4.2.3"
-  },
-  "devDependencies": {
-    "@types/node": "^14.14.35"
-  }
-}
+Request URL: http: //demo.finebi.com/decision/v5/design/widget/data?engineType=2&reportId=1e8b7485d56043138502ac562987bcfa&bi_entry_type=MOUNT
+Request Method: POST
+Status Code: 200
+Remote Address: 120.27.40.246: 80
+Referrer Policy: strict-origin-when-cross-origin
+Connection: keep-alive
+Content-Type: application/json;charset=UTF-8
+Date: Fri, 06 Aug 2021 05: 53: 27 GMT
+Keep-Alive: timeout=20
+Transfer-Encoding: chunked
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN, zh;q=0.9, en;q=0.8
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW1vIiwidGVuYW50SWQiOiJkZWZhdWx0IiwiaXNzIjoiZmFucnVhbiIsImRlc2NyaXB0aW9uIjoiZGVtbyhkZW1vKSIsImV4cCI6MTYyOTQzODEzNSwiaWF0IjoxNjI4MjI4OTU5LCJqdGkiOiJwOG5QSEFqdUpIRFUzdmpCSFVOWGtwd3B0Q1hoUHZxbkllaW9tN21uWkgxVTdQMU8ifQ.Vq0JgL8pBnQxZ8M797p03mxe72U7RwLjoI2QC8gfFOA
+Connection: keep-alive
+Content-Length: 13350
+Content-Type: application/json;charset=UTF-8
+Cookie: tenantId=default; fine_remember_login=-2; JSESSIONID=92D998507E9594318E9A737D031FD9C2; fine_login_users=b6bb9b03-11ae-4334-8e4c-fd045570b9fe; fine_auth_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZW1vIiwidGVuYW50SWQiOiJkZWZhdWx0IiwiaXNzIjoiZmFucnVhbiIsImRlc2NyaXB0aW9uIjoiZGVtbyhkZW1vKSIsImV4cCI6MTYyOTQzODEzNSwiaWF0IjoxNjI4MjI4OTU5LCJqdGkiOiJwOG5QSEFqdUpIRFUzdmpCSFVOWGtwd3B0Q1hoUHZxbkllaW9tN21uWkgxVTdQMU8ifQ.Vq0JgL8pBnQxZ8M797p03mxe72U7RwLjoI2QC8gfFOA
+DNT: 1
+Host: demo.finebi.com
+Origin: http: //demo.finebi.com
+Referer: http: //demo.finebi.com/decision/v10/entry/access/4178c592-128c-41a4-aacb-f0f4ee1df763?dashboardType=4&width=261&height=615
+sessionId: 96bc1349-6c9e-45f1-9702-4d1b86b9d801
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36
+X-Requested-With: XMLHttpRequest
+engineType: 2
+reportId: 1e8b7485d56043138502ac562987bcfa
+bi_entry_type: MOUNT
+{"type": 1, "tableName": "分析表2", "timeStamp": 1531732583192, "bounds": {"left": 0, "top": 0, "width":1906, "height": 841}, "name": "<font face=\"MicrosoftYaHei\" size=\"1\">销售额排名&amp;组内排名</font>", "viewAttr": {"10000": {"type": 1, "left": {"sharedAxis": null, "reversed":false, "log": false}, "right": {"sharedAxis": null, "reversed": false, "log":false}, "size": 0}, "20000":{"type": 1, "size": 0},"30000": {"type": 1, "left": {"sharedAxis": null, "reversed": false, "log":false}, "right": {"sharedAxis": null,"reversed": false, "log": false}, "size": 0}}, "allowOverlap": false, "showTitle": true, "mobile": false, "view": {"10000":["95a167778b9acc00", "8aa17784e1b63aa5", "042d0580a494a225"], "20000":[], "30000":["d40d1f7158eced3a", "01b7992b35ce3e74", "82cbc422bced4163"]}, "dimensions": {"95a167778b9acc00": {"name":"所属小区", "type": 1, "notShowNull": false,"id": "95a167778b9acc00", "fieldId": "分析表2_[6240][5c5e][5c0f][533a]", "toCountType":0, "group": {"type": 11},"calculation": {"type": 0, "value": 0}, "settings": {"trendLine":[], "cordon":[], "categoryAxis": {}, "valueAxis": {"sharedAxis": null, "reversed": false, "log": false}, "annotate":[], "size": 0, "stack": false, "formatStyle": 1, "formatDecimal": -1, "numLevel": 1, "showType": 0, "numSeparators": false, "showSum": true, "unit": "", "dateFormat": {}, "flash":[], "imageData":[]}, "showMissingTime": false, "metric": 0,"counterDep": "TOTAL_ROWS", "repeatCal": true, "formatStyle":0, "formatDecimal": 0, "numLevel": 0,"numSeparators": false, "used": true, "drillDimensions":{}}, "8aa17784e1b63aa5": {"name": "店性质", "type": 1, "notShowNull": false, "id": "8aa17784e1b63aa5", "fieldId": "分析表2_[5e97][6027][8d28]", "toCountType": 0, "group": {"type": 11}, "calculation": {"type": 0, "value": 0}, "settings": {"trendLine":[], "cordon":[], "categoryAxis": {}, "valueAxis": {"sharedAxis": null, "reversed": false, "log": false}, "annotate":[], "size": 0, "stack": false, "formatStyle": 1, "formatDecimal": -1, "numLevel": 1, "showType": 0, "numSeparators": false, "showSum": true, "unit": "", "dateFormat": {}, "flash":[], "imageData":[]}, "showMissingTime": false, "metric": 0,"counterDep": "TOTAL_ROWS", "repeatCal": true, "formatStyle":0, "formatDecimal": 0, "numLevel": 0,"numSeparators": false, "used": true, "drillDimensions":{}}, "042d0580a494a225": {"name": "品牌描述", "type": 1, "notShowNull": false, "id": "042d0580a494a225", "fieldId": "分析表2_[54c1][724c][63cf][8ff0]", "toCountType": 0, "group": {"type": 11}, "calculation": {"type": 0, "value": 0}, "settings": {"trendLine":[], "cordon":[], "categoryAxis": {}, "valueAxis": {"sharedAxis": null, "reversed": false, "log": false}, "annotate":[], "size": 0, "stack": false, "formatStyle": 1, "formatDecimal": -1, "numLevel": 1, "showType": 0, "numSeparators": false, "showSum": true, "unit": "", "dateFormat": {}, "flash":[], "imageData":[]}, "showMissingTime": false, "metric": 0,"counterDep": "TOTAL_ROWS", "repeatCal": true, "formatStyle":0, "formatDecimal": 0, "numLevel": 0,"numSeparators": false, "used": true, "drillDimensions":{}}, "d40d1f7158eced3a": {"name": "销售额", "type": 2, "notShowNull": false, "id": "d40d1f7158eced3a", "fieldId": "分析表2_[9500][552e][989d]", "toCountType": 0, "group": {"type": 3}, "calculation": {"type": 0, "value": 0}, "settings": {"trendLine":[], "cShow more

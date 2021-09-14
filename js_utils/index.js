@@ -1,8 +1,30 @@
-
-
+/**
+ *
+ * @param {要转成千分位的字符串} num
+ *
+ * 缺点 : toLocaleString()对小数点会截断,所以如果带有小数点的不能用,除非固定几个小数点
+ */
+function formatNum(num){
+  if (typeof num === 'number' || /^(-?\d+)(\.\d+)?$/.test(num)){
+    let numStr;
+    if (typeof num === 'number'){
+      numStr = num.toString();
+    }else{
+      numStr=num;
+    }
+    let numArr=numStr.split('.');
+    if(numArr && numArr.length===2){
+      return Number(numArr[0]).toLocaleString() +'.'+ numArr[1]
+    }else{
+      return num.toLocaleString()
+    }
+  } else{
+    throw new Error('此数据不能格式化')
+  }
+}
 /**
  * compose 函数 和pipe函数相反；reducerRight 的使用；
- * @param  {...any} args 
+ * @param  {...any} args
  */
 function compose(...args) {
   return function (firstName) {
@@ -22,7 +44,7 @@ let fn = compose(muilt, add)(10);
 
 /**
  * 12344-----> 12.344进行转换
- * @param {number类型数据} v 
+ * @param {number类型数据} v
  */
 const numberFormat = (v) => {
   const vStr = `${v}`;
@@ -48,7 +70,7 @@ const numberFormat = (v) => {
 
 /**
  * 函数柯理化；
- * @param {*} Vue 
+ * @param {*} Vue
  */
 export const CarryFn = (Vue) => {
   return class LazyFn {
@@ -63,7 +85,7 @@ let LazyFn = new LazyFn('options')
 
 /**
  * 找找该节点的祖节点中含有滚动属性的节点；
- * @param {dom节点} node 
+ * @param {dom节点} node
  * 我们在vue-lazyload的源码中可能要用到；
  */
 export const getParentCroll = (node) => {

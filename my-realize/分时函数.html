@@ -12,6 +12,14 @@
 
 </body>
 <script>
+  let drr= [{name:1}, { name:2}, { name:3}, { name:4}];
+  let ad=[]
+  for (let index = 0; index < drr.length; index++) {
+    ad.push(drr[index].name);
+    drr[index]=null;
+  }
+  console.log(drr);
+  console.log(ad);
   // 普通的函数
   function createDomCo() {
     const createDom = function () {
@@ -27,7 +35,7 @@
 
   // 分时函数  原理是延迟执行大规模的耗费内存的方法；
   /*
-  0. 要利用闭包保存变量 timer 
+  0. 要利用闭包保存变量 timer
   1. 利用 setInterval 分批执行，当执行的量完毕后，需要清除定时器
   2. 在每一次的 setInterval 函数中都需要 循环来创建并调用 fn函数
   3. 当然在 for循环中需要不断的执行 arr.shift()来减少 长度；
