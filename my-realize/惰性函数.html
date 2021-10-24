@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  /**
+   * 惰性函数实现的根本原理
+   *   是重写声明了的函数 比如 addEvent 在if分支中得到了重写;
+   * 优点:
+   *   1:运行时才会执行该函数;  2:全程在只会执行一次if函数;
+   * @param type
+   * @param handler
+   * @param booleanType
+   */
+  let addEvent = function (type, handler, booleanType ) {
+    if(window.addEventListener){
+      addEvent = window.addEventListener(type, handler, booleanType)
+    }else if(window.attachEvent){
+      addEvent = window.attachEvent(`on${type}`,handler)
+    }
+  }
+  addEvent('click',function () {
+    console.log(111)
+  })
+
+
+
+</script>
+
+</html>

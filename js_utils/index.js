@@ -1,3 +1,45 @@
+
+/**
+ * 树形结构转换成一维结构
+ * @param {*} tree
+ * @returns
+ */
+const treeToArray = (tree) => {
+  let res = []
+  for (const item of tree) {
+    const { children, ...i } = item
+    res.push(i)
+    if (children && children.length) {
+      res = res.concat(treeToArray(children))
+    }
+  }
+  return res
+}
+/**
+ * 一维函数转换成树形结构,前提是有自己的id和父id
+ * ivsmNodeNum 自身id
+ * PRNIVSMNODENUM 父id
+ * @param {*} data
+ * @returns
+ */
+const toTree = (data) => {
+  let result = []
+  let map = {};
+  data.forEach(item => {
+    map[item.ivsmNodeNum] = item;
+  });
+  data.forEach(item => {
+    let parent = map[item.PRNIVSMNODENUM];
+    if (parent) {
+      (parent.children || (parent.children = [])).push(item)
+    } else {
+      result.push(item);
+    }
+  });
+  return result;
+}
+
+
 /**
  *
  * @param {要转成千分位的字符串} num

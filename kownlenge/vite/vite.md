@@ -4,3 +4,6 @@
 表现就是modal打开后关不掉
 >
 解决办法 我后来换的material-ui
+### 运行原理
+webpack ---> 先打包整理代码
+vite-----> 使用原生浏览器的能力 server-ready--请求文件-->处理

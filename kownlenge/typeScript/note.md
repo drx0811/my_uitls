@@ -48,8 +48,8 @@ type SetUser = (name: string, age: number) => void;
 // 类型别名常用于联合类型
 type UploadType = 'drag' | 'select';
 // interface 和 type 的用法其实差不多，interface 也是用来定义类型的
-interface SetUser = {
-    (name: string, age: number) => void;
+interface SetUser {
+  (name: string, age: number) => void;
 }
 
 ```
@@ -140,9 +140,7 @@ const xiaoming: NewUserInfo = {
 ````tsx
 type DeepPartial<T> = {
      // 如果是 object，则递归类型
-    [U in keyof T]?: T[U] extends object
-      ? DeepPartial<T[U]>
-      : T[U]
+    [U in keyof T]?: T[U] extends object? DeepPartial<T[U]>: T[U]
 };
 
 type PartialedWindow = DeepPartial<Window>; // 现在window 上所有属性都变成了可选啦
@@ -156,6 +154,12 @@ type Required<T> = {
 // 其中 -? 是代表移除 ? 这个 modifier 的标识。再拓展一下，除了可以应用于 ? 这个 modifiers ，还有应用在 readonly ，比如 Readonly<T> 这个类型
 type Readonly<T> = {
     readonly [p in keyof T]: T[p];
+}
+```
+Required 只能针对浅层,深层的不适用我们可以自定义实现
+```ts
+type DeepRequired<T>={
+  [P in keyof T]-?: T[P] extends object ? DeepRequired<T[P]>:T[P]
 }
 ```
 ### Pick 从某个类型中挑出一些属性出来
@@ -214,4 +218,64 @@ const Fn=(...args:[]number):number=>{
 }
 Fn(1,2,3,4)
 
+```
+## 泛型常用的变量 T,U,V,K;
+### 读懂一个泛型
+- 先读取整体函数,不考虑类型;
+- 再看类型
+```javascript
+function getName<T>(value:T){
+  return value 
+}
+getName('drx')
+```
+### 泛型接口
+```javascript
+interface Iname<T>{
+  name:T
+}
+```
+### 泛型约束
+通过extends 约束泛型的范围
+```javascript
+interface IhasLength{
+  length:number
+}
+function Gta<T extends IhasLength>(value:T){
+  return value.length
+}
+Gta('dddds')
+```
+### 泛型默认值
+我们可以设定泛型默认值,当没有显示传递的时候就使用默认值
+```javascript
+interface IgetName<T = string>{
+  name:T
+}
+```
+### 泛型条件类型;
+使用 extends 关键字 但是并不代表继承,只要结构兼容
+### 泛型中的infer
+infer 表示提取类型中所有可能的类型
+```javascript
+type Unpack<T> = T extends Array<infer U>?U:T;
+type mm=string[];
+type nn=boolean[];
+let ff:Unpack<mm>='false'
+let ee:Unpack<nn>=false;
+
+type kk=[string,number];
+let ds:Unpack<kk>='1'
+
+type ksd=Array<string|number|boolean>
+let hh:Unpack<ksd>=String(false)
+```
+### ts 中常见的dom结构的类型
+- HTMLElement
+- HTMLCanvasElement
+- KeyboardEvent
+### 项目中引入类型;
+```javascript
+import type {myType} from './xxx' //导出的是一个接口类型 
+import { ThemeEnum } from '/@/enums/appEnum';// 导出的是一个枚举
 ```
