@@ -18,8 +18,14 @@ refState.value++;
 `**当您要将 prop 的 ref 传递给复合函数时，toRef 很有用**`
 ```javascript
 export default{
-  setup(props){
+  setup(props,{attrs,emit,slots,expose}){
     getList(toRef(prop,"user"))
+    // expose 
   }
 }
 ```
+### expose 可以把子组件的方法暴露给父组件
+> 正常情况下,我们可以如果不使用expose的话,父组件通过ref可以直接拿到所有子组件的属性和方法,但是
+>这不符合 `封装性`
+
+expose({data1});修饰后,父组件只能拿到该 修饰后的属性;

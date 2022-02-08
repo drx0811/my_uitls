@@ -41,6 +41,8 @@ https://blog.csdn.net/qq_34665539/article/details/80408282
 ### github 访问特别慢或者无法访问
 https://blog.csdn.net/yh0503/article/details/90233216
 - 强刷DNS   sudo killall -HUP mDNSResponder
+### 修改上次的commit信息
+git commit --amend -m 'xxx'  
 
 
 

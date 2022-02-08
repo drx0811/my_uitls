@@ -3,17 +3,69 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=`, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>toTree</title>
-</head>
-
-<body>
-<script>
-  for (let index = 0; index < 5; index++) {
-    console.log(index,'drx-index');
+  <meta content="width=`, initial-scale=1.0" name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <title>drx的测试</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+  body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
-</script>
+  article {
+    flex: auto;
+    background-color: gray;
+    overflow: auto;
+  }
+  .dddd{
+    height: 1300px;
+  }
+  </style>
+</head>
+<body>
+  <div>ssdds</div>
+  <article>
+    <div class="dddd">
+      asdfasfdadsfa
+    </div>
+  </article>
+  <footer>FOOTER</footer>
 </body>
+<script>
+  function getA(){
+    return new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('a')
+      },2000)
+    })
+  }
+  function getB(){
+  return new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve('b')
+      },4000)
+    })
+  }
+
+  async function changeFnA(){
+    console.time('drx')
+    const result = await Promise.all([
+      getA(),
+      getB()
+    ])
+    console.log(result);
+    console.timeEnd('drx')
+  };
+
+  changeFnA()
+
+
+
+
+</script>
 
 </html>

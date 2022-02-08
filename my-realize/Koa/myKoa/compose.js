@@ -15,7 +15,7 @@ function compose(middleware) {
   // 参数形式和普通中间件一样，都是context和next
   return function (context, next) {
     return dispatch(0); // 开始中间件执行，从数组第一个开始
-
+    
     // 执行中间件的方法
     function dispatch(i) {
       let fn = middleware[i]; // 取出需要执行的中间件

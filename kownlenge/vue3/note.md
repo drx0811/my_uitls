@@ -6,7 +6,7 @@
 5. 自定义渲染api
 
 ### setup 执行时机
-- setup 在 `beforeCreate和created` 之间，此时并没有达到created，所以 `没有thi`s；
+- setup 在 `beforeCreate和created` 之间，此时并没有达到created，所以 `没有this`；
 - 此外为了避免使用data，vue特意将 `this置为undefined`；
 - setup函数不能写成异步，也就是不能 是 `sync setup`，但是setup内部函数可以是异步的；
 - setup 中 return 只能一次；
@@ -243,9 +243,6 @@ const getNames=computed({
 ````jsx
 watch(getName,()=>{
   console.log(111);
-},{
-  immediate:true,
-  deep:true,
 });
  
  // 如果用watch监视非响应式数据的话，需要使用回调的方式

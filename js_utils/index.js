@@ -1,4 +1,230 @@
 
+
+
+
+
+
+/**
+ * 先安装 后使用
+ * import BigNumber from "bignumber.js";
+ * @param num 可以传入纯数字,也可以是 字符串数字, 千分位字符串数字;
+ *  如果num是数组 那么就是求和,
+ * @param fixed  想要保留的小数位,精确度
+ * @param format  是否想要进行千分位处理
+ * @returns {string|*}
+ */
+function handleBigNumber(num,fixed = 0,format = false){
+  if (num === null || num === undefined) {
+    throw new Error('非数字不能转义')
+  }
+  let _num
+  if(num && Array.isArray(num) && num.length){// 数组求和
+    let [first,...last]= num;
+    _num = new BigNumber(first)
+    last.forEach(item=>{
+      _num = _num.plus(item)
+    })
+  }
+  if(BigNumber.isBigNumber(num)){
+    _num = num
+  }else {
+    let reg = /^-?\d*(\.\d+)?$/
+    let regFormat = /^-?[1-9]{1,3}(,\d{3})*(\.\d+)?$/
+    if(typeof num === 'number'){
+      _num = new BigNumber(num)
+    }else if( typeof num === 'string' && reg.test(num)){
+      _num = new BigNumber(num)
+    }else if(typeof num === 'string' && regFormat.test(num)){
+      num = num.replace(',','')
+      _num = new BigNumber(num)
+    }
+  }
+  _num = _num.toFixed(fixed);
+  if(format){
+    _num = new BigNumber(_num)
+    return _num.toFormat(fixed)
+  }else {
+    return _num
+  }
+}
+// let num = '111110.045000122112';
+// let num5 = handleBigNumber(num,3,true);
+
+ const toFixed = (n, m) => {
+  if (n > 20 || n < 0) {
+    throw new RangeError('toFixed() digits argument must be between 0 and 20');
+  }
+  const number = m;
+  if (isNaN(number) || number >= Math.pow(10, 21)) {
+    return number.toString();
+  }
+  if (typeof (n) == 'undefined' || n == 0) {
+    return (Math.round(number)).toString();
+  }
+
+  let result = number.toString();
+  const arr = result.split('.');
+
+  // 整数的情况
+  if (arr.length < 2) {
+    result += '.';
+    for (let i = 0; i < n; i += 1) {
+      result += '0';
+    }
+    return result;
+  }
+
+  const integer = arr[0];
+  const decimal = arr[1];
+  if (decimal.length == n) {
+    return result;
+  }
+  if (decimal.length < n) {
+    for (let i = 0; i < n - decimal.length; i += 1) {
+      result += '0';
+    }
+    return result;
+  }
+  result = integer + '.' + decimal.substr(0, n);
+  const last = decimal.substr(n, 1);
+
+  // 四舍五入，转换为整数再处理，避免浮点数精度的损失
+  if (parseInt(last, 10) >= 5) {
+    const x = Math.pow(10, n);
+    if(result.indexOf('-')!==-1){
+      result = -(Math.round((-parseFloat(result) * x)) + 1) / x;
+      result = result.toFixed(n);
+    }else{
+      result = (Math.round((parseFloat(result) * x)) + 1) / x;
+      result = result.toFixed(n);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * 给树形结构添加 层级level
+ *
+ * 有时候我们拿到一个树形结构,要求我们只用前两层或者某层的数据,但是树 没有层级,
+ */
+function treeChangeLeve(treeList,level){
+  return treeList.map(item=>{
+    let levelCeng = level;// 这一步很重要
+    return {
+      ...item,
+      level: levelCeng,
+      children:item.children? treeChangeLeve(item.children, ++levelCeng):undefined
+    }
+  })
+}
+let tree=[
+  {
+    id:'1',
+    children:[
+      {
+        id: '1-1',
+        children:[
+          {
+            id: '1-1-1',
+          },
+          {
+            id: '1-1-2',
+          },
+        ]
+      },
+      {
+        id: '1-2',
+        children:[
+          {
+            id: '1-2-1',
+          },
+          {
+            id: '1-2-2',
+          },
+        ]
+      },
+    ]
+  },
+  {
+    id:'2',
+    children:[
+      {
+        id: '2-1',
+        children:[
+          {
+            id: '2-1-1',
+          },
+          {
+            id: '2-1-2',
+          },
+        ]
+      },
+      {
+        id: '2-2',
+        children:[
+          {
+            id: '2-2-1',
+          },
+          {
+            id: '2-2-2',
+          },
+        ]
+      },
+    ]
+  }
+]
+tree = treeChangeLeve(tree,1);
+
+
+
+/**
+ * Symbol 的使用,我们在对接口返回的数据进行处理的时候,添加的字段避免和
+ * 接口返回的字段重复,我们可以使用symbol字符来做标识;
+ */
+const useSymbol = () => {
+  let children  = Symbol.for('children');
+  let list = [
+    {
+      name:'drx-1',
+      age:1,
+      children:'一个健康聪明的女孩',
+      [children]:[
+        {
+          name:'drx-1',
+          age:1,
+          children:'一个健康聪明的女孩',
+          [children]:null
+        },
+        {
+          name:'drx-1',
+          age:1,
+          children:'一个健康聪明的女孩',
+          [children]:null
+        }
+      ]
+    },
+    {
+      name:'drx-2',
+      age:2,
+      children:'一个健康聪明的女孩',
+      [children]:[
+        {
+          name:'drx-2',
+          age:2,
+          children:'一个健康聪明的女孩',
+          [children]:null
+        },
+        {
+          name:'drx-3',
+          age:3,
+          children:'一个健康聪明的女孩',
+          [children]:null
+        }
+      ]
+    }
+  ];
+}
 /**
  * 树形结构转换成一维结构
  * @param {*} tree
