@@ -11,18 +11,10 @@
       margin: 0;
       padding: 0;
     }
-  body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
   article {
     flex: auto;
     background-color: gray;
     overflow: auto;
-  }
-  .dddd{
-    height: 1300px;
   }
   </style>
 </head>
@@ -36,33 +28,30 @@
   <footer>FOOTER</footer>
 </body>
 <script>
-  function getA(){
-    return new Promise((resolve,reject)=>{
-      setTimeout(()=>{
-        resolve('a')
-      },2000)
-    })
+  let main=(flag)=>{
+    try{
+      return new Promise((resolve,reject)=>{
+        if (flag ===1) {
+          setTimeout(()=>{
+            resolve(true)
+          },2000)
+        } else {
+          setTimeout(()=>{
+            reject(false)
+          },2000)
+        }
+      })
+    }catch(e){
+      console.log(e);
+    }
   }
-  function getB(){
-  return new Promise((resolve,reject)=>{
-      setTimeout(()=>{
-        resolve('b')
-      },4000)
-    })
-  }
-
-  async function changeFnA(){
-    console.time('drx')
-    const result = await Promise.all([
-      getA(),
-      getB()
-    ])
-    console.log(result);
-    console.timeEnd('drx')
-  };
-
-  changeFnA()
-
+  main(1)
+  .then(res=>{
+    console.log(res)
+  })
+  .catch(err=>{
+    console.log(err)
+  })
 
 
 

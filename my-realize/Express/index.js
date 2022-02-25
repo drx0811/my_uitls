@@ -1,11 +1,12 @@
 const path = require("path");
 // const express = require("express");
+const cluster =require('cluster');
 const express = require("./myExpress/express");
 const fs = require("fs");
 const url = require("url");
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -30,8 +31,16 @@ app.get("/api/users", (req, res) => {
       name: "小红",
       age: 19,
     },
+    {
+      id: 2,
+      name: "小红",
+      age: 19,
+    },
   ];
   res.setHeader("Content-Type", "application/json");
+  let file = fs.createWriteStream('./db.txt');
+  let logger = new console.Console(file,file)
+  logger.log(resData)
   res.end(JSON.stringify(resData));
 });
 
@@ -48,7 +57,9 @@ app.post("/api/users", (req, res) => {
     });
   });
 });
-
+// if (cluster.isMaster) {
+//   require('./master')
+// }
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}/`);
 });
