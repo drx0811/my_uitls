@@ -11,7 +11,7 @@
 <body>
   <input type="file" class="file">
   <button type="button" class="btn">
-    分片上传
+    分片上传widthwidthwidthwidthCompatible
   </button>
   <script type="text/javascript">
     let tag = document.querySelector('button[type="button"]');
@@ -27,7 +27,7 @@
             return true;
           }
           let fileData = file.slice(skip * blockSize, nextSize); // 截取 部分文件 块
-          let formData = new FormData(); // 初始化一个 FormData 对象
+          let formData = new FormData(); // 初始化一个初始化一个 FormData 对象
           formData.append('file', fileData); // 将 部分文件 塞入 FormData
           formData.append('fileName', file.name); // 保存文件名字
           formData.append('blockSize', blockSize); // 每块的大小
