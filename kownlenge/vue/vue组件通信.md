@@ -13,7 +13,7 @@
 ### $broadCast;
 > 原理跟 $dispath 类似，只不过用的是$children;进行广播
 ### .native
-> .native 就是给组件的最外层绑定事件
+> .native 就是给组件`的最外层绑定事件
 ### provide inject 
 > 不推荐使用， 
 ### ref
