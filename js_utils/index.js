@@ -1,5 +1,55 @@
+/**
+ * pathToObject('a.b.c.d');  => {a: {b: {c: {d: {}}}}
+ * @param path
+ * @param value
+ * @returns {{}}
+ */
+const pathToObj = function(path, value) {
+  const depths = path.split('.');
+  const obj = {};
+  toSubObject(obj);
+  function toSubObject(sub) {
+    const shifted = depths.shift();
+    sub[shifted] = {};
+    if (depths.length) {
+      toSubObject(sub[shifted]);
+    } else {
+      sub[shifted] = value || {};
+    }
+  }
+  return obj;
+};
 
-
+/**
+ * var myObj = {
+      a: {
+          b: 5
+      }
+  };
+ pathToObject.value(myObj, 'a.b'); // 5
+ * @param obj
+ * @param path
+ * @param value
+ * @returns {*}
+ */
+pathToObj.value = function(obj, path, value) {
+  const depths = path.split('.');
+  let val;
+  setDeep(obj);
+  function setDeep(subObject) {
+    let shifted = depths.shift();
+    if (depths.length) {
+      setDeep(subObject[shifted]);
+    } else {
+      if (value !== undefined) {
+        subObject[shifted] = value;
+      } else {
+        val = subObject[shifted];
+      }
+    }
+  }
+  return val !== undefined ? val : obj;
+};
 
 
 

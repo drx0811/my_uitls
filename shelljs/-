@@ -1,0 +1,3 @@
+const getNameInfoReqWrapFn = (res---1) => {
+    return res---1+11222
+  }

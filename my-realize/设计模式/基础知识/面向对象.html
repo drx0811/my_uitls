@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<script>
+  /*********** 1.鸭子类型 *************************/
+    // 动态语言 看起来像鸭子,能向鸭子一样叫,他就是鸭子
+  const cat = {
+      sing: () => {
+        console.log(this, '猫在叫')
+      }
+    }
+  const dog = {
+    sing: () => {
+      console.log(this, '狗在叫')
+    }
+  }
+  const duckListFn = (() => {
+    const duckList = [];
+    return function (animal) {
+      if (typeof animal.sing === 'function') {
+        duckList.push(animal);
+        return duckList
+      }
+    }
+  })();
+  let a = null;
+  a = duckListFn(cat);
+  console.log(a)
+  a = duckListFn(dog)
+  console.log(a);
+
+  /*********** 2.多态 **********************/
+  // 同一操作作用 不同对象 结果不同
+  function makeSing(animal) {
+    // 同一操作
+    const animalMap = {
+      cat: '猫叫',
+      dog: '狗叫'
+    }
+    return animalMap[animal.constructor.name]
+  }
+
+  class Cat {
+    // 不同对象
+    sing() {
+      console.log('猫叫')
+    }
+  }
+
+  class Dog {
+    // 不同对象
+    sing() {
+      console.log('狗叫')
+    }
+  }
+
+  makeSing(new Cat())
+  makeSing(new Dog())
+
+  const renderMap = (initMap) => {
+    if (typeof initMap.render === 'function') {
+      return initMap.render()
+    }
+  }
+  const baiduMap = {
+    render: () => {
+      console.log('百度开始渲染')
+      const mapInstance = '百度地图'
+      return {
+        mapInstance
+      }
+    }
+  }
+  const tenXunMap = {
+    render: () => {
+      console.log('腾讯开始渲染')
+      const mapInstance = '腾讯地图'
+      return {
+        mapInstance
+      }
+    }
+  }
+
+  const {mapInstance} = renderMap(baiduMap);
+  console.log(mapInstance)
+
+
+  /*********** 3.封装 **********************/
+  // js中的封装 主要是封装 数据/过程
+
+  /*********** 4.继承 **********************/
+  // 手动实现继承
+	Object.create = Object.create||function (obj) {
+	  const F = function () {}
+    F.prototype = obj;
+	  return new F()
+  }
+  
+  // js的继承是通过原型的方式来实现的
+	// 当new一个实例的时候,过程会经历几个步骤
+  /*
+  * 1. 创建一个空对象
+  * 2. 把空对象的原型指向构造函数的原型
+  * 3. 构造函数的this关键字绑定到新对象上
+  *
+  *
+  * */
+	function FF(name) {
+	  this.name = name
+  }
+  const ff = new FF('ff')
+  
+  
+	
+</script>
+</body>
+</html>

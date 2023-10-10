@@ -7,9 +7,10 @@ let obj={
   dd:11111,
 };
 Function.prototype.call1=function(...context){
-  let _this=context.slice(0,1)[0]||window;
+  const [that,...args] = context;
+  let _this = that||window;
   _this.fn=this;
-  let result=_this.fn(...context.slice(1));// call是要在内部自我调用
+  let result=_this.fn(...args);// call是要在内部自我调用
   delete _this.fn;
   return result
 };

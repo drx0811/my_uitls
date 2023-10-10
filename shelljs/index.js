@@ -11,20 +11,21 @@ fs.exists('./dist', function (err) {
     shell.cp('-R', './qqq.html', './dist/');
   }
 });
-
 // 创建文件
 shell
 .touch('./build.js');
-
-
 // 往文件中添加内容
 shell
 .ShellString(
   `const getNameInfoReqWrapFn = (props) => {
-    return props+11
+    return props+'1122ee2'
   }`
 )
 .to('build.js')
+
+shell.cat('build.js')// cat 是读取
+.to('qqq.html')
+
 
 
 

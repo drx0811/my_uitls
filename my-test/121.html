@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body {
+			height: 2000px;
+		}
+		
+		#block {
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	</style>
+</head>
+<body>
+<div id="block">weew</div>
+<script>
+ 
+  const props = {
+    type:'field',
+    "range": [null, null],
+    "enum": [],
+    "rangeConfig": {
+      /*"min": [
+        {"code": "creditMin", "text": "授信期限下限"}
+      ],*/
+	    
+	    "min": 'a',
+	    // "max": 'a',
+      "max": [
+        {
+          "code": "creditMax",
+          "text": "授信期限上限",
+          "sort": 1
+        },
+        {
+          "code": "houseCreditPeriodMax",
+          "text": "(房龄授信期限上限 - 房龄)*12",
+          "sort": 2,
+          "value": 14
+        },
+        {
+          "code": "yearCreditPeriodMax",
+          "text": "(年龄授信期限上限 - 房龄)*12",
+          "sort": 3,
+          "value": 20
+        }
+      ]
+    }
+  }
+  const buildYear = undefined;
+  const myAge = undefined;
+  const { cpFrom, cpTo } = {cpFrom:'10',cpTo:'20'};
+  const {rangeConfig, range, type} = props;
+  const {min, max} = rangeConfig;
+  const _rang = [undefined, undefined];
+  const getValueFn = (items,code) => {
+    if (!items) {
+      return undefined
+    }else {
+      if (code === 'creditMax') {
+        return Number.parseFloat(cpTo)
+      }else if(code === 'houseCreditPeriodMax'){
+        const currentYear = new Date().getFullYear();
+        if (!buildYear || currentYear-buildYear < 0 ) {
+          return undefined
+        }else if (items.value - (currentYear-buildYear)>0) {
+          return (items.value - (currentYear-buildYear))*12;
+        }else {
+          return 0
+        }
+      }else if(code === 'yearCreditPeriodMax'){
+        if (!myAge ) {
+          return undefined
+        }else if (items.value - myAge>0) {
+          return (items.value - myAge)*12;
+        }else {
+          return 0
+        }
+      }
+    }
+  }
+  if (min === "a") {
+    _rang[0] = range[0];
+  }
+  if (typeof min === "object") {
+    if (min[0].value || min[0].value === 0) {
+      _rang[0] = min[0].value;
+    } else {
+      _rang[0] = Number.parseFloat(cpFrom);
+    }
+  }
+  if (max === "a") {
+    _rang[1] = range[1];
+  }
+  if (typeof max === "object") {
+    const oneItem = max.find(
+      (mItem) => mItem.code === "creditMax"
+    );
+    const twoItem = max.find(
+      (mItem) => mItem.code === "houseCreditPeriodMax"
+    );
+    const threeItem = max.find(
+      (mItem) => mItem.code === "yearCreditPeriodMax"
+    );
+    const oneValue =getValueFn(oneItem,'creditMax');
+    const twoValue =getValueFn(twoItem,'houseCreditPeriodMax');
+    const threeValue =getValueFn(threeItem,'yearCreditPeriodMax');
+    const valueList = [oneValue,twoValue,threeValue].filter(item=>item!==undefined);
+    _rang[1] = Math.min(...valueList);
+  }
+  console.log(_rang, 'drx---field')
+	
+	
+	
+	
+</script>
+</body>
+</html>

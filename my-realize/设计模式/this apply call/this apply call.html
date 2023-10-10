@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<script>
+	/************* 1.this ************/
+	// 构造函数默认内部会返回一个对象,如果手动返回一个对象会终止内部的返回,如果手动返回非对象则不影响
+	
+	function FF1() {
+	  this.name = '1'
+		return {// 会覆盖内部
+	 
+		}
+  }
+  function FF2() {
+    this.name = '1'
+    return '1111'// 不影响
+  }
+  /************* 2.apply ************/
+  // apply 的 参数是一个数组
+	
+	
+</script>
+</body>
+</html>
