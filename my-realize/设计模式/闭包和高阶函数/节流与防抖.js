@@ -87,3 +87,17 @@ function scrollTap() {
   console.log('触动了');
 }
 document.addEventListener('scroll', decounce(scrollTap, 500))
+/*
+*
+* 节流和防抖的实现区别;
+* 节流是每隔s时间执行一次,也就是说定时器每隔s时间执行一次,那么定时器的清除要在定时器内部
+* 防抖是,在s时间内一直触发只会执行一次,也就是 只要触发就清空定时器,不触发的时候定时器才去执行
+*
+*
+*
+*
+*
+*
+*
+*
+* */

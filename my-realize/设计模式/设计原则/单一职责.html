@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<script>
+	/***************单一职责**********************/
+	const createImg = (function () {
+	  let img = document.createElement('img');
+	  document.body.appendChild(img)
+	  return {
+      setSrc:function (src) {
+        img.src = src;
+      }
+	  }
+  })()
+  const proxyImg = (function () {
+    const Img = new Image();
+    Img.onload = function () {
+      setTimeout(()=>{
+        createImg.setSrc(Img.src)
+      },8000)
+    }
+    return {
+      setSrc: function (src) {
+        Img.src = src;
+        createImg.setSrc('https://dgss0.bdstatic.com/5bVWsj_p_tVS5dKfpU_Y_D3/res/r/image/2017-09-27/297f5edb1e984613083a2d3cc0c5bb36.png')
+      }
+    }
+  })();
+	// proxyImg 的职责就是代理下载图片
+  // proxyImg.setSrc('https://img1.baidu.com/it/u=284187168,2218199146&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=292')
+	
+	const arr = [undefined,undefined,'人相关', null,null, '人相关', '人相关','人相关1',undefined,undefined];
+	const nums = [];
+  for (let i = 0; i < arr.length; i++) {
+    let _num = 1;
+    for (let j = i+1; j < arr.length+1; j++) {
+      if (arr[i] === arr[i-1] && i!==0 ) {
+        _num = 0;
+        break
+      }else if (arr[i] === arr[j] && j!==arr.length) {
+        _num++
+      }else {
+        break
+      }
+    }
+    nums.push(_num)
+  }
+  console.log(nums)
+	
+
+
+</script>
+
+</body>
+</html>

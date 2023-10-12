@@ -1,4 +1,36 @@
 /**
+ * 用于合并table中的行,当不需要向下合并的时候返回1,
+ * 需要合并的时候计算相同的,后面几个变为0;
+ * @param arr
+ * @returns {[]}
+ */
+const rowSpanFn = (arr) => {
+  const nums = [];
+  for (let i = 0; i < arr.length; i++) {
+    let _num = 1;
+    for (let j = i+1; j < arr.length+1; j++) {
+      if (arr[i] === arr[i-1] && i!==0) {
+        _num = 0;
+        break
+      }else if (arr[i] === arr[j]) {
+        _num++
+      }else {
+        break
+      }
+    }
+    nums.push(_num)
+  }
+  // [1,1,3,0,0,3,0,0,2,0,1];
+  console.log(nums)
+
+  return nums;
+}
+rowSpanFn( ['人相关', null, '人相关', '人相关',undefined])
+
+
+
+
+/**
  * pathToObject('a.b.c.d');  => {a: {b: {c: {d: {}}}}
  * @param path
  * @param value
