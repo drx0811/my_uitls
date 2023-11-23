@@ -3,7 +3,7 @@ import React from 'react';
 
 let _state=[],_index=0;
 function useState(initialState,RenderFn) {
-  let curIndex = _index; 
+  let curIndex = _index;
   _state[curIndex] = _state[curIndex] === undefined ? initialState : _state[curIndex];
   function setState(newValue) {
     _state[curIndex]=newValue;

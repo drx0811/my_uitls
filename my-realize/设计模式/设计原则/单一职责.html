@@ -33,23 +33,28 @@
 	// proxyImg 的职责就是代理下载图片
   // proxyImg.setSrc('https://img1.baidu.com/it/u=284187168,2218199146&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=292')
 	
-	const arr = [undefined,undefined,'人相关', null,null, '人相关', '人相关','人相关1',undefined,undefined];
-	const nums = [];
-  for (let i = 0; i < arr.length; i++) {
-    let _num = 1;
-    for (let j = i+1; j < arr.length+1; j++) {
-      if (arr[i] === arr[i-1] && i!==0 ) {
-        _num = 0;
-        break
-      }else if (arr[i] === arr[j] && j!==arr.length) {
-        _num++
-      }else {
-        break
-      }
-    }
-    nums.push(_num)
+	/***************** 手动实现new *************************/
+  function Person(name) {
+    this.name = name
   }
-  console.log(nums)
+  Person.prototype.getName = function () {
+    return this.name
+  }
+  function myNew(...args) {
+    const [constructorFn,...rest] = args;
+	  const Obj = Object.create(constructorFn.prototype);
+    const res = constructorFn.apply(Obj,rest);
+	  if (typeof res === 'object' && res!==null) {
+	    return res
+	  }else {
+	    return Obj
+	  }
+  }
+
+  const p2 = myNew(Person,'司');
+  console.log(p2)
+  const p1 =new Person('董');
+  console.log(p1)
 	
 
 

@@ -7,122 +7,90 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
 	<style>
-		body {
-			height: 2000px;
+		#test{
+			height: 100px;
+			overflow: hidden;
+			border: 1px solid yellow;
+			background: yellow
 		}
-		
-		#block {
-			width: 200px;
-			height: 200px;
-			background-color: red;
-			position: absolute;
-			left: 0;
-			top: 0;
+		#aaa{
+			height: 1000px;
 		}
 	</style>
 </head>
 <body>
-<div id="block">weew</div>
+<div id="test" style="">
+	<span id="aaa">sds</span>
+	<div id="asaa">sds</div>
+</div>
 <script>
- 
-  const props = {
-    type:'field',
-    "range": [null, null],
-    "enum": [],
-    "rangeConfig": {
-      /*"min": [
-        {"code": "creditMin", "text": "授信期限下限"}
-      ],*/
+	const arrList = [
+	  new Promise((resolve,reject)=>{
+	    setTimeout(()=>{
+        resolve(1)
+	    },1000)
 	    
-	    "min": 'a',
-	    // "max": 'a',
-      "max": [
-        {
-          "code": "creditMax",
-          "text": "授信期限上限",
-          "sort": 1
-        },
-        {
-          "code": "houseCreditPeriodMax",
-          "text": "(房龄授信期限上限 - 房龄)*12",
-          "sort": 2,
-          "value": 14
-        },
-        {
-          "code": "yearCreditPeriodMax",
-          "text": "(年龄授信期限上限 - 房龄)*12",
-          "sort": 3,
-          "value": 20
-        }
-      ]
+	  }),
+    new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve(2)
+      },2000)
+    }),
+    new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve(3)
+      },4000)
+    }),
+    new Promise((resolve,reject)=>{
+      resolve(4)
+    }),
+    new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve(5)
+      },6000)
+    })
+	];
+
+
+  const groupArray = (arr, size) => {
+    const groups = [];
+    for (let i = 0; i < arr.length; i += size) {
+      groups.push(arr.slice(i, i + size));
     }
+    return groups;
   }
-  const buildYear = undefined;
-  const myAge = undefined;
-  const { cpFrom, cpTo } = {cpFrom:'10',cpTo:'20'};
-  const {rangeConfig, range, type} = props;
-  const {min, max} = rangeConfig;
-  const _rang = [undefined, undefined];
-  const getValueFn = (items,code) => {
-    if (!items) {
-      return undefined
-    }else {
-      if (code === 'creditMax') {
-        return Number.parseFloat(cpTo)
-      }else if(code === 'houseCreditPeriodMax'){
-        const currentYear = new Date().getFullYear();
-        if (!buildYear || currentYear-buildYear < 0 ) {
-          return undefined
-        }else if (items.value - (currentYear-buildYear)>0) {
-          return (items.value - (currentYear-buildYear))*12;
-        }else {
-          return 0
-        }
-      }else if(code === 'yearCreditPeriodMax'){
-        if (!myAge ) {
-          return undefined
-        }else if (items.value - myAge>0) {
-          return (items.value - myAge)*12;
-        }else {
-          return 0
-        }
+	
+  function callSe(arr,num) {
+	  const _arr = groupArray(arr,num);
+	  let index = 0;
+	  const list = [];
+	  return new Promise(((resolve, reject) => {
+      const next = (p)=>{
+        Promise.all(p)
+        .then(res=>{
+          console.log(res, 'drx----res')
+	        
+          list.push(...res);
+          index++;
+          if (index<_arr.length) {
+            next(_arr[index])
+          }else {
+            resolve(list)
+          }
+        })
       }
-    }
+      next(_arr[index])
+	  }))
   }
-  if (min === "a") {
-    _rang[0] = range[0];
-  }
-  if (typeof min === "object") {
-    if (min[0].value || min[0].value === 0) {
-      _rang[0] = min[0].value;
-    } else {
-      _rang[0] = Number.parseFloat(cpFrom);
-    }
-  }
-  if (max === "a") {
-    _rang[1] = range[1];
-  }
-  if (typeof max === "object") {
-    const oneItem = max.find(
-      (mItem) => mItem.code === "creditMax"
-    );
-    const twoItem = max.find(
-      (mItem) => mItem.code === "houseCreditPeriodMax"
-    );
-    const threeItem = max.find(
-      (mItem) => mItem.code === "yearCreditPeriodMax"
-    );
-    const oneValue =getValueFn(oneItem,'creditMax');
-    const twoValue =getValueFn(twoItem,'houseCreditPeriodMax');
-    const threeValue =getValueFn(threeItem,'yearCreditPeriodMax');
-    const valueList = [oneValue,twoValue,threeValue].filter(item=>item!==undefined);
-    _rang[1] = Math.min(...valueList);
-  }
-  console.log(_rang, 'drx---field')
+
+  callSe(arrList, 2)
+	.then(res=>{
+    console.log(res)
+  })
 	
-	
-	
-	
+
 </script>
 </body>
 </html>
+
+

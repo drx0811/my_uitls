@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<script>
+  /***
+   *
+   1. 两个动画关联,由 值useMotionValue 的变化引起 其它的动画的函数变化 useTransform 展示给用户的是 值radius 发生变化
+   const radiusMV = useMotionValue(0)
+   const radius = useTransform(radiusMV,[-20,20],[100,40])
+   <motion.div
+	   style={{
+	        width:100,
+	        height:100,
+	        backgroundColor:'white',
+	        borderRadius:radius
+	   }}
+   >
+   </motion.div>
+   <motion.div
+	   style={{
+	          x:radiusMV,
+	          height:20,
+	          width:6,
+	          borderRadius:2,
+	          backgroundColor:'white',
+	          y:20
+	        }}
+	   drag="x"
+	   dragMomentum={false}
+   >
+   </motion.div>
+
+   2. initial 和 animate; initial是初始值与style功能类似; animate是状态的值
+   <motion.div
+	   style={{
+	        width:100,
+	        height:100,
+	        backgroundColor:'white',
+	        borderRadius:'20px'
+	      }}
+	   initial={{
+			  width:100,
+	      height:100,
+	      backgroundColor:'white',
+	      borderRadius:'20px'
+	   }}
+	   animate={{
+	        scale:1.2,
+	        rotate:45
+	      }}
+	   >
+   </motion.div>
+   3. 状态组合  variants 所有的装填值; animate:取key; custom传入的参数
+   const states = {
+			show:{
+				opacity:1
+			},
+			hidden:{
+				opacity:0
+			},
+			xxx:(yy)=>({
+				opacity:0.5
+			})
+		}
+   <motion.div
+      custom={'yy'}
+      variants={states}
+	   animate={'show'}
+   >
+   </motion.div>
+
+   4.动态控制 ;包含三个方法:start,stop,set
+      import {useAnimationControls,motion} from 'framer-motion'
+		   function Component() {
+		  const controls = useAnimationControls()
+		  return <motion.div
+				animate={controls}
+				onClick={()=>{
+					controls.start({ scale: 2 })
+				}}
+			>
+			<motion.div/>
+}
+   
+   
+   
+   
+   
+   *
+   *
+   *
+   *
+   *
+   *
+   */
+</script>
+
+</body>
+</html>

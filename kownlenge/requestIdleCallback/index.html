@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+</head>
+<body>
+<script>
+	
+	/*
+	*
+	* type Deadline = {
+		  timeRemaining: () => number // 当前剩余的可用时间。即该帧剩余时间。
+		  didTimeout: boolean // 是否超时。
+		}
+		
+		function work(deadline:Deadline) {
+		  // deadline 上面有一个 timeRemaining() 方法，能够获取当前浏览器的剩余空闲时间，
+			// 单位 ms；有一个属性 didTimeout，表示是否超时
+		  console.log(`当前帧剩余时间: ${deadline.timeRemaining()}`);
+		  if (deadline.timeRemaining() > 1 || deadline.didTimeout) {
+		     // 走到这里，说明时间有余，我们就可以在这里写自己的代码逻辑
+		  }
+		  // 走到这里，说明时间不够了，就让出控制权给主线程，下次空闲时继续调用
+		  requestIdleCallback(work);
+		}
+		requestIdleCallback(work, { timeout: 1000 }); // 这边可以传一个回调函数（必传）和参数（目前就只有超时这一个参数）
+
+	*
+	*
+	*
+	*
+	*
+	*
+	*
+	*
+	*
+	*
+	*
+	* */
+	
+  function sleep(duration) {
+    const time = new Date().getTime();
+    while (new Date().getTime() - time < duration) {}
+  }
+
+  const works = [
+    function () {
+      console.log("开始执行任务 1");
+      sleep(30);
+      console.log("已经完成任务 1");
+    },
+    function () {
+      console.log("开始执行任务 2");
+      sleep(30);
+      console.log("已经完成任务 2");
+    },
+    function () {
+      console.log("开始执行任务 3");
+      sleep(50);
+      console.log("已经完成任务 3");
+    },
+  ];
+
+  function workLoop(deadline) {
+    console.log("本帧还剩余：" + deadline.timeRemaining() + "ms");
+    console.log("本帧：" + deadline.didTimeout + "");
+    while ((deadline.timeRemaining() > 0 || deadline.didTimeout) && works.length > 0) {
+      performUnitOfWork();
+    }
+    if (works.length > 0) {
+      console.log("本帧没有时间了，等浏览器空闲再继续执行任务");
+      requestIdleCallback(workLoop);
+    }
+  }
+  function performUnitOfWork() {
+    const work = works.shift();
+    work();
+  }
+  requestIdleCallback(workLoop);
+</script>
+</body>
+</html>

@@ -1,4 +1,124 @@
 /**
+ * 前端压缩图片
+ */
+class CompressImage {
+  getImgInfo(url, rate, callback) {
+    const _img = new Image();
+    const that = this;
+    _img.src = url;
+    _img.onload = function () {
+      const _canvas = document.createElement("canvas");
+      const w = this.width / rate;
+      const h = this.height / rate;
+      _canvas.setAttribute("width", w);
+      _canvas.setAttribute("height", h);
+      _canvas.getContext("2d").drawImage(this, 0, 0, w, h);
+      const base64 = _canvas.toDataURL("image/jpeg");
+      _canvas.toBlob(
+        (blob) => {
+          if (blob.size > 1024 * 1024) {
+            that.getImgInfo(base64, rate, callback);
+          } else {
+            // callback(base64);
+            const url = URL.createObjectURL(blob);
+            callback(url);
+            URL.revokeObjectURL(url);
+          }
+        },
+        "image/jpeg",
+        0.8
+      );
+    };
+  }
+}
+
+
+
+
+
+/**
+ * getBoundingClientRect 获取的是dom距离 浏览器页面的top,left 的值,
+ * 当需要计算B位置移动的时候,可以利用两个元素A,B,,A位置不动,B的位置移动,计算两个的差值,
+ * 得到比如tabs组件的下划线
+ *
+ */
+
+/**
+ 需要得到一个列表的所有dom,那么可以通过react的ref的回调函数的形式得到
+ <div ref={ele => tabItemObj[`tab${index}`] = ele}></div>
+ *
+ */
+
+/**
+ * 点击按钮 的dom 操作  e.target.currentTarget 的区别
+ *
+ * target是指目标本身,元素本身
+ * currentTarget >= 本身,因为会冒泡,有可能是父元素
+ *
+ * 应用: 比如modal弹窗的时候,我们点击,mask则关闭,但是我们把click事件绑定到的其实不是mask,
+ * 而是弹窗的父级,
+ *
+ *通过函数 Modal.info({title:'111',content:'567890'});生成一个弹窗的实现;
+ * 1.通过动态创建一个dom,然后append到body下;
+ * 2. ReactDOM.render的方式把一个弹窗的内容,渲染到新创建的dom上;
+ * 3.关闭的时候,先要通过ReactDOM去卸载渲染的动态dom;ReactDOM.unmountComponentAtNode(div),然后
+ * div.parentNode.removeChild(div);手动移除该真实的dom;
+ *
+ *
+ */
+
+/***
+ * classname库使用下列方式配置className比较清晰
+ * const classStr = cx(
+   prefixCls,
+   {
+      [`${prefixCls}-${newPlacement}`]: newPlacement,
+      [`${prefixCls}-triangle`]: hasTriangle
+    },
+   className
+   )
+ *
+ *
+ *
+ *
+ *
+ */
+
+
+
+
+
+/**
+ * 获取当前body的滚动条的宽度
+  * @returns {number}
+ */
+const getScrollBarWidth = () => {
+  const scrollDiv = document.createElement('div')
+  scrollDiv.style.cssText =
+    'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;'
+  document.body.appendChild(scrollDiv);
+  const scrollBarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+  document.body.removeChild(scrollDiv)
+  return scrollBarWidth
+}
+
+
+/**
+ * 判断浏览器是否出现了滚动条
+ */
+const hasScrollBar = () => {
+  return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight)
+}
+/**
+ * 获取dom的所有css属性值
+ *  tips: 获取的值不一定跟
+ */
+const dom = <div></div>
+getComputedStyle(dom)
+
+
+
+/**
  * 用于合并table中的行,当不需要向下合并的时候返回1,
  * 需要合并的时候计算相同的,后面几个变为0;
  * @param arr
@@ -12,7 +132,7 @@ const rowSpanFn = (arr) => {
       if (arr[i] === arr[i-1] && i!==0) {
         _num = 0;
         break
-      }else if (arr[i] === arr[j]) {
+      }else if (arr[i] === arr[j]&& j!==arr.length) {
         _num++
       }else {
         break

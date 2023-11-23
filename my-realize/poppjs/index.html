@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		#box{
+			height: 1000px;
+		}
+		#margin{
+			margin-top: 500px;
+		}
+	</style>
+</head>
+<body>
+<div id="box">
+	<div id="margin"></div>
+	<div id="dom">
+		王二
+	</div>
+</div>
+
+<script>
+	window.onload =function () {
+		const element  =this.box;
+		(function () {
+      element.scrollTop = element.scrollHeight;
+    })()
+  }
+</script>
+</body>
+</html>

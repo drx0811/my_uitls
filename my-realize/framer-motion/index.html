@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<script>
+	/*
+	* 使用的时候在原生dom标签前 <motion.div></motion.div> 不影响原生dom
+   一 dom 属性
+	*  1.while 有关的几个属性，whileHover whileTap whileDrag whileFocus whileInView
+			* 当父元素绑定了几个事件,但是操作子元素要求不影响父元素,那么可以使用 onPointerDownCapture={e => e.stopPropagation()}
+	*  2.Hover事件
+	    *onHoverStart(event, info): void    onHoverEnd(event, info): void
+			*<motion.div onHoverStart={() => console.log('Hover starts')} />
+			*<motion.div onHoverEnd={() => console.log("Hover ends")} />
+	*   3.Tap事件
+			* onTap(event, info): void
+			* onTapStart(event, info): void
+			* onTapCancel(event, info): void
+	*  4.Animation事件
+		*  onUpdate(latest): void
+		*  onAnimationStart(latest): void
+		*  onAnimationComplete(latest): void
+		* <motion.div animate={{ x: 100, opacity: 0 }} onUpdate={(latest) {}} />
+	*  5.drag事件
+	*   <motion.div drag />  一个元素具有拖拽功能 直接添加一个drag即可
+	*   拖拽方向  <motion.div drag='x' /> <motion.div drag='y' />
+	*   dragMomentum 元素在拖拽放手后是否有惯性  默认是true
+	*   dragSnapToOrigin元素在拖拽放手后是否回到初始位置 默认是false
+	*   dragTransition  Inertia模式
+	*   dragConstraints  设置四个方向的距离
+	*   设置父节点为拖拽范围:父节点设置 ref = xxx ,子节点添加属性 drag dragConstraints={xxx}
+	*   dragElastic 设置回弹的力度 0到1; 属性dragElastic={{ left:0, top:0.5, bottom:1, right:0.2 }}
+	*   dragPropagation  如果父子元素都是可拖拽的，拖动子元素是否会带动父元素 默认false,建议设在父元素上
+	*   onDrag onDragStart onDragEnd onDirectionLock <motion.div drag onDrag={(event, info) => {} } />
+	*
+	* */
+</script>
+
+</body>
+</html>
