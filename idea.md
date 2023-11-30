@@ -4,5 +4,5 @@
 （4）删除~/Library/Application Support/JetBrains/IntelliJIdea*（*表示版本发行日期）
 （5）删除~/Library/Logs/JetBrains/IntelliJIdea*（*表示版本发行日期）
 1
-2
-3
+2sss
+3sadas
