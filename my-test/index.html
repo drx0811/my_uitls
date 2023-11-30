@@ -17,10 +17,43 @@
 	<input type="file">
 </div>
 <script>
-const arr = [{age: 1}];
-let nane = arr?.[0]?.age;
-console.log(nane)
-	
+  // 定义 canSayHi 对象
+  const canSayHi = {
+    name: 'John',
+    sayHi: function() {
+      console.log(`Hello, my name is ${this.name}`);
+    }
+  };
+
+  // 定义 canEat 对象
+  const canEat = {
+    food: 'apple',
+    eat: function() {
+      console.log(`I am eating ${this.food}`);
+    }
+  };
+
+  // 定义 canRun 对象
+  const canRun = {
+    distance: 100,
+    run: function() {
+      console.log(this)
+      console.log(`I am running ${this.distances} meters`);
+    }
+  };
+
+  // 创建一个新的 human 对象，它包含 canSayHi，canEat 和 canRun 的方法
+  const human = Object.assign({
+    distances:1000
+  }, canSayHi, canEat, canRun);
+
+  // 现在 human 对象可以使用 sayHi，eat 和 run 方法了
+  human.sayHi(); // 输出: Hello, my name is John
+  human.eat(); // 输出: I am eating apple
+  human.run(); // 输出: I am running 100 meters
+
+
+
 </script>
 </body>
 </html>
