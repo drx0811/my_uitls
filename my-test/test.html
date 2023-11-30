@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.divs::after{
+			content: url('https://dgss0.bdstatic.com/5bVWsj_p_tVS5dKfpU_Y_D3/res/r/image/2017-09-27/297f5edb1e984613083a2d3cc0c5bb36.png');
+		}
+	</style>
+</head>
+<body>
+<div class="divs" title="titletitle">
+	<input type="file">
+</div>
+<script>
+  // 定义 canSayHi 对象
+  const canSayHi = {
+    name: 'John',
+    sayHi: function() {
+      console.log(`Hello, my name is ${this.name}`);
+    }
+  };
+
+  // 定义 canEat 对象
+  const canEat = {
+    food: 'apple',
+    eat: function() {
+      console.log(`I am eating ${this.food}`);
+    }
+  };
+
+  // 定义 canRun 对象
+  const canRun = {
+    distance: 100,
+    run: function() {
+      console.log(this)
+      console.log(`I am running ${this.distances} meters`);
+    }
+  };
+
+  // 创建一个新的 human 对象，它包含 canSayHi，canEat 和 canRun 的方法
+  const human = Object.assign({
+    distances:1000
+  }, canSayHi, canEat, canRun);
+
+  // 现在 human 对象可以使用 sayHi，eat 和 run 方法了
+  human.sayHi(); // 输出: Hello, my name is John
+  human.eat(); // 输出: I am eating apple
+  human.run(); // 输出: I am running 100 meters
+
+
+
+</script>
+</body>
+</html>
