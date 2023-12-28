@@ -3,18 +3,18 @@
  * @param fn
  * @param wait
  */
- function throttle(fn,wait){
+function throttle(fn, wait) {
   let flag;
-  return ()=>{
+  return () => {
     if (!flag) {
-      flag=setTimeout(()=>{
+      flag = setTimeout(() => {
         fn();
-        flag=null
-      },wait)
+        flag = null
+      }, wait)
     }
   }
 }
-function handle(){
+function handle() {
   console.log(Math.random());
 }
 // let time1=setInterval(throttle(handle,2000),100);
@@ -25,31 +25,31 @@ function handle(){
 // time1 每次都执行 节流函数，第一次执行的节流函数返回的是一个匿名函数，定时器第二次执行的函数变为了 节流函数的匿名函数；所以
 // 节流函数 里面的flag 只会被声明一次；
 
-function getName(){
+function getName() {
   console.log(`1111`, 1111)
 }
 
-function throttle(fn,delay=2000){
+function throttle(fn, delay = 2000) {
   console.log(`111222`, 111222)
-  let flag=false;
-  return ()=>{
-    if(!flag){
-      flag=setTimeout(()=>{
+  let flag = false;
+  return () => {
+    if (!flag) {
+      flag = setTimeout(() => {
         fn();
-        flag=false;
-      },delay)
+        flag = false;
+      }, delay)
     }
   }
 }
 
 // 当我们的触发函数中还要执行其他逻辑则需要进行如下操作
-const fn=()=>{
+const fn = () => {
   return throttle(getName)
 }
-let fs=fn()
-window.onresize=fs;
+let fs = fn()
+window.onresize = fs;
 // 当直接使用节流的时候，我们可以直接将节流函数等于触发事件来执行
-window.onresize=throttle(getName)
+window.onresize = throttle(getName)
 
 /**
  * 防抖函数 目的是禁止 频繁触动，导致抖动；
@@ -57,27 +57,27 @@ window.onresize=throttle(getName)
  * @param wait
  * @returns {function(...[*]=)}
  */
-const decounce1 = function(func, wait,) {// 最后一次执行版
+const decounce1 = function (func, wait,) {// 最后一次执行版
   let timer = null;
-  return function() {
+  return function () {
     if (timer) {
       clearTimeout(timer);
     }
-    timer=setTimeout(()=>{
+    timer = setTimeout(() => {
       func()
-    },wait)
+    }, wait)
   }
 }
-const decounce = function(func, wait,) { //立即执行
+const decounce = function (func, wait,) { //立即执行
   let timer = null;
-  return function() {
+  return function () {
     if (timer) {
       clearTimeout(timer);
     }
-    let start=!timer;
-    timer=setTimeout(()=>{
-      timer=null;
-    },wait);
+    let start = !timer;
+    timer = setTimeout(() => {
+      timer = null;
+    }, wait);
     if (start) {
       func();
     }

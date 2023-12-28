@@ -12,7 +12,7 @@
 
 ### declare声明一个模块
 `在编辑ts文件的时候，如果你想导入一个.css/.less/.png格式的文件，如果没有经过declare的话是会提示语法错误的`
-```javascript
+```typescript
 declare module '*.css'
 declare module '*.less'
 declare module '*.png'
@@ -21,7 +21,7 @@ declare module '*.png'
 ### .declare声明一个变量
 声明一个变量没有意义,只是在ts中不再报错(但是运行的时候还是报错,因为没有先声明再使用),
 ### 4.declare声明一个作用域
-```javascript
+```typescript
 declare namespace API{
   export class list extends Vue{}
   interface Mlist{}

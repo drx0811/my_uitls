@@ -1,162 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-</head>
-<body>
-<script>
-  /***************** 1. 闭包封装变量 **********************/
-  const mulCalcFn = (() => {
-    const cache = {};
-    const calcFn = (args) => {
-      return args.reduce((pre, cur) => {
-        pre += cur;
-        return pre
-      }, 0)
-    }
-    return function (...args) {
-      const argsStringKey = args.join(',');
-      if (argsStringKey in cache) {
-        return cache[argsStringKey]
-      } else {
-        return cache[argsStringKey] = calcFn(args)
-      }
-    }
-  })();
-  let a = mulCalcFn(1, 2, 3)
-  let c = mulCalcFn(0)
-  let b = mulCalcFn(1, 2, 3)
-  console.log(a, b, c)
 
-  /*********** 2.高阶函数 *************/
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+  <script>
+    /***************** 1. 闭包封装变量 **********************/
+    const mulCalcFn = (() => {
+      const cache = {};
+      const calcFn = (args) => {
+        return args.reduce((pre, cur) => {
+          pre += cur;
+          return pre
+        }, 0)
+      }
+      return function (...args) {
+        const argsStringKey = args.join(',');
+        if (argsStringKey in cache) {
+          return cache[argsStringKey]
+        } else {
+          return cache[argsStringKey] = calcFn(args)
+        }
+      }
+    })();
+    let a = mulCalcFn(1, 2, 3)
+    let c = mulCalcFn(0)
+    let b = mulCalcFn(1, 2, 3)
+    console.log(a, b, c)
+
+    /*********** 2.高阶函数 *************/
     // 回调函数做为参数传递
-  const appendDiv = function (callback) {
+    const appendDiv = function (callback) {
       for (let i = 0; i < 2; i++) {
         const div = document.createElement('div');
         div.innerHTML = i;
         document.body.appendChild(div);
         if (typeof callback === 'function') {
-          callback({node: div, index: i});
+          callback({ node: div, index: i });
         }
       }
     };
-  appendDiv(function ({node, index}) {
-    if (index === 10) {
-      node.style.cssText = ';color:red;'
-    } else {
-      node.style.cssText = ';color:green;'
-    }
-  });
-
-  /*********** 2.AOP *************/
-
-  Function.prototype.before = function (beforeFn) {
-    const that = this;
-    return function (...args) {
-      beforeFn.apply(this, args);
-      return that.apply(this, args)
-    }
-  }
-  Function.prototype.after = function (afterFn) {
-    const that = this;
-    return function (...args) {
-      const ret = that.apply(this, args);
-      afterFn.apply(this, args);
-      return ret
-    }
-  }
-
-  function func() {
-    console.log('正常函数')
-    return '正常函数 return'
-  }
-
-  let fun = func
-  .before(() => {
-    console.log('before函数')
-  })
-  .after(() => {
-    console.log('after函数')
-  })
-  const s = fun()
-  console.log(s)
-  /*********** 3.节流 *************/
-
-  const throttleFn = (fns, delay) => {
-    let timer;
-    return function () {
-      if (timer) {
-        return false
+    appendDiv(function ({ node, index }) {
+      if (index === 10) {
+        node.style.cssText = ';color:red;'
+      } else {
+        node.style.cssText = ';color:green;'
       }
-      timer = setTimeout(() => {
-        clearTimeout(timer);
-        timer = null
-        fns()
-      }, delay)
+    });
+
+    /*********** 2.AOP *************/
+
+    Function.prototype.before = function (beforeFn) {
+      const that = this;
+      return function (...args) {
+        beforeFn.apply(this, args);
+        return that.apply(this, args)
+      }
     }
-  }
-
-  function log() {
-    console.log('111')
-  }
-
-  window.onresize = throttleFn(log, 2000);
-
-  /***************  分时函数  ********************/
-  (function timeBox() {
-    const arr = [];
-    for (let i = 0; i < 10000; i++) {
-      arr.push(i)
+    Function.prototype.after = function (afterFn) {
+      const that = this;
+      return function (...args) {
+        const ret = that.apply(this, args);
+        afterFn.apply(this, args);
+        return ret
+      }
     }
-    // 创建dom
-    const createDom = () => {
+
+    function func() {
+      console.log('正常函数')
+      return '正常函数 return'
+    }
+
+    let fun = func
+      .before(() => {
+        console.log('before函数')
+      })
+      .after(() => {
+        console.log('after函数')
+      })
+    const s = fun()
+    console.log(s)
+    /*********** 3.节流 *************/
+
+    const throttleFn = (fns, delay) => {
       let timer;
-      function timeSlice(_arr, _fn, num) {
-        function arrGroupFn(arrList,_num) {
-          if (arrList.length <= 0) {
-            return arrList
-          }
-          const newArr = [];
-          if (Math.ceil(arrList.length / _num) <= 1) {
-            return [...newArr,arrList]
-          }
-          for (let i = 0; i < arrList.length; i = i + _num) {
-            newArr.push(arrList.slice(i, i + _num));
-          }
-          return  newArr
+      return function () {
+        if (timer) {
+          return false
         }
-        const groups = arrGroupFn(_arr,num);
-        let length = groups.length;
-        let delNum = 0;
-        const start = () => {
-          const arrss = groups[delNum];
-          for (let i = 0; i <arrss.length ; i++) {
-	          _fn(arrss[i]);
+        timer = setTimeout(() => {
+          clearTimeout(timer);
+          timer = null
+          fns()
+        }, delay)
+      }
+    }
+
+    function log() {
+      console.log('111')
+    }
+
+    window.onresize = throttleFn(log, 2000);
+
+    /***************  分时函数  ********************/
+    (function timeBox() {
+      const arr = [];
+      for (let i = 0; i < 10000; i++) {
+        arr.push(i)
+      }
+      // 创建dom
+      const createDom = () => {
+        let timer;
+        function timeSlice(_arr, _fn, num) {
+          function arrGroupFn(arrList, _num) {
+            if (arrList.length <= 0) {
+              return arrList
+            }
+            const newArr = [];
+            if (Math.ceil(arrList.length / _num) <= 1) {
+              return [...newArr, arrList]
+            }
+            for (let i = 0; i < arrList.length; i = i + _num) {
+              newArr.push(arrList.slice(i, i + _num));
+            }
+            return newArr
           }
-          delNum++;
+          const groups = arrGroupFn(_arr, num);
+          let length = groups.length;
+          let delNum = 0;
+          const start = () => {
+            const arrss = groups[delNum];
+            for (let i = 0; i < arrss.length; i++) {
+              _fn(arrss[i]);
+            }
+            delNum++;
+          }
+          timer = setInterval(() => {
+            if (delNum === length) {
+              clearInterval(timer)
+            } else {
+              start()
+            }
+          }, 1000)
         }
-        timer = setInterval(() => {
-          if (delNum === length) {
-            clearInterval(timer)
-          } else {
-            start()
-          }
+        timeSlice(arr, function (node) {
+          let div = document.createElement('div');
+          div.innerHTML = node;
+          document.body.appendChild(div)
         }, 1000)
       }
-      timeSlice(arr, function (node) {
-        let div = document.createElement('div');
-        div.innerHTML = node;
-        document.body.appendChild(div)
-      }, 1000)
-    }
 
-    createDom()
+      createDom()
 
 
-  })()
+    })()
 
 
-</script>
+  </script>
 </body>
+
 </html>

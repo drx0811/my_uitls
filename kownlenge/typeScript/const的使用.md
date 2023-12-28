@@ -2,13 +2,13 @@
 ## as const 
 > as const 整体上是一个断言,可以让ts的类型变得更窄,更精确
 - 当我们不适用as const 的时候会报错;
-```javaScript
+```typescript
 const args = [8, 5]
 const angle = Math.atan2(...args);// error! Expected 2 arguments, but got 0 or more
 console.log(angle);
 ```
 - 当我们使用as const 的时候
-```javascript
+```typescript
 const args = [8, 5] as const
 const angle = Math.atan2(...args);// 不报错
 console.log(angle);

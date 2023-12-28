@@ -1,45 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
-	<style>
-		.divs::after{
-			content: url('https://dgss0.bdstatic.com/5bVWsj_p_tVS5dKfpU_Y_D3/res/r/image/2017-09-27/297f5edb1e984613083a2d3cc0c5bb36.png');
-		}
-	</style>
-</head>
-<body>
-<div class="divs" title="titletitle">
-	<input type="file">
-</div>
-<script>
-	
-	class Person{
-	  constructor(...args) {
-	   
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style>
+    :root {
+      --main-bg-color: coral;
     }
-	}
-	const myNew =(...args)=>{
-	  const [constructor,...params] = args;
-	  const that = Object.create(constructor.prototype);// 创建一个新对象,指向要实例的原型,拿到实例原型的方法
-	  const res = constructor.apply(that,params);// 改变要实例话的指向到新对象,并
-		if (res!==null && typeof res ==='object') {
-		  return res
-		}else {
-		  return that
-		}
-	}
-	myNew(Person,'1111')
-	
-	
- 
-	
 
+    .divs {
+      background-color: var(--main-bg-color);
+    }
+  </style>
+</head>
 
-</script>
+<body>
+  <div class="divs" title="titletitle">
+    <input id="input" type="file" />
+  </div>
+  <script>
+    Function.prototype.before = function (beforeFn) {
+      const that = this;
+      return function (...args) {
+        beforeFn.apply(this, args);
+        let s = that.apply(this, args);
+        console.log(s,'drx----s');
+        return s
+
+      }
+    }
+    Function.prototype.after = function (afterFn) {
+      const that = this;
+      return function (...args) {
+        const ret = that.apply(this, args);
+        afterFn.apply(this, args);
+        return ret
+      }
+    }
+
+    function func() {
+      console.log('正常函数')
+      return '正常函数 return'
+    }
+
+    let fun = func
+      .before(() => {
+        console.log('before函数')
+      })
+      .after(() => {
+        console.log('after函数')
+      })
+    const s = fun()
+    console.log(s)
+  </script>
 </body>
+
 </html>

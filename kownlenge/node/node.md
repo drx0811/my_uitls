@@ -66,7 +66,7 @@
   // 老版本浏览器支持； 要设置绝对时间
   res.setHeader('Expires',new Date(Date.now()).toUTCString());
   // 新版本浏览器 是设置 cache-control;
-  res.setHeader('Cache-Control','max-age=10')；
+  res.setHeader('Cache-Control','max-age=10');
 
 
   //如果没有设置缓存那么默认会设置如下的

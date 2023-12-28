@@ -443,6 +443,29 @@ const treeToArray = (tree) => {
   }
   return res
 }
+
+/**
+ * 截取树中某一个节点为父节点的树,缺点是可能会崩溃
+ * @param data
+ * @param parentId
+ * @returns {*[]}
+ */
+function buildTree(data, parentId = null) {
+  const tree = [];
+  data.forEach(node => {
+    if (node.parentId === parentId) {
+      const children = buildTree(data, node.id);
+      if (children.length > 0) {
+        node.children = children;
+      }
+      tree.push(node);
+    }
+  });
+  return tree;
+}
+
+
+
 /**
  * 一维函数转换成树形结构,前提是有自己的id和父id
  * ivsmNodeNum 自身id

@@ -223,21 +223,21 @@ Fn(1,2,3,4)
 ### 读懂一个泛型
 - 先读取整体函数,不考虑类型;
 - 再看类型
-```javascript
+```typescript
 function getName<T>(value:T){
   return value 
 }
 getName('drx')
 ```
 ### 泛型接口
-```javascript
+```typescript
 interface Iname<T>{
   name:T
 }
 ```
 ### 泛型约束
 通过extends 约束泛型的范围
-```javascript
+```typescript
 interface IhasLength{
   length:number
 }
@@ -248,7 +248,7 @@ Gta('dddds')
 ```
 ### 泛型默认值
 我们可以设定泛型默认值,当没有显示传递的时候就使用默认值
-```javascript
+```typescript
 interface IgetName<T = string>{
   name:T
 }
@@ -257,7 +257,7 @@ interface IgetName<T = string>{
 使用 extends 关键字 但是并不代表继承,只要结构兼容
 ### 泛型中的infer
 infer 表示提取类型中所有可能的类型
-```javascript
+```typescript
 type Unpack<T> = T extends Array<infer U>?U:T;
 type mm=string[];
 type nn=boolean[];
