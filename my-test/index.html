@@ -17,41 +17,16 @@
 	<input type="file">
 </div>
 <script>
-  // 定义 canSayHi 对象
-  const canSayHi = {
-    name: 'John',
-    sayHi: function() {
-      console.log(`Hello, my name is ${this.name}`);
-    }
-  };
-
-  // 定义 canEat 对象
-  const canEat = {
-    food: 'apple',
-    eat: function() {
-      console.log(`I am eating ${this.food}`);
-    }
-  };
-
-  // 定义 canRun 对象
-  const canRun = {
-    distance: 100,
-    run: function() {
-      console.log(this)
-      console.log(`I am running ${this.distances} meters`);
-    }
-  };
-
-  // 创建一个新的 human 对象，它包含 canSayHi，canEat 和 canRun 的方法
-  const human = Object.assign({
-    distances:1000
-  }, canSayHi, canEat, canRun);
-
-  // 现在 human 对象可以使用 sayHi，eat 和 run 方法了
-  human.sayHi(); // 输出: Hello, my name is John
-  human.eat(); // 输出: I am eating apple
-  human.run(); // 输出: I am running 100 meters
-
+  function abortWrapper(p1) {
+    let abort
+    let p2 = new Promise((resolve, reject) => (abort = reject))
+    let p = Promise.race([p1, p2])
+    p.abort = abort
+    return p
+  }
+ 
+ 
+  
 
 
 </script>
