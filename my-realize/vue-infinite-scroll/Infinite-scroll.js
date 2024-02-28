@@ -1,15 +1,15 @@
 // 默认属性值
-const attributes={
-  delay:{
-    default:200
+const attributes = {
+  delay: {
+    default: 200
   },
-  disabled:{
-    default:false,
+  disabled: {
+    default: false,
   },
-  distance:{
-    default:10
+  distance: {
+    default: 10
   },
-  immediate:{
+  immediate: {
     default: true
   },
 };
@@ -21,17 +21,17 @@ const attributes={
  * @param el
  * @returns {(() => (Node | null))|ActiveX.IXMLDOMNode|(Node & ParentNode)|Window}
  */
-const getScrollContainer=(el)=>{
-  let parent=el;
-  while (parent){
-    if (document.documentElement===parent) {
+const getScrollContainer = (el) => {
+  let parent = el;
+  while (parent) {
+    if (document.documentElement === parent) {
       return window
     }
-    const overflow=getComputedStyle(parent)['overflow'];
-    if (overflow==='auto') {
+    const overflow = getComputedStyle(parent)['overflow'];
+    if (overflow === 'auto') {
       return parent
     }
-    parent=parent.parentNode;
+    parent = parent.parentNode;
   }
 };
 /**
@@ -41,13 +41,13 @@ const getScrollContainer=(el)=>{
  * @param vm
  * @returns {[string, any] | *}
  */
-const getScrollOptions=(el,vm)=>{
-  return Object.entries(attributes).reduce((map,[key,options])=>{
-    let detaultValue=options.default;
-    let value=el.getAttribute(`infinite-scroll-${key}`);
-    map[key]=vm[value]?vm[value]:detaultValue;
+const getScrollOptions = (el, vm) => {
+  return Object.entries(attributes).reduce((map, [key, options]) => {
+    let detaultValue = options.default;
+    let value = el.getAttribute(`infinite-scroll-${key}`);
+    map[key] = vm[value] ? vm[value] : detaultValue;
     return map
-  },{});
+  }, {});
 };
 /**
  * 节流函数
@@ -55,67 +55,67 @@ const getScrollOptions=(el,vm)=>{
  * @param delay
  * @returns {function(...[*]=)}
  */
-const throttle=(fn,delay)=>{
+const throttle = (fn, delay) => {
   let flag;
-  return ()=>{
+  return () => {
     if (!flag) {
-      flag=setTimeout(()=>{
+      flag = setTimeout(() => {
         fn();
-        flag=null;
-      },delay);
+        flag = null;
+      }, delay);
     }
   }
 };
 
-const scrollKey='scrollKey';
+const scrollKey = 'scrollKey';
 
 /**
  * 处理滚动事件
  * @param cb
  * @returns {boolean}
  */
-function handleScroll(cb){// 如果是箭头函数，那么就没有this了；因为箭头函数没有this；
-  const {container,vm}=this[scrollKey];
-  const {disabled,distance}=getScrollOptions(container,vm);
+function handleScroll(cb) {// 如果是箭头函数，那么就没有this了；因为箭头函数没有this；
+  const { container, vm } = this[scrollKey];
+  const { disabled, distance } = getScrollOptions(container, vm);
   if (disabled) {
     return false
   }
-  let scrollBottom=container.clientHeight+container.scrollTop;
-  if (container.scrollHeight-scrollBottom<=distance) {
+  let scrollBottom = container.clientHeight + container.scrollTop;
+  if (container.scrollHeight - scrollBottom <= distance) {
     cb();
   }
 }
 export default {
-  name:"infinite-scroll",
-  inserted(el,binds,vnode){
-    const cb=binds.value;
-    const vm=vnode.context;
+  name: "infinite-scroll",
+  inserted(el, binds, vnode) {
+    const cb = binds.value;
+    const vm = vnode.context;
     // 1.先获取要滚动的元素，如果没有元素则直接结束；
-    const container=getScrollContainer(el);
-    el[scrollKey]={// 将属性挂载到dom对象上，以方便取消监听的时候使用；
+    const container = getScrollContainer(el);
+    el[scrollKey] = {// 将属性挂载到dom对象上，以方便取消监听的时候使用；
       onscroll,
       container,
       vm,
     }
-    if (container!==window) {
-      let {delay,immediate}=getScrollOptions(el,vm);
-      let onScroll=throttle(handleScroll.bind(el,cb),delay);
+    if (container !== window) {
+      let { delay, immediate } = getScrollOptions(el, vm);
+      let onScroll = throttle(handleScroll.bind(el, cb), delay);
       if (immediate) {
-        const observer=new MutationObserver(onScroll);
-        observer.observe(container,{
-          childList:true,// 监控列表的变化
-          subtree:true,// 当子dom发生拜年话也触发；
+        const observer = new MutationObserver(onScroll);
+        observer.observe(container, {
+          childList: true,// 监控列表的变化
+          subtree: true,// 当子dom发生拜年话也触发；
         })
         onScroll();
       }
-      container.addEventListener('scroll',onScroll);
+      container.addEventListener('scroll', onScroll);
     }
   },
-  unbind(el){
-    const {onscroll, container}=el[scrollKey];
+  unbind(el) {
+    const { onscroll, container } = el[scrollKey];
     if (container) {
-      container.removeEventListener('scroll',onscroll);
-      el[scrollKey]=null;
+      container.removeEventListener('scroll', onscroll);
+      el[scrollKey] = null;
     }
   }
 }

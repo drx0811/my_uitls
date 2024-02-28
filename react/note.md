@@ -14,8 +14,7 @@
 > diff算法分为 三个层级；
 1. `tree diff` 只对比同级dom结构，忽略dom节点的跨级移动；如果发现不同，就会删除旧节点(包括其子节点)，生成新节点
 2. `component diff`组件级别的对比，如果不是同一级别的组件那么就会删除旧的组件，生成新的组件；
-3. `element diff` 元素级别的比较，比较同一层级下子节点，每个节点的唯一标识key ，如果没有key那么我们进行插入操作的
-时候会导致该id位置后面的内容重新渲染；
+3. `element diff` 元素级别的比较，比较同一层级下子节点，每个节点的唯一标识key ，如果没有key那么我们进行插入操作的时候会导致该id位置后面的内容重新渲染；
 
 ### 跨层级通信 context
 > 主要记住两个方法 `createContext` `useContext`
@@ -34,7 +33,7 @@ function App() {
   );
 }
 function Toolbar() {
-  return <div><ThemedButton /></div>
+  return <div><ThemedButton /></div>  
 }
 function ThemedButton() {
   const theme = useContext(ThemeContext);

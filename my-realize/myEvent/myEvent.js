@@ -10,6 +10,7 @@ class MyEvent {
     }
   }
   emit(type,...args){
+    console.log(this._event[type]);
     if (!this._event[type]) {
       throw new Error('没有订阅该事件')
     }else {
@@ -30,6 +31,7 @@ class MyEvent {
   }
   once(type,fn){
     const onceFn=(...args)=>{
+      console.log('1111');
       fn(...args);
       this.off(type,onceFn)
     };

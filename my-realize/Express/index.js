@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use((req, res, next) => {
   const urlObject = url.parse(req.url);
   const { pathname } = urlObject;
-
+  
   console.log(`request path: ${pathname}`);
 
   next();
