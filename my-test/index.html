@@ -14,36 +14,19 @@
 </head>
 <body>
 <div class="divs" title="titletitle">
-	<input type="file1113333222">
+	<input type="file111333311">
+	<input type="file1113333">
+	<input type="file1113333">
 </div>
 <script>
-  new Promise((resolve, reject)=>{
-    resolve(1)
-  })
-  .then(res=>{
-    console.log(1)
-	  
-  })
-  .then(res=>{
-    console.log(2)
-	  
-  })
-  
-  
-   new Promise((resolve, reject)=>{
-    resolve(3)
-  })
-  .then(res=>{
-    console.log(4)
-	  
-  })
-  .then(res=>{
-    console.log(5)
-	  
-  })
-  
-  
-  
+  function abortWrapper(p1) {
+    let abort
+    let p2 = new Promise((resolve, reject) => (abort = reject))
+    let p = Promise.race([p1, p2])
+    p.abort = abort
+    return p
+  }
+ 
  
   
 
