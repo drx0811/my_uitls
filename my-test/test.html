@@ -48,11 +48,26 @@
 
 </body>
 <script>
-  const arr = [
-    [ '0', '0', '0', '1', '0' ]
-  ]
-
-
+  const _data = {
+    'userName': 'accountInput.value',
+    'password': 'pwd',
+    'pushClientId': '',
+    'deviceId': 'deviceId',
+    'deviceType': 'app',
+    'phoneType': 'deviceInfo.model',
+    'loginFrom': 'osInfo.name',
+    'appVersion': 'appVersion1'
+  }
+  let paramsUrl = ''
+  for (let key in _data){
+    let _url = `${key}=${_data[key]}`
+    paramsUrl+= _url+'&'
+  }
+  paramsUrl =paramsUrl.slice(0,-1)
+  console.log(paramsUrl)
+  
+  
+  
 
 </script>
 </html>
