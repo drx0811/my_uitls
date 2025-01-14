@@ -1,36 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
-	<style>
-		.divs::after{
-			content: url('https://dgss0.bdstatic.com/5bVWsj_p_tVS5dKfpU_Y_D3/res/r/image/2017-09-27/297f5edb1e984613083a2d3cc0c5bb36.png');
-		}
-	</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-<div class="divs" title="titletitle">
-	<input type="file111333311">
-	<input type="file1113333">
-	<input type="file1113333">
+
+<div id="wrap">
+  <div class="1122">
+    <a class="btn" href="http://www.baidu.com">点击连接</a>
+  </div>
+
+  <span class="btn">不可点击按钮</span>
 </div>
+
 <script>
-  function abortWrapper(p1) {
-    let abort
-    let p2 = new Promise((resolve, reject) => (abort = reject))
-    let p = Promise.race([p1, p2])
-    p.abort = abort
-    return p
-  }
- 
- 
-  
-
-
+  document.querySelector('#wrap').addEventListener('click', function (e) {
+    if (e.target.matches('a.btn')) {
+      e.preventDefault();
+      console.log('a.btn');
+    }
+  }, false);
 </script>
 </body>
 </html>
