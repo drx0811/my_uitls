@@ -1,6 +1,52 @@
-
-
-
+/**
+ * 判断数据类型,全局去掉 string大的trim方法
+ * @param obj
+ * @returns {*}
+ */
+const getTypeFn = (obj) => {
+  const typeMap = {
+    '[object Null]': 'null',
+    '[object Undefined]': 'undefined',
+    '[object String]': 'string',
+    '[object Number]': 'number',
+    '[object Boolean]': 'boolean',
+    '[object Object]': 'object',
+    '[object Array]': 'array',
+    '[object Set]': 'set',
+    '[object Map]': 'map',
+    '[object Symbol]': 'symbol',
+    '[object BigInt]': 'bigInt',
+    '[object Function]': 'function',
+    '[object Date]': 'date',
+  };
+  return typeMap[Object.prototype.toString.call(obj)];
+};
+const trimObjFn = (_ob) => {
+  if (getTypeFn(_obj) === 'object') {
+    return Object.keys(_obj).reduce((pre, cur) => {
+      let v = _obj[cur];
+      const type = getTypeFn(v);
+      if (['object', 'array', 'string'].includes(type)) {
+        v = trimObjFn(v);
+      }
+      pre[cur] = v;
+      return pre;
+    }, {});
+  } else if (getTypeFn(_obj) === 'array') {
+    return _obj.map((item) => {
+      let _item = item;
+      const type = getTypeFn(_item);
+      if (['object', 'array', 'string'].includes(type)) {
+        _item = trimObjFn(_item);
+      }
+      return _item;
+    });
+  } else if (getTypeFn(_obj) === 'string') {
+    return _obj.trim();
+  } else {
+    return _obj;
+  }
+};
 
 
 /**
