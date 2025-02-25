@@ -30,7 +30,7 @@ package-lock.json
 .doc
 
 # umi
-.umi
+.umi111
 .umi-production
 .umi-test
 .env.local
