@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="29px" height="26px" viewBox="0 0 29 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>质押钢卷</title>
+    <defs>
+        <linearGradient x1="50%" y1="3.76864347%" x2="84.2196304%" y2="58.2575479%" id="linearGradient-1">
+            <stop stop-color="#CF8989" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="36.0386983%"></stop>
+            <stop stop-color="#EF5959" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="43.682548%" y1="1.53018211%" x2="45.6886031%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FDADAD" offset="0.0595839707%"></stop>
+            <stop stop-color="#E33621" offset="62.0101415%"></stop>
+            <stop stop-color="#FFB4B4" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="87.3970082%" cy="19.5494316%" fx="87.3970082%" fy="19.5494316%" r="90.9420182%" gradientTransform="translate(0.873970,0.195494),scale(1.000000,0.996917),rotate(138.057874),translate(-0.873970,-0.195494)" id="radialGradient-3">
+            <stop stop-color="#791212" offset="0.0727300044%"></stop>
+            <stop stop-color="#781E1E" offset="53.8430807%"></stop>
+            <stop stop-color="#771C1C" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0306大屏弹出扩展加宽模块(双拼）" transform="translate(-4435.000000, -285.000000)">
+            <g id="编组-9" transform="translate(46.000000, 167.000000)">
+                <g id="右屏幕" transform="translate(2970.000000, 102.000000)">
+                    <g id="map_tietle" transform="translate(30.427544, 12.000000)">
+                        <g id="质押钢卷" transform="translate(1389.181912, 4.000000)">
+                            <path d="M18.1294964,19.9175258 C18.8260387,19.9175258 18.9633121,21.1689902 18.5413168,23.671919 C21.3534283,20.8233937 23.0643728,19.0739375 23.6741503,18.4235505 C24.5888165,17.4479699 24.9891443,16.8821843 25.3936233,16.3632675 C26.7710583,14.5961194 27.9136691,12.5352237 27.9136691,10.1030928 C27.9136691,4.8167969 23.7471593,0.506651218 18.5285252,0.296673155 C18.3961754,0.2913479 18.2952559,0.261854579 18.1294964,0.288659794 C17.9637369,0.315465009 18.02231,0.330173375 17.807937,0.413200539 C17.1154218,0.681413431 13.5598918,2.05847913 7.14134703,4.54439764 C7.94399817,5.75818114 8.34532374,7.61107952 8.34532374,10.1030928 C8.34532374,15.5234545 12.7258471,19.9175258 18.1294964,19.9175258 Z" id="椭圆形" fill="url(#linearGradient-1)"></path>
+                            <ellipse id="椭圆形" fill="url(#linearGradient-2)" cx="11.2230216" cy="15.0103093" rx="11.2230216" ry="11.257732"></ellipse>
+                            <ellipse id="椭圆形" fill="url(#radialGradient-3)" cx="11.0791367" cy="15.1546392" rx="5.61151079" ry="5.62886598"></ellipse>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
