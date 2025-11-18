@@ -13,8 +13,10 @@
   <script type="text/javascript" src="./js/jquery.leoTextAnimate.js"></script>
   <script type="text/javascript" src="./js/jquery-1.8.3.js"></script>
   <script type="text/javascript" src="./js/vue.dev.js"></script>
-  <script type="text/javascript" src="./js/111.js"></script>
-<!--  <script type="text/javascript" src="./js/json.js"></script>-->
+<!--  <script type="text/javascript" src="./js/D.js"></script>-->
+<!--  <script type="text/javascript" src="./js/J1.js"></script>-->
+<!--  <script type="text/javascript" src="./js/A1.js"></script>-->
+  <script type="text/javascript" src="./js/C.js"></script>
 </head>
 <body style="background: #f7f7f7;">
 <style>
@@ -42,32 +44,70 @@
   .card_title::after{ width: 9px; height: 9px; border-radius: 2px; content: ''; background: #4285F4; position: absolute; top: 0; bottom: 0; left: 7px; margin: auto 0;  }
   .up{ flex: 7; margin:0 1% 1% 1%; background: rgba(1,21,113,0.6); border-radius: 5px; display: flex; overflow: hidden; }
 
-  .row_desc_new{ width: 43px; display: flex; flex-direction: column; }
-  .road_new{ flex: 3;  background: #0c2888; position: relative; }
+  .row_desc_new{ width: 30px; display: flex; flex-direction: column; }
+  .road_new{ flex: 2;  background: #0c2888; position: relative; }
   .road_new::before{content:''; height: 100%; width: 0px; border-left: 1px dashed rgba(255,255,255,.3); position:absolute; top:0; left: 4px;}
   .road_new::after{content:''; height: 100%; width: 0px; border-left: 1px dashed rgba(255,255,255,.3); position:absolute; top:0; right: 4px;}
   .line_new{ flex: 30;display: flex; flex-direction: column; position: relative; }
   .rows_new{ flex:1; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .rows_new_3{ flex:1; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .rows_new_high{ flex:3; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
   .desc_new{flex: 1; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .desc_new::before{ content:attr(row); width: 40px; height: 20px; color: white; position: absolute; left: 10px; bottom: 3px; }
-  .rowCar_new{ width: 1px; height: 100%; position: absolute; top: 0; left: -4px; z-index: 999; background: #00ffff; }
+  .desc_new_high{flex: 3; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .desc_new::before{ content:attr(row); width: 40px; height: 20px; color: white; position: absolute; left: 3px; bottom: 3px;font-size: 14px; }
+  .desc_new_high::before{ content:attr(row); width: 40px; height: 20px; color: white; position: absolute; left: 3px; bottom: 3px;font-size: 14px;  }
+  .rowCar_new{ width: 1px; height: 100%; position: absolute; top: 0; left: -4px; z-index: 999; background: #00ffff; font-weight: 500;}
   .gou_new{ width: 10px; height: 8px; position: absolute;background: 0 0 / 100% 100% no-repeat url("./images/goz3.png");z-index: 1000000000000; }
   .gou_info_new{  width: 180px; height: 20px; line-height: 20px; font-size: 12px; color: #00ffff; position: absolute; top:-12px; left: 10px;z-index: 1000000000000; background: transparent; }
 
 
   .image_roll_new{
-    cursor: pointer; height: 33%; width: 3.5%;
+    cursor: pointer;
+    width: 1.0%;
     content: url("./images/normal-roll.svg");
     position: absolute; bottom: 0; left: 0;
   }
+  .rows_new_3 .image_roll_new{
+    cursor: pointer;
+    width: 1.9%;
+    position: absolute; bottom: 0; left: 0;
+  }
+  .rows_new_high .image_roll_new{
+    cursor: pointer;
+    width: 1.0%;
+    content: url("./images/row34/normal-roll.png");
+    position: absolute; bottom: 0; left: 0;
+  }
+
+
   .image_roll1_new{ content: url("./images/yellow-roll.svg"); }
+  .rows_new_high .image_roll1_new{ content: url("./images/row34/yellow-roll.png"); }
   .image_roll2_new{ content: url("./images/pro-roll.svg"); }
+  .rows_new_high .image_roll2_new{ content: url("./images/row34/pro-roll.png"); }
   .image_roll3_new{ content: url("./images/warn-roll.svg"); }
+  .rows_new_high .image_roll3_new{ content: url("./images/row34/warn-roll.png"); }
   .image_roll4_new{ content: url("./images/out-roll.svg"); }
-  /*.image_roll_out_new{ height: 35%; width: 1.34%; position: absolute; bottom: 0; left: 0; }*/
-  .image_roll_out_new{ height: 10%; width: 0.8%; position: absolute; bottom: 0; left: 0; }
-  .image_roll_out_new_3{ height: 33%; width: 1.7%; position: absolute; bottom: 0; left: 0; }
+  .rows_new_high .image_roll4_new{ content: url("./images/row34/out-roll.png"); }
   .roll_active_new{ content: url("./images/out-roll.svg"); }
+  .rows_new_high .roll_active_new{ content: url("./images/row34/out-roll.png"); }
+  .image_roll_out_new{
+    width: 1.0%;
+    position: absolute; bottom: 0; left: 0;
+  }
+  .rows_new_3 .image_roll_out_new{
+    width: 1.9%;
+    position: absolute; bottom: 0; left: 0;
+  }
+
+  .image_roll_out_new_3{
+    width: 1.0%;
+    position: absolute; bottom: 0; left: 0;
+  }
+  .rows_new_3 .image_roll_out_new_3{
+    width: 1.9%;
+    position: absolute; bottom: 0; left: 0;
+  }
+
 
 
 
@@ -711,29 +751,33 @@
           </div>
           <div class="up">
             <div class="row_desc_new">
-              <div class="desc_new" v-for="val in showLeft" :row="val.row+'排'"></div>
+              <div :class="['desc_new',((val.row ==1||val.row ==2) && currentWare=='4')?'desc_new_high':'']" v-for="val in showLeft" :row="val.row+'排'"></div>
             </div>
             <div id="carBoxId" class="line_new">
-              <div class="rowCar_new" :style=" 'left:' + axisx + '%;' " ></div>
-              <div v-if="currentWare=='4'" class="rows_new" v-for="val in showLeft">
-                <div v-if="val.row == rowCarInfo._rowId" class="gou_new" :style=" 'left:' + axisx + '%;bottom:' + axisy + '%;' ">
-                  <div class="gou_info_new">{{rowCarInfo._fenceName||''}}</div>
+              <div  v-if="Object.keys(rowCarInfo).length === 0" class="rowCar_new" :style=" 'left:' + 0 + '%;' " ></div>
+              <div v-else>
+                <div v-for="item in Object.keys(rowCarInfo)" :key="item" class="rowCar_new" :style=" 'left:' + rowCarInfo[item].axisx + '%;' " ></div>
+              </div>
+
+              <div v-if="currentWare=='4'" :class="['rows_new',((val.row ==1||val.row ==2) && currentWare=='4')?'rows_new_high':'']" v-for="val in showLeft">
+                <div v-for="item in Object.keys(rowCarInfo)" :key="item" class="gou_new" v-if="val.row == rowCarInfo[item]._rowId" :style=" 'left:' + rowCarInfo[item].axisx + '%;bottom:' + rowCarInfo[item].axisy + '%;' ">
+                  <div  class="gou_info_new">{{rowCarInfo[item].fenceName||''}}</div>
                 </div>
                 <img :id="roll.location" @click="onClickRoll($event,roll)"
                      :class="['image_roll_new',currentWare=='4'?'image_roll_out_new':'',getRollClass(roll),selRoll.packageNo==roll.data.packageNo ? 'roll_active_new' : '']"
                      v-for="roll in val.list"
                      :style=" 'bottom:' + roll.y + '%;left:' + roll.x + '%;' + 'z-index:' + (roll.col+roll.lay) "/>
               </div>
-              <div v-if="currentWare!='4'" class="rows_new" v-for="val in showLeft">
+              <div v-if="currentWare!='4'" class="rows_new rows_new_3" v-for="val in showLeft">
                 <img :id="roll.location" @click="onClickRoll($event,roll)"
                      :class="['image_roll_new','image_roll_out_new_3',getRollClass(roll),selRoll.packageNo==roll.data.packageNo ? 'roll_active_new' : '']"
                      v-for="roll in val.list"
-                     :style=" 'bottom:' + roll.y + '%;left:' + roll.x + '%;' + 'z-index:' + (roll.col+roll.lay) "/>
+                     :style=" 'bottom:' + roll.y + '%;left:' + roll.x + '%;' + 'z-index:' + (roll.col+roll.lay)  "/>
               </div>
             </div>
             <div class="road_new" v-if="currentWare!='4'"></div>
             <div class="line_new" v-if="currentWare!='4'">
-              <div class="rows_new" v-for="val in showRight">
+              <div class="rows_new rows_new_3" v-for="val in showRight">
                 <img :id="roll.location" @click="onClickRoll($event,roll)"
                      :class="['image_roll_new','image_roll_out_new_3',getRollClass(roll),selRoll.packageNo==roll.data.packageNo ? 'roll_active_new' : '' ]"
                      v-for="roll in val.list"
@@ -961,7 +1005,7 @@
       selRoll:{},
       pageX:0,
       pageY:0,
-      relationId:'4d805',
+      relationId:'4a2bb',
       rowCarList:[],
       rowCarInfo: {},
       areaInfo:[
@@ -1183,9 +1227,6 @@
         // 04 加工  绿色
         // 灰色是正常现货卷
         if(val.data&&val.data.type=='01'){
-          return 'image_roll_new'
-          return 'image_roll1_new'
-          return 'image_roll2_new'
           return 'image_roll3_new'
         }
         if(val.data&&val.data.type=='02'){
@@ -1197,7 +1238,6 @@
         if(val.data&&val.data.type=='04'){
           return 'image_roll4_new'
         }
-        // return 'image_roll3_new'
         return 'image_roll_new'
       },
       onCloseInfo(){
@@ -1214,7 +1254,6 @@
         self.pageX = e.pageX+8
         self.pageY = e.pageY+8
         if(self.pageY+400>$(document).height()){
-          console.log(111, 'drx----111');
           self.pageY = self.pageY - 40
         }
         if(self.pageX+180>$(document).width()){
@@ -1318,31 +1357,34 @@
           if(this.currentWare==='4'){
             const wregion = material.wregion;
             if(wregion === 'A'||wregion === 'C'||wregion === 'E'){
-              if(row === '1'|| row === '2'){
-                obj.x = 0.65*(parseInt(obj.lay-1)) + 1.42*(parseInt(obj.bingId-1));
-                obj.y = 3.5*(parseFloat(obj.lay)-1) + 5.4*(parseFloat(obj.col)-1);
-              }else if(row === '0'||row === '3'||row === '4'){
-                obj.y = 5.5*(parseInt(obj.lay-1)) ;
-                obj.x = 0.65*(parseFloat(obj.lay)-1) + 0.75*(parseFloat(obj.col)-1) + 5.2*(parseFloat(obj.bingId)-1);
+              if(row == '1'|| row == '2'){
+                obj.x =  0.37*(parseInt(obj.lay-1)) + 1.45*(parseInt(obj.bingId-1));
+                obj.y = 5.1*(parseFloat(obj.col)-1) + 3.1*(parseFloat(obj.lay)-1);
+              }else if(row == '0'||row == '3'||row == '4'){
+                obj.y = 11*(parseInt(obj.lay-1)) ;
+                obj.x = 0.65*(parseFloat(obj.lay)-1) + 0.9*(parseFloat(obj.col)-1) + 7.1*(parseFloat(obj.bingId)-1);
               }
             }else{
-              if(row === '1'|| row === '2'){
-                obj.x = 0.65*(parseInt(obj.lay-1)) + 1.42*(parseInt(obj.bingId-1));
-                obj.y = 3.5*(parseFloat(obj.lay)-1) + 5.4*(parseFloat(obj.col)-1);
-              }else if(row === '0'||row === '3'){
-                obj.y = 5.5*(parseInt(obj.lay-1)) ;
-                obj.x = 0.65*(parseFloat(obj.lay)-1) + 0.75*(parseFloat(obj.col)-1) + 5.2*(parseFloat(obj.bingId)-1);
+              if(row == '1'|| row == '2'){
+                obj.x =  0.37*(parseInt(obj.lay-1)) + 1.45*(parseInt(obj.bingId-1));
+                obj.y = 5.1*(parseFloat(obj.col)-1) + 3.1*(parseFloat(obj.lay)-1);
+              }else if(row == '0'||row == '3'||row == '4'){
+                obj.y = 11*(parseInt(obj.lay-1)) ;
+                obj.x = 0.65*(parseFloat(obj.lay)-1) + 0.9*(parseFloat(obj.col)-1) + 7.1*(parseFloat(obj.bingId)-1);
               }
             }
           }else{
             const _wregion = material.wregion;
-            const  wregion = _wregion.match(/[A-Za-z]/g)[0];
-            if(wregion === 'A'||wregion === 'B'||wregion === 'C'||wregion === 'D'||wregion === 'E'||wregion === 'F'){
-              obj.y = 14*(parseInt(obj.lay-1)) ;
-              obj.x = 99 - (1.1*(parseFloat(obj.lay)-1) + 1.6*(parseFloat(obj.col)-1) + 16.5*(parseFloat(obj.bingId)-1));
-            }else{
-              obj.y = 14*(parseInt(obj.lay-1)) ;
-              obj.x = (1.1*(parseFloat(obj.lay)-1) + 1.6*(parseFloat(obj.col)-1) + 16.5*(parseFloat(obj.bingId)-1))
+            let  wregion_ = _wregion.match(/[A-Za-z]/g)
+            if(wregion_){
+              let wregion = wregion_[0]
+              if(wregion === 'A'||wregion === 'B'||wregion === 'C'||wregion === 'D'||wregion === 'E'||wregion === 'F'){
+                obj.y = 14*(parseInt(obj.lay-1)) ;
+                obj.x = 99 - (0.7*(parseFloat(obj.lay)-1) + 1.5*(parseFloat(obj.col)-1) + 17*(parseFloat(obj.bingId)-1));
+              }else{
+                obj.y = 14*(parseInt(obj.lay-1)) ;
+                obj.x = (0.7*(parseFloat(obj.lay)-1) + 1.5*(parseFloat(obj.col)-1) + 17*(parseFloat(obj.bingId)-1));
+              }
             }
           }
           if(material.location && material.location.match(/[A-z]/)[0]){
@@ -1368,61 +1410,81 @@
       },
       getRowCarLoc(list){
         let self = this
-        let rowCar = {};
-        let axisy=0 , axisx=0;
-        for(let i=0;i<list.length;i++){
-          if(self.relationId&&list[i].tagId==self.relationId){
-            rowCar = list[i]
-            break;
+        const currentWare = self.currentWare;
+        const currentTrack = self.currentTrack;
+        let _rowCar = {};
+        if(currentWare ==='4'){
+          const relationIdObj = {
+            'A':['4a459','4d805','4a2bb'],
+            'B':['4d807','4d804','4d847'],
+            'C':['4a459','4d805','4a2bb'],
+            'D':['4d807','4d804','4d847'],
+            'E':['4a459','4d805','4a2bb'],
+            'F':['4d807','4d804','4d847'],
           }
-        }
-        let loc = rowCar.fenceName;
-        const fenceNameReg = /^[A-Za-z]\d+(?:-\d+){3}$/;
-        const childElement = $('#'+loc).get(0);
-        const ZMre = /[A-Za-z]/
-        const ZMreList = loc.match(ZMre);
-        const wregion = ZMreList[0];
-        if (childElement) {
-          self.rowCarInfo = Object.assign(rowCar,{
-            _fenceName:loc,
-          })
-        }else {
-          self.rowCarInfo = Object.assign(rowCar,{
-            _fenceName:''
-          })
-        }
-        if(self.relationId&&rowCar && rowCar.layerName==='室外' && fenceNameReg.test(loc) && wregion ==self.currentTrack) {
-          const re = /\d+/g;
-          const infoList = loc.match(re);
-          const row = parseFloat(infoList[0])
-          const bingId = parseFloat(infoList[1])
-          const columnId = parseFloat(infoList[2])
-          const storeyNo = parseFloat(infoList[3]);
-          if(wregion === 'A'||wregion === 'C'||wregion === 'E'){
-            if(row == '1'|| row == '2'){
-              axisx = 0.65*(parseInt(storeyNo-1)) + 1.42*(parseInt(bingId-1));
-              axisy = 3.5*(parseFloat(storeyNo)-1) + 5.4*(parseFloat(columnId)-1);
-            }else if(row == '0'||row == '3'||row == '4'){
-              axisy = 7.6*(parseInt(storeyNo-1)) ;
-              axisx = 0.65*(parseFloat(storeyNo)-1) + 0.75*(parseFloat(columnId)-1) + 5.2*(parseFloat(bingId)-1);
+          const tagIds = relationIdObj[currentTrack]
+          for(let i=0;i<list.length;i++){
+            let axisy=0 , axisx=0;
+            let rowCar = list[i];
+            let layerName = rowCar.layerName;
+            if(layerName!=='室外') {
+              continue
             }
-          }else{
-            if(row == '1'|| row == '2'){
-              axisx = 0.65*(parseInt(storeyNo-1)) + 1.42*(parseInt(bingId-1));
-              axisy = 3.5*(parseFloat(storeyNo)-1) + 5.4*(parseFloat(columnId)-1);
-            }else if(row == '0'||row == '3'){
-              axisy = 7.6*(parseInt(storeyNo-1)) ;
-              axisx = 0.65*(parseFloat(storeyNo)-1) + 0.75*(parseFloat(columnId)-1) + 5.2*(parseFloat(bingId)-1);
+            let tagId = rowCar.tagId;
+            let isNow = tagIds.indexOf(tagId)!==-1;
+            if(!isNow){
+              continue
+            }
+            const ZMre = /[A-Za-z]/
+            let loc = rowCar.fenceName;
+            if(!loc){
+              continue
+            }
+            const ZMreList = loc.match(ZMre);
+            if(!Array.isArray(ZMreList)){
+              continue
+            }
+            const wregion = ZMreList[0];
+            if(wregion !== currentTrack){
+              continue
+            }
+            const fenceNameReg = /^[A-Za-z]\d+(?:-\d+){3}$/;
+            if(fenceNameReg.test(loc)) {
+              const re = /\d+/g;
+              const infoList = loc.match(re);
+              const row = parseFloat(infoList[0])
+              const bingId = parseFloat(infoList[1])
+              const columnId = parseFloat(infoList[2])
+              const storeyNo = parseFloat(infoList[3]);
+              if(wregion === 'A'||wregion === 'C'||wregion === 'E'){
+                if(row == '1'|| row == '2'){
+                  axisx = 0.37*(parseInt(storeyNo-1)) + 1.45*(parseInt(bingId-1));
+                  axisy = 3.1*(parseFloat(storeyNo)-1) + 5.1*(parseFloat(columnId)-1);
+                }else if(row == '0'||row == '3'||row == '4'){
+                  axisy = 11*(parseInt(storeyNo-1)) ;
+                  axisx = 0.65*(parseFloat(storeyNo)-1) + 0.9*(parseFloat(columnId)-1) + 7.1*(parseFloat(bingId)-1);
+                }
+              }else{
+                if(row == '1'|| row == '2'){
+                  axisx = 0.65*(parseInt(storeyNo-1)) + 1.42*(parseInt(bingId-1));
+                  axisy = 3.1*(parseFloat(storeyNo)-1) + 5.1*(parseFloat(columnId)-1);
+                }else if(row == '0'||row == '3'){
+                  axisy = 7.6*(parseInt(storeyNo-1)) ;
+                  axisx = 0.65*(parseFloat(storeyNo)-1) + 0.75*(parseFloat(columnId)-1) + 5.2*(parseFloat(bingId)-1);
+                }
+              }
+              _rowCar[tagId] = Object.assign(rowCar,{
+                _rowId:row,
+                axisx:axisx,
+                axisy:axisy,
+              })
             }
           }
-          self.rowCarInfo = Object.assign(rowCar,{
-            _rowId:row,
-          })
+          self.rowCarInfo = _rowCar
         }
-        self.axisx = axisx
-        self.axisy = axisy
+        console.log(self.rowCarInfo, 'drx----self.rowCarInfo');
       },
-      
+
     },
     mounted(){
       if(this.currentWare!='4'){
@@ -1451,7 +1513,7 @@
       //获得消息事件
       craneWebSocket.onmessage = function(msg) {
         let list = JSON.parse(msg.data);
-        appVue.getRowCarLoc(list);
+        // appVue.getRowCarLoc(list);
       };
       //关闭事件
       craneWebSocket.onclose = function() {
