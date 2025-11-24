@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS Bin</title>
+  </head>
+  <body>
+    <div id="a"></div>
+    <div id="b"></div>
+    <div id="c"></div>
+    <div id="d"></div>
+    <div id="e"></div>
+    <div id="f"></div>
+    <script>
+      craneWebSocketClient();
+      var craneWebSocket = null;
+      function craneWebSocketClient() {
+        if (typeof WebSocket == "undefined") {
+          console.log("您的浏览器不支持WebSocket");
+        } else {
+          var socketUrl = "wss://www.jdzt168.com/tsWebSocket/craneWebSocketNew";
+          if (craneWebSocket != null) {
+            craneWebSocket.close();
+            craneWebSocket = null;
+          }
+          craneWebSocket = new WebSocket(socketUrl);
+          //打开事件
+          craneWebSocket.onopen = function () {
+            console.log("行车websocket已打开");
+          };
+          //获得消息事件
+          craneWebSocket.onmessage = function (msg) {
+            let list = JSON.parse(msg.data);
+            for (let i = 0; i < list.length; i++) {
+              
+              if (list[i].tagId == "4a459") {
+                document.getElementById("a").innerHTML = JSON.stringify(
+                  list[i]
+                );
+              }
+              if (list[i].tagId == "4d8ec") {
+                document.getElementById("b").innerHTML = JSON.stringify(
+                  list[i]
+                );
+              }
+              if (list[i].tagId == "4d805") {
+                document.getElementById("c").innerHTML = JSON.stringify(
+                  list[i]
+                );
+              }
+              if (list[i].tagId == "4d804") {
+                document.getElementById("d").innerHTML = JSON.stringify(
+                  list[i]
+                );
+              }
+              if (list[i].tagId == "4a2bb") {
+                document.getElementById("e").innerHTML = JSON.stringify(
+                  list[i]
+                );
+              }
+              if (list[i].tagId == "4d847") {
+                document.getElementById("f").innerHTML = JSON.stringify(
+                  list[i]
+                );
+              }
+              
+            }
+          };
+          //关闭事件
+          craneWebSocket.onclose = function () {
+            console.log("行车websocket已关闭");
+          };
+          //发生了错误事件
+          craneWebSocket.onerror = function () {
+            console.log("行车websocket发生了错误");
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

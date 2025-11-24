@@ -25,7 +25,7 @@ window.__json = [
     "inventoryLockStatus": "0",
     "lockLockNum": 0,
     "futureType": "01",
-    "type": "04",
+    "type": "05",
     "bingId": "69"
   },
   {
