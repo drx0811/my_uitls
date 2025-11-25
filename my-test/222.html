@@ -14,10 +14,10 @@
   <script type="text/javascript" src="./js/jquery-1.8.3.js"></script>
   <script type="text/javascript" src="./js/vue.dev.js"></script>
 <!--  <script type="text/javascript" src="./js/D.js"></script>-->
-  <script type="text/javascript" src="./js/B.js"></script>
+<!--  <script type="text/javascript" src="./js/B.js"></script>-->
 <!--  <script type="text/javascript" src="./js/J1.js"></script>-->
 <!--  <script type="text/javascript" src="./js/A1.js"></script>-->
-<!--  <script type="text/javascript" src="./js/C.js"></script>-->
+  <script type="text/javascript" src="./js/C.js"></script>
 </head>
 <body style="background: #f7f7f7;">
 <style>
@@ -45,18 +45,84 @@
   .card_title::after{ width: 9px; height: 9px; border-radius: 2px; content: ''; background: #4285F4; position: absolute; top: 0; bottom: 0; left: 7px; margin: auto 0;  }
   .up{ flex: 7; margin:0 1% 1% 1%; background: rgba(1,21,113,0.6); border-radius: 5px; display: flex; overflow: hidden; }
 
-  .row_desc_new{ width: 30px; display: flex; flex-direction: column; }
+  .row_desc_new{
+    border-right: 1px solid rgba(255,255,255,.1);
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .road_new{ flex: 2;  background: #0c2888; position: relative; }
   .road_new::before{content:''; height: 100%; width: 0px; border-left: 1px dashed rgba(255,255,255,.3); position:absolute; top:0; left: 4px;}
   .road_new::after{content:''; height: 100%; width: 0px; border-left: 1px dashed rgba(255,255,255,.3); position:absolute; top:0; right: 4px;}
   .line_new{ flex: 30;display: flex; flex-direction: column; position: relative; }
   .rows_new{ flex:1; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
   .rows_new_3{ flex:1; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .rows_new_high{ flex:3; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .desc_new{flex: 1; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .desc_new_high{flex: 3; position: relative; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .desc_new::before{ content:attr(row); width: 40px; height: 20px; color: white; position: absolute; left: 3px; bottom: 3px;font-size: 14px; }
-  .desc_new_high::before{ content:attr(row); width: 40px; height: 20px; color: white; position: absolute; left: 3px; bottom: 3px;font-size: 14px;  }
+  .rows_new_high{
+    flex:3; position: relative;
+    border-bottom: none;
+  }
+  .rows_new_road{
+    flex:1; position: relative;
+    border-bottom: none;
+    border-top: none;
+  }
+  .rows_new_road .rows_new_road_inner{
+    width: 100%;
+    height: 100%;
+    /*background: #0c2888;*/
+    background: rgba(255,255,255,0.07);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  .rows_new_road_inner_img{
+    content: url("./images/row34/goodsYear.png");
+  }
+  .rows_new_road_inner_text{
+    position: absolute;
+  }
+  .rows_new_road_inner::before{
+    content:' ';
+    display: block;
+    width: 100%; height: 0px;
+    border-top: 1px dashed rgba(255,255,255,.3);
+    position:absolute; top:3px;;
+  }
+  .rows_new_road_inner::after{
+    content:' ';
+    width: 100%; height: 0px;
+    border-top: 1px dashed rgba(255,255,255,.3);
+    position:absolute; bottom:3px;;
+  }
+
+  .rows_new_0{
+    margin-top: 2px;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .desc_new{
+    flex: 1;
+    /*border-bottom: 1px solid rgba(255,255,255,.1);*/
+    color: white;font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+  .desc_new_high{
+    flex: 3;
+    /*border-bottom: 1px solid rgba(255,255,255,.1);*/
+    color: white; font-size: 14px;
+  }
+  .desc_new_road{
+    flex: 1;
+    color: white;
+    font-size: 14px;
+    visibility: hidden;
+  }
+
+  /*.desc_new::before{ content:attr(row); width: 40px; height: 20px; color: white; position: absolute; left: 3px; bottom: 3px;font-size: 14px; }*/
+  /*.desc_new_high::before{ content:attr(row); width: 40px; height: 20px; color: white; position: absolute; left: 3px; bottom: 3px;font-size: 14px;  }*/
   .rowCar_new{ width: 1px; height: 100%; position: absolute; top: 0; left: -4px; z-index: 999; background: #00ffff; font-weight: 500;}
   .gou_new{ width: 10px; height: 8px; position: absolute;background: 0 0 / 100% 100% no-repeat url("./images/goz3.png");z-index: 1000000000000; }
   .gou_info_new{  width: 180px; height: 20px; line-height: 20px; font-size: 12px; color: #00ffff; position: absolute; top:-12px; left: 10px;z-index: 1000000000000; background: transparent; }
@@ -78,6 +144,7 @@
     width: 1.0%;
     content: url("./images/row34/normal-roll.png");
     position: absolute; bottom: 0; left: 0;
+    height: 10%;
   }
 
 
@@ -89,8 +156,14 @@
   .rows_new_high .image_roll3_new{ content: url("./images/row34/warn-roll.png"); }
   .image_roll4_new{ content: url("./images/out-roll.svg"); }
   .rows_new_high .image_roll4_new{ content: url("./images/row34/out-roll.png"); }
-  .roll_active_new{ content: url("./images/out-roll.svg"); }
-  .rows_new_high .roll_active_new{ content: url("./images/row34/out-roll.png"); }
+  .roll_active_new{
+    content: url("./images/out-roll.svg");
+    filter: grayscale();
+  }
+  .rows_new_high .roll_active_new{
+    content: url("./images/row34/out-roll.png");
+    filter: grayscale();
+  }
   .image_roll_out_new{
     width: 1.0%;
     position: absolute; bottom: 0; left: 0;
@@ -752,7 +825,7 @@
           </div>
           <div id="up_box" class="up">
             <div class="row_desc_new">
-              <div :class="['desc_new',((val.row ==1||val.row ==2) && currentWare=='4')?'desc_new_high':'']" v-for="val in showLeft" :row="val.row+'排'"></div>
+              <div :class="['desc_new',((val.row ==1||val.row ==2) && currentWare=='4')?'desc_new_high':'',((val.row ==999) && currentWare=='4')?'desc_new_road':'']" v-for="val in showLeft">{{val.row}}排</div>
             </div>
             <div id="carBoxId" class="line_new">
               <div  v-if="Object.keys(rowCarInfo).length === 0" class="rowCar_new" :style=" 'left:' + 0 + '%;' " ></div>
@@ -760,9 +833,15 @@
                 <div v-for="item in Object.keys(rowCarInfo)" :key="item" class="rowCar_new" :style=" 'left:' + rowCarInfo[item].axisx + '%;' " ></div>
               </div>
 
-              <div v-if="currentWare=='4'" :class="['rows_new',((val.row ==1||val.row ==2) && currentWare=='4')?'rows_new_high':'',((val.row ==99) && currentWare=='4')?'rows_new_road':'']" v-for="val in showLeft">
+              <div v-if="currentWare=='4'"  :class="['rows_new',((val.row ==1||val.row ==2) && currentWare=='4')?'rows_new_high':'',(val.row ==999)?'rows_new_road':'',(val.row ==0)?'rows_new_0':'']" v-for="val in showLeft">
                 <div v-for="item in Object.keys(rowCarInfo)" :key="item" class="gou_new" v-if="val.row == rowCarInfo[item]._rowId" :style=" 'left:' + rowCarInfo[item].axisx + '%;bottom:' + rowCarInfo[item].axisy + '%;' ">
                   <div  class="gou_info_new">{{rowCarInfo[item].fenceName||''}}</div>
+                </div>
+                <div class="rows_new_road_inner" v-if="val.row ==999" >
+                  <div class="rows_new_road_inner_text">
+                    车道
+                  </div>
+                  <img class="rows_new_road_inner_img" alt="">
                 </div>
                 <img :id="roll.location" @click="onClickRoll($event,roll)"
                      :class="['image_roll_new',currentWare=='4'?'image_roll_out_new':'',getRollClass(roll),selRoll.packageNo==roll.data.packageNo ? 'roll_active_new' : '']"
@@ -1381,17 +1460,23 @@
           if(this.currentWare==='4'){
             const wregion = material.wregion;
             if(wregion === 'A'||wregion === 'C'||wregion === 'E'){
-              if(row == '1'|| row == '2'){
-                obj.x = -0.37*(parseInt(obj.lay-2)) + 1.45*(parseInt(obj.bingId-1));
-                obj.y = 5.1*(parseFloat(obj.col)-1) + 3.1*(parseFloat(obj.lay)-1);
-              }else if(row == '0'||row == '3'||row == '4'){
+              if(row == '2'){
+                obj.x = -0.27*(parseInt(obj.lay-2)) + 1.45*(parseInt(obj.bingId-1));
+                obj.y = 15.3*(parseFloat(obj.col)-1) + 8.3*(parseFloat(obj.lay)-1);
+              }else if(row == '1'){
+                obj.x = -0.27*(parseInt(obj.lay-2)) + 1.45*(parseInt(obj.bingId-1));
+                obj.y = 90-(15.3*(parseFloat(obj.col)-1) + 8.3*(parseFloat(obj.lay)-1));
+              } else if(row == '0'||row == '3'||row == '4'){
                 obj.y = 11*(parseInt(obj.lay-1)) ;
                 obj.x = 0.65*(parseFloat(obj.lay)-1) + 0.9*(parseFloat(obj.col)-1) + 7.1*(parseFloat(obj.bingId)-1);
               }
             }else{
-              if(row == '1'|| row == '2'){
-                obj.x = -0.37*(parseInt(obj.lay-2)) + 1.45*(parseInt(obj.bingId-1));
-                obj.y = 5.1*(parseFloat(obj.col)-1) + 3.1*(parseFloat(obj.lay)-1);
+              if(row == '2'){
+                obj.x = -0.27*(parseInt(obj.lay-2)) + 1.45*(parseInt(obj.bingId-1));
+                obj.y = 15.3*(parseFloat(obj.col)-1) + 8.3*(parseFloat(obj.lay)-1);
+              }else if(row == '1'){
+                obj.x = -0.27*(parseInt(obj.lay-2)) + 1.45*(parseInt(obj.bingId-1));
+                obj.y = 90-(15.3*(parseFloat(obj.col)-1) + 8.3*(parseFloat(obj.lay)-1));
               }else if(row == '0'||row == '3'||row == '4'){
                 obj.y = 11*(parseInt(obj.lay-1)) ;
                 obj.x = 0.65*(parseFloat(obj.lay)-1) + 0.9*(parseFloat(obj.col)-1) + 7.1*(parseFloat(obj.bingId)-1);
@@ -1437,14 +1522,15 @@
         const currentWare = self.currentWare;
         const currentTrack = self.currentTrack;
         let _rowCar = {};
+        // let _rowCar = self.rowCarInfo;
         if(currentWare ==='4'){
           const relationIdObj = {
             'A':['4a459','4d805','4a2bb'],
-            'B':['4d807','4d804','4d847'],
+            'B':['4d8ec','4d804','4d847'],
             'C':['4a459','4d805','4a2bb'],
-            'D':['4d807','4d804','4d847'],
+            'D':['4d8ec','4d804','4d847'],
             'E':['4a459','4d805','4a2bb'],
-            'F':['4d807','4d804','4d847'],
+            'F':['4d8ec','4d804','4d847'],
           }
           const tagIds = relationIdObj[currentTrack]
           for(let i=0;i<list.length;i++){
@@ -1481,18 +1567,24 @@
               const columnId = parseFloat(infoList[2])
               const storeyNo = parseFloat(infoList[3]);
               if(wregion === 'A'||wregion === 'C'||wregion === 'E'){
-                if(row == '1'|| row == '2'){
-                  axisx = -0.37*(parseInt(storeyNo-2)) + 1.45*(parseInt(bingId-1));
-                  axisy = 3.1*(parseFloat(storeyNo)-1) + 5.1*(parseFloat(columnId)-1);
+                if(row == '2'){
+                  axisx = -0.27*(parseInt(storeyNo-2)) + 1.45*(parseInt(bingId-1));
+                  axisy = 15.3*(parseFloat(columnId)-1) + 8.3*(parseFloat(storeyNo)-1)
+                }else if(row == '1'){
+                  axisy = -0.27*(parseInt(storeyNo-2)) + 1.45*(parseInt(bingId-1));
+                  axisx = 90 - (15.3*(parseFloat(columnId)-1) + 8.3*(parseFloat(storeyNo)-1));
                 }else if(row == '0'||row == '3'||row == '4'){
                   axisy = 11*(parseInt(storeyNo-1)) ;
                   axisx = 0.65*(parseFloat(storeyNo)-1) + 0.9*(parseFloat(columnId)-1) + 7.1*(parseFloat(bingId)-1);
                 }
               }else{
-                if(row == '1'|| row == '2'){
-                  axisx = -0.37*(parseInt(storeyNo-2)) + 1.45*(parseInt(bingId-1));
-                  axisy = 3.1*(parseFloat(storeyNo)-1) + 5.1*(parseFloat(columnId)-1);
-                }else if(row == '0'||row == '3'){
+                if(row == '2'){
+                  axisx = -0.27*(parseInt(storeyNo-2)) + 1.45*(parseInt(bingId-1));
+                  axisy = 15.3*(parseFloat(columnId)-1) + 8.3*(parseFloat(storeyNo)-1)
+                }else if(row == '1'){
+                  axisy = -0.27*(parseInt(storeyNo-2)) + 1.45*(parseInt(bingId-1));
+                  axisx = 90 - (15.3*(parseFloat(columnId)-1) + 8.3*(parseFloat(storeyNo)-1));
+                }else if(row == '0'||row == '3'||row == '4'){
                   axisy = 11*(parseInt(storeyNo-1)) ;
                   axisx = 0.65*(parseFloat(storeyNo)-1) + 0.9*(parseFloat(columnId)-1) + 7.1*(parseFloat(bingId)-1);
                 }
@@ -1506,7 +1598,6 @@
           }
           self.rowCarInfo = _rowCar
         }
-        console.log(self.rowCarInfo, 'drx----self.rowCarInfo');
       },
 
     },
@@ -1537,7 +1628,7 @@
       //获得消息事件
       craneWebSocket.onmessage = function(msg) {
         let list = JSON.parse(msg.data);
-        // appVue.getRowCarLoc(list);
+        appVue.getRowCarLoc(list);
       };
       //关闭事件
       craneWebSocket.onclose = function() {
